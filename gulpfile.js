@@ -14,7 +14,7 @@ var banner = ['/**',
 
 gulp.task('default', function(done) {
 
-    gulp.src(['./mailtoui.js'])
+    gulp.src(['./src/mailtoui.js'])
         .pipe(minify())
         .pipe(header(banner, { pkg : package } ))
         .pipe(gulp.dest('dist'));
