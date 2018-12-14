@@ -1,0 +1,23 @@
+{
+    "name": "MailtoUI",
+    "description": "A convenient drop-in user interface for mailto links.",
+    "version": "0.1.0",
+    "homepage": "https://mailtoui.com",
+    "author": {
+        "name": "Mario Rodriguez",
+        "url": "https://twitter.com/mariordev"
+    },
+    "license": "MIT License",
+    "bugs": "https://github.com/mariordev/mailtoui/issues",
+    "devDependencies": {
+        "del": "^2.0.2",
+        "gulp": "^4.0.0",
+        "gulp-minify": "^3.1.0",
+        "gulp-uglify": "^2.0.0",
+        "gulp-watch": "^5.0.1"
+    },
+    "dependencies": {
+        "gulp-cli": "^2.0.1",
+        "gulp-header": "^2.0.7"
+    }
+}
