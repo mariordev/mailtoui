@@ -1,7 +1,7 @@
 {
     "name": "MailtoUI",
     "description": "A convenient drop-in user interface for mailto links.",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "homepage": "https://mailtoui.com",
     "author": {
         "name": "Mario Rodriguez",
