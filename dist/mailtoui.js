@@ -56,37 +56,40 @@ var mailtouiApp = mailtouiApp || {};
         var styleTag = window.document.createElement('style');
         var css = `
             .mailtoui-modal {
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                width: 100%;
                 background-color: rgb(0,0,0);
                 background-color: rgba(0,0,0,0.4);
+                bottom: 0;
                 color: #303131;
                 display: none;
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
+                height: 100%;
                 left: 0;
+                margin: 0;
+                padding: 0;
+                position: fixed;
+                right: 0;
+                top: 0;
+                width: 100%;
                 z-index: 1000;
             }
 
             .mailtoui-modal-content {
+                -webkit-animation: appear 0.4s;
+                animation: appear 0.4s;
                 background-color: #F1F5F8;
                 border-radius: 8px;
-                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-                padding: 0;
-                max-height: calc(100% - 100px);
-                top: 50%;
-                left: 50%;
-                right: -45%;
                 bottom: auto;
-                animation: appear 0.4s;
-                transform: translate(-50%, -50%);
-                position: fixed;
+                -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                left: 50%;
+                max-height: calc(100% - 100px);
                 overflow: hidden;
                 overflow-y: scroll;
+                padding: 0;
+                position: fixed;
+                right: -45%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
             }
 
             /* Small devices, tablets */
@@ -142,9 +145,10 @@ var mailtouiApp = mailtouiApp || {};
             }
 
             .mailtoui-label {
-                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
                 background-color: #fff;
                 border-radius: 100px;
+                -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
                 margin-bottom: 20px;
                 padding: 20px 30px;
             }
@@ -159,8 +163,8 @@ var mailtouiApp = mailtouiApp || {};
             }
 
             .mailtoui-label-icon {
-                position: relative;
                 font-weight: bold;
+                position: relative;
                 top: -2px;
             }
 
@@ -174,18 +178,19 @@ var mailtouiApp = mailtouiApp || {};
             }
 
             .mailtoui-copy-button {
-                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
                 background-color: #fff;
+                -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
                 border-radius: 100px;
                 bottom: 21px;
                 border: none;
                 color: #303131;
                 font-size: 100%;
+                height: 63px;
+                left: 0;
                 outline: none;
                 position: absolute;
                 top: 0;
-                left: 0;
-                height: 63px;
                 width: 100px;
             }
 
@@ -199,10 +204,11 @@ var mailtouiApp = mailtouiApp || {};
 
             .mailtoui-copy-email-address {
                 background-color: #d8dcdf;
-                color: #48494a;
                 border-radius: 100px;
                 border: none;
+                -webkit-box-sizing : border-box;
                 box-sizing : border-box;
+                color: #48494a;
                 font-size: 100%;
                 outline: none;
                 padding: 20px 30px 20px 120px;
@@ -210,18 +216,33 @@ var mailtouiApp = mailtouiApp || {};
             }
 
             .mailtoui-is-hidden {
-                visibility: hidden;
                 display: none;
+                visibility: hidden;
+            }
+
+            @-webkit-keyframes appear {
+                0% {
+                    opacity: 0;
+                    -webkit-transform: translate(-50%, -50%) scale(0,0);
+                    transform: translate(-50%, -50%) scale(0,0);
+                }
+                100% {
+                    opacity: 1;
+                    -webkit-transform: translate(-50%, -50%) scale(1,1);
+                    transform: translate(-50%, -50%) scale(1,1);
+                }
             }
 
             @keyframes appear {
                 0% {
-                    transform: translate(-50%, -50%) scale(0,0);
                     opacity: 0;
+                    -webkit-transform: translate(-50%, -50%) scale(0,0);
+                    transform: translate(-50%, -50%) scale(0,0);
                 }
                 100% {
-                    transform: translate(-50%, -50%) scale(1,1);
                     opacity: 1;
+                    -webkit-transform: translate(-50%, -50%) scale(1,1);
+                    transform: translate(-50%, -50%) scale(1,1);
                 }
             }
         `;

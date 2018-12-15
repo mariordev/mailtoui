@@ -1,0 +1,190 @@
+.mailtoui-modal {
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    bottom: 0;
+    color: #303131;
+    display: none;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.mailtoui-modal-content {
+    -webkit-animation: appear 0.4s;
+    animation: appear 0.4s;
+    background-color: #F1F5F8;
+    border-radius: 8px;
+    bottom: auto;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    left: 50%;
+    max-height: calc(100% - 100px);
+    overflow: hidden;
+    overflow-y: scroll;
+    padding: 0;
+    position: fixed;
+    right: -45%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+/* Small devices, tablets */
+@media only screen and (min-width : 768px) {
+    .mailtoui-modal-content {
+        right: auto;
+    }
+}
+
+.mailtoui-modal-head {
+    background-color: #fff;
+    clear: both;
+    padding: 20px;
+}
+
+.mailtoui-modal-title {
+    font-size: 100%;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.mailtoui-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 38px;
+    font-weight: bold;
+    position: relative;
+    top: -12px;
+}
+
+.mailtoui-modal-close:hover,
+.mailtoui-modal-close:focus {
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.mailtoui-modal-body {
+    height: 100%;
+    padding: 20px;
+}
+
+.mailtoui-client {
+    color: #333;
+    outline: none;
+    text-decoration: none;
+}
+
+.mailtoui-client:focus .mailtoui-label {
+    background-color: #555;
+    color: #fff;
+}
+
+.mailtoui-label {
+    background-color: #fff;
+    border-radius: 100px;
+    -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+    margin-bottom: 20px;
+    padding: 20px 30px;
+}
+
+.mailtoui-label:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+.mailtoui-client:last-child .mailtoui-label {
+    margin-bottom: 0;
+}
+
+.mailtoui-label-icon {
+    font-weight: bold;
+    position: relative;
+    top: -2px;
+}
+
+.mailtoui-label-text {
+    margin-left: 5px;
+}
+
+.mailtoui-copy {
+    margin-top: 20px;
+    position: relative;
+}
+
+.mailtoui-copy-button {
+    background-color: #fff;
+    -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+    border-radius: 100px;
+    bottom: 21px;
+    border: none;
+    color: #303131;
+    font-size: 100%;
+    height: 63px;
+    left: 0;
+    outline: none;
+    position: absolute;
+    top: 0;
+    width: 100px;
+}
+
+.mailtoui-copy-button:hover,
+.mailtoui-copy-button:focus {
+    background-color: #555;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+}
+
+.mailtoui-copy-email-address {
+    background-color: #d8dcdf;
+    border-radius: 100px;
+    border: none;
+    -webkit-box-sizing : border-box;
+    box-sizing : border-box;
+    color: #48494a;
+    font-size: 100%;
+    outline: none;
+    padding: 20px 30px 20px 120px;
+    width: 100%;
+}
+
+.mailtoui-is-hidden {
+    display: none;
+    visibility: hidden;
+}
+
+@-webkit-keyframes appear {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(-50%, -50%) scale(0,0);
+        transform: translate(-50%, -50%) scale(0,0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate(-50%, -50%) scale(1,1);
+        transform: translate(-50%, -50%) scale(1,1);
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(-50%, -50%) scale(0,0);
+        transform: translate(-50%, -50%) scale(0,0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate(-50%, -50%) scale(1,1);
+        transform: translate(-50%, -50%) scale(1,1);
+    }
+}
