@@ -15,7 +15,7 @@ var banner = ['/**',
 
 gulp.task('default', function(done) {
 
-    gulp.src('./src/modal.css')
+    gulp.src('./src/mailtoui.css')
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
