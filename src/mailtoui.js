@@ -5,7 +5,9 @@
  * it's lean and doesn't have any dependencies to be concerned with.
  */
 
-// Let's not step on anybody else's toes.
+/**
+ * Let's not step on anybody else's toes.
+ */
 var mailtouiApp = mailtouiApp || {};
 
 (function (app) {
@@ -76,13 +78,17 @@ var mailtouiApp = mailtouiApp || {};
                 left: 50%;
                 max-height: calc(100% - 100px);
                 overflow: hidden;
-                overflow-y: scroll;
                 padding: 0;
                 position: fixed;
                 right: -45%;
                 top: 50%;
                 -webkit-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
+            }
+
+            .mailtoui-modal-content:hover,
+            .mailtoui-modal-content:focus {
+                overflow-y: auto;
             }
 
             /* Small devices, tablets */
@@ -158,7 +164,7 @@ var mailtouiApp = mailtouiApp || {};
             .mailtoui-label-icon {
                 font-weight: bold;
                 position: relative;
-                top: -2px;
+                top: 4px;
             }
 
             .mailtoui-label-text {
@@ -279,39 +285,41 @@ var mailtouiApp = mailtouiApp || {};
         var body = app.getLinkSchemeField(link, 'body');
         var modal = window.document.createElement('div');
         var classHideCopyUI = app.hideCopyUI(email);
+        var worldSVG = '<svg viewBox="0 0 24 24" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M5.704,2.979 c0.694,0.513,1.257,1.164,1.767,2.02C7.917,5.746,8.908,7.826,8,9c-1.027,1.328-4,1.776-4,3c0,0.921,1.304,1.972,2,3 c1.047,1.546,0.571,3.044,0,4c-0.296,0.496-0.769,0.92-1.293,1.234" stroke-linecap="butt"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M20.668,5.227 C18.509,6.262,15.542,6.961,15,7c-1.045,0.075-1.2-0.784-2-2c-0.6-0.912-2-2.053-2-3c0-0.371,0.036-0.672,0.131-0.966" stroke-linecap="butt"/> <circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="12" cy="12" r="11"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M19.014,12.903 C19.056,15.987,15.042,19.833,13,19c-1.79-0.73-0.527-2.138-0.986-6.097c-0.191-1.646,1.567-3,3.5-3S18.992,11.247,19.014,12.903z" stroke-linecap="butt"/></g></svg>';
+        var uiSVG = '<svg viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><line data-color="color-2" fill="none" stroke-miterlimit="10" x1="5" y1="6" x2="6" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="10" y1="6" x2="11" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="15" y1="6" x2="19" y2="6"/> <line fill="none" stroke="currentColor" stroke-miterlimit="10" x1="1" y1="10" x2="23" y2="10"/> <rect x="1" y="2" fill="none" stroke="currentColor" stroke-miterlimit="10" width="22" height="20"/></g></svg>';
         var markup = `
             <div class="mailtoui-modal-content">
                 <div class="mailtoui-modal-head">
                     <span id="mailtoui-modal-close-${id}" class="mailtoui-modal-close">&times</span>
-                    <span class="mailtoui-modal-title">Compose new email</span>
+                    <span class="mailtoui-modal-title">Compose new email with</span>
                 </div>
                 <div class="mailtoui-modal-body">
                     <div class="mailtoui-clients">
                         <a id="mailtoui-client-${id}" class="mailtoui-client" href="https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&cc=${cc}&bcc=${bcc}&body=${body}" target="_blank">
                             <div class="mailtoui-label">
-                                <span class="mailtoui-label-icon">&#10138;</span>
-                                <span class="mailtoui-label-text">with Gmail</span>
+                                <span class="mailtoui-label-icon">${worldSVG}</span>
+                                <span class="mailtoui-label-text">Gmail in browser</span>
                             </div>
                         </a>
 
                         <a id="mailtoui-client-${id}" class="mailtoui-client" href="https://outlook.office.com/owa/?path=/mail/action/compose&to=${email}&subject=${subject}&body=${body}" target="_blank">
                             <div class="mailtoui-label">
-                                <span class="mailtoui-label-icon">&#10138;</span>
-                                <span class="mailtoui-label-text">with Outlook</span>
+                                <span class="mailtoui-label-icon">${worldSVG}</span>
+                                <span class="mailtoui-label-text">Outlook in browser</span>
                             </div>
                         </a>
 
                         <a id="mailtoui-client-${id}" class="mailtoui-client" href="https://compose.mail.yahoo.com/?to=${email}&subject=${subject}&cc=${cc}&bcc=${bcc}&body=${body}" target="_blank">
                             <div class="mailtoui-label">
-                                <span class="mailtoui-label-icon">&#10138;</span>
-                                <span class="mailtoui-label-text">with Yahoo</span>
+                                <span class="mailtoui-label-icon">${worldSVG}</span>
+                                <span class="mailtoui-label-text">Yahoo in browser</span>
                             </div>
                         </a>
 
                         <a id="mailtoui-client-${id}" class="mailtoui-client" href="mailto:${email}?subject=${subject}&cc=${cc}&bcc=${bcc}&body=${body}">
                             <div class="mailtoui-label">
-                                <span class="mailtoui-label-icon">&#10138;</span>
-                                <span class="mailtoui-label-text">with local email app</span>
+                                <span class="mailtoui-label-icon">${uiSVG}</span>
+                                <span class="mailtoui-label-text">Default email app</span>
                             </div>
                         </a>
                     </div>
@@ -418,7 +426,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     *
+     * Set aria attributes to hide modal from screen readers.
      */
     app.hideModalFromScreenReader = function(hidden) {
         var content = window.document.getElementById(app.prefix('-modals')).nextElementSibling;
