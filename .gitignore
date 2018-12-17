@@ -1,1 +1,5 @@
-node_modules
+/node_modules
+/src/mailtoui.css
+/dist/mailtoui.css
+.DS_Store
+.eslintrc.json
