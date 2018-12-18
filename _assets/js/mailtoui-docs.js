@@ -6,3 +6,9 @@ function setDarkTheme() {
 
     darkModalExample.classList.add('dark-theme');
 }
+
+/**
+ * Embed version number on docs page.
+ */
+var version = require('../../version.js');
+window.document.getElementById('version').innerHTML = version;
