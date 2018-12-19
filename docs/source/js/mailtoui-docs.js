@@ -3,15 +3,23 @@
  */
 domReady(function() {
     embedVersion();
+    setDarkTheme();
 });
 
 /**
  * Set dark theme CSS class to show the custom styling example.
  */
 function setDarkTheme() {
-    var darkModalExample = window.document.getElementById('mailtoui-modal-email-dark');
+    var darkThemeLink = window.document.getElementById('email-dark');
 
-    darkModalExample.classList.add('dark-theme');
+    darkThemeLink.addEventListener(
+        'click',
+        function(event) {
+            var darkThemeModal = window.document.getElementById('mailtoui-modal-email-dark');
+            darkThemeModal.classList.add('dark-theme');
+        },
+        false
+    );
 }
 
 /**
