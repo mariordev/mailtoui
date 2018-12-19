@@ -34,17 +34,17 @@ function packageJS() {
 }
 
 function docsCSS() {
-    return src(['./_assets/css/mailtoui-docs.css'])
+    return src(['./docs/source/css/mailtoui-docs.css'])
         .pipe(cleanCSS())
-        .pipe(rename('assets/css/mailtoui-docs-min.css'))
+        .pipe(rename('docs/assets/css/mailtoui-docs-min.css'))
         .pipe(dest('./'));
 }
 
 function docsJS() {
-    return src('./_assets/js/mailtoui-docs.js')
+    return src('./docs/source/js/mailtoui-docs.js')
         .pipe(minify({noSource: true}))
         .pipe(browserify())
-        .pipe(dest('assets/js'))
+        .pipe(dest('docs/assets/js'))
 }
 
 function packageJSON() {
@@ -56,8 +56,8 @@ function watching() {
     watch('src/css/*.css', packageCSS);
     watch('src/js/*.js', packageJS);
 
-    watch('_assets/css/*.css', docsCSS);
-    watch('_assets/js/*.js', docsJS);  
+    watch('docs/source/css/*.css', docsCSS);
+    watch('docs/source/js/*.js', docsJS);
 
     watch('./package.json', series(packageJSON, docsJS));
 }
