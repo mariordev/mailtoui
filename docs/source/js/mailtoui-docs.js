@@ -1,7 +1,7 @@
 /**
  * Run when DOM is ready.
  */
-domReady(function() { 
+domReady(function() {
     embedVersion();
 });
 
@@ -25,15 +25,15 @@ function embedVersion() {
 
 /**
  * Proceed only if the DOM is loaded and ready.
- * 
+ *
  * @param  {Function}   fn  The function to be executed when DOM is ready.
  */
 function domReady(fn) {
     // Wait for DOM to be ready, then execute the given function.
-    document.addEventListener("DOMContentLoaded", fn);
-  
+    document.addEventListener('DOMContentLoaded', fn);
+
     // If the DOM is ready now, then execute the given function now.
-    if (document.readyState === "interactive" || document.readyState === "complete" ) {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
         fn();
     }
 }

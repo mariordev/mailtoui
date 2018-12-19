@@ -1,5 +1,6 @@
 /node_modules
 /src/mailtoui.css
+/src/mailtoui-prefixed.css
 /dist/mailtoui.css
 .DS_Store
 .eslintrc.json

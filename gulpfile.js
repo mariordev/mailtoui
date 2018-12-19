@@ -1,35 +1,40 @@
-const { series, src, dest, watch } = require('gulp');
-const autoprefixer = require('gulp-autoprefixer');
-const minify = require('gulp-minify');
-const cleanCSS = require('gulp-clean-css');
-const rename = require('gulp-rename');
-const header = require('gulp-header');
-const browserify = require('gulp-browserify');
-const exec = require('gulp-exec');
-const package = require('./package.json');
-const banner = ['/**',
+var { series, src, dest, watch } = require('gulp');
+var autoprefixer = require('gulp-autoprefixer');
+var minify = require('gulp-minify');
+var cleanCSS = require('gulp-clean-css');
+var rename = require('gulp-rename');
+var header = require('gulp-header');
+var browserify = require('gulp-browserify');
+var eslint = require('gulp-eslint');
+var exec = require('gulp-exec');
+var filegetVersionFromPackage = require('./package.json');
+var banner = [
+    '/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
     ' * @version v<%= pkg.version %>',
     ' * @link <%= pkg.homepage %>',
     ' * @author <%= pkg.author.name %> - <%= pkg.author.url %>',
     ' * @license <%= pkg.license %>',
     ' */',
-    ''].join('\n');
+    '',
+].join('\n');
 
 function packageCSS() {
-    return src('./src/mailtoui.css')
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
-            cascade: false
-        }))
-        .pipe(rename('src/mailtoui-prefixed.css'))
+    return src('./src/css/mailtoui.css')
+        .pipe(
+            autoprefixer({
+                browsers: ['last 2 versions'],
+                cascade: false,
+            })
+        )
+        .pipe(rename('src/css/mailtoui-prefixed.css'))
         .pipe(dest('./'));
 }
 
 function packageJS() {
-    return src('./src/mailtoui.js')
-        .pipe(minify({noSource: true}))
-        .pipe(header(banner, { pkg : package } ))
+    return src('./src/js/mailtoui.js')
+        .pipe(minify({ noSource: true }))
+        .pipe(header(banner, { pkg: filegetVersionFromPackage }))
         .pipe(dest('dist'));
 }
 
@@ -42,14 +47,19 @@ function docsCSS() {
 
 function docsJS() {
     return src('./docs/source/js/mailtoui-docs.js')
-        .pipe(minify({noSource: true}))
+        .pipe(minify({ noSource: true }))
         .pipe(browserify())
-        .pipe(dest('docs/assets/js'))
+        .pipe(dest('docs/assets/js'));
 }
 
-function packageJSON() {
-    return src('./package.json')
-        .pipe(exec('genversion version.js'))
+function getVersionFromPackage() {
+    return src('./package.json').pipe(exec('genversion version.js'));
+}
+
+function lintJS() {
+    return src(['src/js/*.js', 'docs/source/js/*.js'])
+        .pipe(eslint())
+        .pipe(eslint.format());
 }
 
 function watching() {
@@ -59,7 +69,9 @@ function watching() {
     watch('docs/source/css/*.css', docsCSS);
     watch('docs/source/js/*.js', docsJS);
 
-    watch('./package.json', series(packageJSON, docsJS));
+    watch('./package.json', series(getVersionFromPackage, docsJS));
+
+    watch(['src/js/*.js', 'docs/source/js/*.js'], lintJS);
 }
 
-exports.default = series(packageJSON, packageCSS, packageJS, docsCSS, docsJS, watching);
+exports.default = series(getVersionFromPackage, packageCSS, packageJS, docsCSS, docsJS, lintJS, watching);

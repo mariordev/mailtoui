@@ -10,7 +10,7 @@
  */
 var mailtouiApp = mailtouiApp || {};
 
-(function (app) {
+(function(app) {
     /**
      * Keep track of the modal currently open.
      */
@@ -250,7 +250,7 @@ var mailtouiApp = mailtouiApp || {};
 
         styleTag.type = 'text/css';
 
-        if (styleTag.styleSheet){
+        if (styleTag.styleSheet) {
             // Required for IE8 and below.
             styleTag.styleSheet.cssText = css;
         } else {
@@ -277,7 +277,7 @@ var mailtouiApp = mailtouiApp || {};
      * @return {string} The modal markup.
      */
     app.buildModal = function(link) {
-        var id = link.id
+        var id = link.id;
         var email = app.getEmail(link);
         var subject = app.getLinkSchemeField(link, 'subject');
         var cc = app.getLinkSchemeField(link, 'cc');
@@ -285,8 +285,10 @@ var mailtouiApp = mailtouiApp || {};
         var body = app.getLinkSchemeField(link, 'body');
         var modal = window.document.createElement('div');
         var classHideCopyUI = app.hideCopyUI(email);
-        var worldSVG = '<svg viewBox="0 0 24 24" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M5.704,2.979 c0.694,0.513,1.257,1.164,1.767,2.02C7.917,5.746,8.908,7.826,8,9c-1.027,1.328-4,1.776-4,3c0,0.921,1.304,1.972,2,3 c1.047,1.546,0.571,3.044,0,4c-0.296,0.496-0.769,0.92-1.293,1.234" stroke-linecap="butt"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M20.668,5.227 C18.509,6.262,15.542,6.961,15,7c-1.045,0.075-1.2-0.784-2-2c-0.6-0.912-2-2.053-2-3c0-0.371,0.036-0.672,0.131-0.966" stroke-linecap="butt"/> <circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="12" cy="12" r="11"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M19.014,12.903 C19.056,15.987,15.042,19.833,13,19c-1.79-0.73-0.527-2.138-0.986-6.097c-0.191-1.646,1.567-3,3.5-3S18.992,11.247,19.014,12.903z" stroke-linecap="butt"/></g></svg>';
-        var uiSVG = '<svg viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><line data-color="color-2" fill="none" stroke-miterlimit="10" x1="5" y1="6" x2="6" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="10" y1="6" x2="11" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="15" y1="6" x2="19" y2="6"/> <line fill="none" stroke="currentColor" stroke-miterlimit="10" x1="1" y1="10" x2="23" y2="10"/> <rect x="1" y="2" fill="none" stroke="currentColor" stroke-miterlimit="10" width="22" height="20"/></g></svg>';
+        var worldSVG =
+            '<svg viewBox="0 0 24 24" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M5.704,2.979 c0.694,0.513,1.257,1.164,1.767,2.02C7.917,5.746,8.908,7.826,8,9c-1.027,1.328-4,1.776-4,3c0,0.921,1.304,1.972,2,3 c1.047,1.546,0.571,3.044,0,4c-0.296,0.496-0.769,0.92-1.293,1.234" stroke-linecap="butt"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M20.668,5.227 C18.509,6.262,15.542,6.961,15,7c-1.045,0.075-1.2-0.784-2-2c-0.6-0.912-2-2.053-2-3c0-0.371,0.036-0.672,0.131-0.966" stroke-linecap="butt"/> <circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="12" cy="12" r="11"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M19.014,12.903 C19.056,15.987,15.042,19.833,13,19c-1.79-0.73-0.527-2.138-0.986-6.097c-0.191-1.646,1.567-3,3.5-3S18.992,11.247,19.014,12.903z" stroke-linecap="butt"/></g></svg>';
+        var uiSVG =
+            '<svg viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><line data-color="color-2" fill="none" stroke-miterlimit="10" x1="5" y1="6" x2="6" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="10" y1="6" x2="11" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="15" y1="6" x2="19" y2="6"/> <line fill="none" stroke="currentColor" stroke-miterlimit="10" x1="1" y1="10" x2="23" y2="10"/> <rect x="1" y="2" fill="none" stroke="currentColor" stroke-miterlimit="10" width="22" height="20"/></g></svg>';
         var markup = `
             <div class="mailtoui-modal-content">
                 <div class="mailtoui-modal-head">
@@ -433,7 +435,7 @@ var mailtouiApp = mailtouiApp || {};
 
         activeModal.setAttribute('aria-hidden', hidden);
         content.setAttribute('aria-hidden', !hidden);
-    }
+    };
 
     /**
      * When an anchor tag (<a>) contains other elements, the element returned can vary
@@ -446,7 +448,7 @@ var mailtouiApp = mailtouiApp || {};
      */
     app.getParentAnchor = function(element) {
         while (element !== null) {
-            if (element.tagName.toUpperCase() === "A") {
+            if (element.tagName.toUpperCase() === 'A') {
                 return element;
             }
             element = element.parentNode;
@@ -474,7 +476,13 @@ var mailtouiApp = mailtouiApp || {};
         var links = window.document.getElementsByClassName(app.prefix());
 
         for (var i = 0; i < links.length; i++) {
-            links[i].addEventListener('click', function(event) { app.openModal(event); }, false);
+            links[i].addEventListener(
+                'click',
+                function(event) {
+                    app.openModal(event);
+                },
+                false
+            );
         }
     };
 
@@ -482,29 +490,41 @@ var mailtouiApp = mailtouiApp || {};
      * Listen for click event on client links to auto-close modal.
      */
     app.listenForClickOnClient = function() {
-        if (options.autoClose !== true) { return };
+        if (options.autoClose !== true) {
+            return;
+        }
 
         var clients = window.document.getElementsByClassName(app.prefix('-client'));
 
         for (var i = 0; i < clients.length; i++) {
-            clients[i].addEventListener('click', function(event) {
-                if (app.getParentAnchor(event.target) !== null) {
-                    app.closeModal();
-                }
-            }, false);
+            clients[i].addEventListener(
+                'click',
+                function(event) {
+                    if (app.getParentAnchor(event.target) !== null) {
+                        app.closeModal();
+                    }
+                },
+                false
+            );
         }
     };
 
     /**
-     * Listen for click event on modal's copy button. 
+     * Listen for click event on modal's copy button.
      */
     app.listenForClickOnCopy = function() {
         var copiers = window.document.getElementsByClassName(app.prefix('-copy-button'));
 
         for (var i = 0; i < copiers.length; i++) {
-            copiers[i].addEventListener('click', function(event) { app.copy(event); }, false);
+            copiers[i].addEventListener(
+                'click',
+                function(event) {
+                    app.copy(event);
+                },
+                false
+            );
         }
-    }
+    };
 
     /**
      * Listen for click event on modal's close button.
@@ -513,7 +533,13 @@ var mailtouiApp = mailtouiApp || {};
         var closers = window.document.getElementsByClassName(app.prefix('-modal-close'));
 
         for (var i = 0; i < closers.length; i++) {
-            closers[i].addEventListener('click', function(event) { app.closeModal(); }, false);
+            closers[i].addEventListener(
+                'click',
+                function(event) {
+                    app.closeModal();
+                },
+                false
+            );
         }
     };
 
@@ -521,23 +547,31 @@ var mailtouiApp = mailtouiApp || {};
      * Listen for click event on window (to close modal).
      */
     app.listenForClickOnWindow = function() {
-        window.addEventListener('click', function(event) {
-            element = event.target;
-            if (element !== null && element.classList.contains(app.prefix('-modal'))) {
-                app.closeModal();
-            }
-        }, false);
+        window.addEventListener(
+            'click',
+            function(event) {
+                var element = event.target;
+                if (element !== null && element.classList.contains(app.prefix('-modal'))) {
+                    app.closeModal();
+                }
+            },
+            false
+        );
     };
 
     /**
      * Listen for keydown events to escape modal or tab within it.
      */
     app.listenForKeys = function() {
-        window.document.addEventListener('keydown', function(event) {
-            app.escapeModal(event);
-            app.trapTabWithinModal(event);
-        }, false)
-    }
+        window.document.addEventListener(
+            'keydown',
+            function(event) {
+                app.escapeModal(event);
+                app.trapTabWithinModal(event);
+            },
+            false
+        );
+    };
 
     /**
      * Close modal when Esc key is pressed.
@@ -548,7 +582,7 @@ var mailtouiApp = mailtouiApp || {};
         if (event.keyCode === 27) {
             app.closeModal();
         }
-    }
+    };
 
     /**
      * Should not be able to tab outside the modal. Pressing the tab
@@ -574,7 +608,7 @@ var mailtouiApp = mailtouiApp || {};
                 }
             }
         }
-    }
+    };
 
     /**
      * Get all "bmt" links on the page.
@@ -602,7 +636,7 @@ var mailtouiApp = mailtouiApp || {};
         }
 
         return parts;
-    }
+    };
 
     /**
      * Extract the value of the given field from the link.
@@ -612,9 +646,8 @@ var mailtouiApp = mailtouiApp || {};
      *
      * @return {string} The value corresponding to the given field.
      */
-    app.getLinkSchemeField = function(link, field)
-    {
-        var parts =  app.splitLinkScheme(link);
+    app.getLinkSchemeField = function(link, field) {
+        var parts = app.splitLinkScheme(link);
         var query = '';
         var terms = [];
         var keyValues = [];
@@ -645,7 +678,7 @@ var mailtouiApp = mailtouiApp || {};
         }
 
         return value;
-    }
+    };
 
     /**
      * Extract email address from the mailto: string.
@@ -655,7 +688,7 @@ var mailtouiApp = mailtouiApp || {};
      * @return {string} The email address.
      */
     app.getEmail = function(link) {
-        var parts =  app.splitLinkScheme(link);
+        var parts = app.splitLinkScheme(link);
         var email = '';
 
         if (parts !== null && parts.length > 0) {
@@ -663,7 +696,7 @@ var mailtouiApp = mailtouiApp || {};
         }
 
         return decodeURIComponent(email);
-    }
+    };
 
     /**
      * If there's no email address, no need to show the Copy email address UI.
@@ -678,7 +711,7 @@ var mailtouiApp = mailtouiApp || {};
         }
 
         return '';
-    }
+    };
 
     /**
      * Set copy button text to indicate the email address has been copied.
@@ -687,8 +720,11 @@ var mailtouiApp = mailtouiApp || {};
      */
     app.setCopyButtonText = function(button) {
         button.innerHTML = 'Copied!';
-        setTimeout(function() { button.innerHTML = 'Copy'; }, 600);
-    }
+
+        setTimeout(function() {
+            button.innerHTML = 'Copy';
+        }, 600);
+    };
 
     /**
      * Copy email address to the clipboard.
@@ -730,7 +766,7 @@ var mailtouiApp = mailtouiApp || {};
         document.execCommand('copy');
 
         app.setCopyButtonText(event.target);
-    }
+    };
 
     /**
      * Get user options provided in JSON format in the data attribute
@@ -738,7 +774,7 @@ var mailtouiApp = mailtouiApp || {};
      */
     app.setOptions = function() {
         var scripts = document.getElementsByTagName('script');
-        var scriptName = scripts[scripts.length-1];
+        var scriptName = scripts[scripts.length - 1];
         var userOptions = scriptName.getAttribute('data-options');
 
         if (userOptions !== null && userOptions.trim().length > 0) {
@@ -750,7 +786,7 @@ var mailtouiApp = mailtouiApp || {};
                 }
             }
         }
-    }
+    };
 
     /**
      * Append the linkClass user option to the given string.
@@ -761,7 +797,7 @@ var mailtouiApp = mailtouiApp || {};
      */
     app.prefix = function(text = '') {
         return options.linkClass + text;
-    }
+    };
 
     /**
      * Let's kick things off.
@@ -774,7 +810,7 @@ var mailtouiApp = mailtouiApp || {};
         app.embedStyleTag();
 
         app.listenForEvents();
-    }
+    };
 })(mailtouiApp);
 
 /**
