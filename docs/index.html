@@ -23,17 +23,20 @@
     <body class="text-xl text-black">
         <div id="hero" class="flex items-center min-h-screen bg-grey-lighter bg-pattern">
             <div class="container mx-auto text-center px-4 py-8 md:px-10 md:py-32">
-                <div class="mb-10">
-                    <h1 class="font-black text-5xl mb-2">MailtoUI</h1>
-                    <p class="text-grey-dark mb-10">v<span id="version"></span></p>
-                    <p class="text-2xl text-grey-darkest">A convenient drop-in user interface for mailto links.</p>
-                </div>
+                <div class="flex flex-wrap mb-10 items-center">
+                    <div class="w-full md:w-1/2">
+                        <h1 class="font-black text-5xl mb-2">MailtoUI</h1>
+                        <p class="text-grey-dark mb-10">v<span id="version"></span></p>
+                        <p class="text-2xl text-grey-darkest">A convenient drop-in user interface for mailto links.</p>
+                        
+                        <div class="sm:flex sm:justify-center">
+                            <a id="button-learn-more" class="mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal bg-teal text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="#learn-more">Learn more</a>
 
-                <div class="max-w-lg mx-auto">
-                    <div class="sm:flex sm:justify-center">
-                        <a id="button-learn-more" class="mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal bg-teal text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="#learn-more">Learn more</a>
-
-                        <a class="mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal text-teal hover:text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="https://github.com/mariordev/mailtoui">GitHub</a>
+                            <a class="mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal text-teal hover:text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="https://github.com/mariordev/mailtoui">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="w-full invisible hidden md:w-1/2 md:visible md:block">
+                        <img style="max-height: 500px;" class="invisible md:visible" src="assets/img/mailtoui.png" alt="MailtoUI modal">
                     </div>
                 </div>
             </div>
