@@ -1,6 +1,6 @@
 /**
- * MailtoUI is a library that enhances your mailto links with a convenient user interface, 
- * which gives your site visitors the flexibility to compose a new message using a 
+ * MailtoUI is a library that enhances your mailto links with a convenient user interface,
+ * which gives your site visitors the flexibility to compose a new message using a
  * browser-based email client or their default local email application.
  */
 
