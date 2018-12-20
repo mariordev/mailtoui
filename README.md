@@ -43,3 +43,7 @@ Your mailto link is now attached to MailtoUI. Refresh your page, click on it to 
 ## Documentation
 
 For full documentation, visit [mailtoui.com](https://mailtoui.com).
+
+## License
+
+[MIT](https://github.com/mariordev/mailtoui/blob/master/LICENSE)
