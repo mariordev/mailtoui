@@ -1,8 +1,7 @@
 /**
- * MailtoUI is a drop-in script that gives mailto links a convenient UI, which allows
- * users to select from popular web email clients to compose a new message from
- * their own email account. MailtoUI is written in vanilla JavaScript, so
- * it's lean and doesn't have any dependencies to be concerned with.
+ * MailtoUI is a library that enhances your mailto links with a convenient user interface, 
+ * which gives your site visitors the flexibility to compose a new message using a 
+ * browser-based email client or their default local email application.
  */
 
 /**
