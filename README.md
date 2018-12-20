@@ -15,6 +15,8 @@ MailtoUI is ideal for your static sites or any other site where you don't want t
 
 ## Quick Setup
 
+### STEP 1
+
 Add MailtoUI via CDN to the bottom of your page, just before the closing `</body>` tag.
 
 ```html
@@ -25,13 +27,17 @@ Add MailtoUI via CDN to the bottom of your page, just before the closing `</body
 </body>
 ```
 
-Anywhere on your page, attach your mailto link(s) to MailtoUI by adding a unique id, and the class `mailtoui`, like so:
+### STEP 2
+
+Anywhere on your page, attach your mailto link(s) to MailtoUI by adding a unique id, and the class `mailtoui` to the `<a>` tag.
 
 ```html
 <a id="email-1" class="mailtoui" href="mailto:tony.stark@example.com">Tony</a>
 ```
 
-That's it! Your mailto link is now ready to use MailtoUI. Click on it.
+### STEP 3
+
+Your mailto link is now attached to MailtoUI. Refresh your page, click on it to test it, and delight your users.
 
 
 ## Documentation
