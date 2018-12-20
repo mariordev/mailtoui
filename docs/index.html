@@ -44,16 +44,30 @@
 
 
         <div id="learn-more" class="container mx-auto px-4 py-8 md:px-10 md:py-32 leading-normal">
-            <section class="mb-16">
+            <section class="mb-24">
                 <h1 class="mb-6 leading-tight">What is MailtoUI?</h1>
 
-                <p>MailtoUI is an embeddable script that gives your mailto links a simple but convenient UI, which gives your users the option to select from popular email clients to compose a new message from their own email account. MailtoUI is written in vanilla JavaScript, so it's nice and lean with no dependencies.</p>
+                <p>MailtoUI is a library that enhances your mailto links with a convenient user interface, which gives your users the flexibility to compose a new message using a browser-based email client <strong><i>or</i></strong> their default local email app. MailtoUI is written in vanilla JavaScript, so it's nice and lean with no dependencies to worry about. It works across virtually all devices and modern browsers for desktop and mobile.</p>
+            </section>
 
-                <p>MailtoUI is ideal for your static sites or any other site where you don't want to spend time setting up a "Contact Us" form solution. Simply drop the MailtoUI script in your page, and your users will have a better experience interacting with your mailto links.</p>
+            <section class="mb-24">
+                <h1 class="mb-6 leading-tight">Motivation</h1>
+                
+                <p>We've all done it at some point. You visit a site, you want to contact someone. You click on the mailto link, only to open the default local email app, which you (most likely) don't use. You now have to close the email app. Go back to the site, copy the email address, go to your browser-based email client, compose a new email, and finally paste in the email address... There's got to be a better way!</p>
 
-                <h2 class="mb-6">How does it work?</h2>
+                <div class="w-full md:w-1/2 mx-auto mb-10">
+                    <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">What type of email client do you use primarily?</p>&mdash; Mario Rodriguez (@mariordev) <a href="https://twitter.com/mariordev/status/1072756167577751552?ref_src=twsrc%5Etfw">December 12, 2018</a></blockquote>
+                </div>
+                
+                <p>I think it's safe to say that most people use a browser-based email client. So why keep using rigid mailto links that always open the default local email app? Mailto links should be more flexible to accommodate both types of users. That's what MailtoUI helps you achieve.</p>
 
-                <p>When a user clicks on a mailto link, they are presented with the option to compose a new email message with Gmail, Outlook, Yahoo, the local email app, or simply copy the email address. If they select Gmail, for example, it opens a blank new email message in their Gmail account. The message is pre-filled with the "to" field and any other fields used with mailto, such as subject, cc, bcc, and body.</p>
+                <p>MailtoUI is ideal for your static sites or any other site where you don't want to spend time setting up a "Contact Us" form solution. Simply drop the MailtoUI script into any page where you want to use it, enable your links, and your users will have a better, more flexible experience interacting with the mailto links on your site.</p>
+            </section>
+
+            <section class="mb-24">
+                <h1 class="mb-6 leading-tight">How does it work?</h1>
+
+                <p>When a user clicks on a mailto link, they are presented with the option to compose a new email message with Gmail, Outlook, Yahoo, their default local email app, or simply copy the email address. If they select Gmail, for example, it opens a blank new email message in their Gmail account. The message is pre-filled with the "to" field and any other fields used with mailto, such as subject, cc, bcc, and body.</p>
 
                 <h2 class="mb-6">Try it yourself</h2>
 
@@ -293,7 +307,7 @@
 
                 <ul>
                     <li>Alert screen readers of the modal's presence when shown</li>
-                    <li>Alert screen readers of the modal's abscence when closed</li>
+                    <li>Alert screen readers of the modal's absence when closed</li>
                     <li>Modal can be closed by using the Esc key</li>
                     <li>Modal can be closed by clicking on the overlay</li>
                     <li>User can only tab within the modal when shown</li>
@@ -359,6 +373,17 @@
         </div>
 
         <div class="bg-grey-lighter text-center text-base h-auto px-4 py-8 md:px-10 md:py-16">
+            <div class="mb-16 mx-auto flex flex-wrap justify-center text-grey-darker">
+                <a class="block flex items-center text-grey-darker no-underline hover:text-teal hover:underline mx-5" href="https://twitter.com/mariordev">
+                    <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6.29 18.25c7.55 0 11.67-6.25 11.67-11.67v-.53c.8-.59 1.49-1.3 2.04-2.13-.75.33-1.54.55-2.36.65a4.12 4.12 0 0 0 1.8-2.27c-.8.48-1.68.81-2.6 1a4.1 4.1 0 0 0-7 3.74 11.65 11.65 0 0 1-8.45-4.3 4.1 4.1 0 0 0 1.27 5.49C2.01 8.2 1.37 8.03.8 7.7v.05a4.1 4.1 0 0 0 3.3 4.03 4.1 4.1 0 0 1-1.86.07 4.1 4.1 0 0 0 3.83 2.85A8.23 8.23 0 0 1 0 16.4a11.62 11.62 0 0 0 6.29 1.84"></path></svg>
+                    <span class="ml-2">Twitter</span>
+                </a>
+                <a class="block flex items-center text-grey-darker no-underline hover:text-teal hover:underline mx-5" href="https://github.com/mariordev/mailtoui">
+                    <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 0a10 10 0 0 0-3.16 19.49c.5.1.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69a3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.4.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .26.18.58.69.48A10 10 0 0 0 10 0"></path></svg>
+                    <span class="ml-2">GitHub</span>
+                </a>
+            </div>
+
             <h4 class="text-grey-dark mb-12">A PROJECT BY</h4>
 
             <div class="flex justify-center text-grey-darkest">
@@ -377,5 +402,6 @@
         <script src="assets/js/mailtoui-min.js"></script>
         <script src="assets/js/mailtoui-docs-min.js"></script>
         <script src="assets/js/prism.js"></script>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </body>
 </html>
