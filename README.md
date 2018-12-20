@@ -1,10 +1,9 @@
 <p align="center">
     <a href="https://mailtoui.com">
-       <img src="https://mariordev.github.io/mailtoui/assets/img/mailtoui-md.png" alt="MailtoUI screenshot">
+       <img src="https://mariordev.github.io/mailtoui/assets/img/unfurl.jpg" alt="MailtoUI">
     </a>
 </p>
 
-<h1 align="center">MailtoUI</h1>
 <p align="center">A convenient drop-in user interface for mailto links.</p>
 
 -------
@@ -12,6 +11,8 @@
 MailtoUI is a library that enhances your mailto links with a convenient user interface, which gives your users the flexibility to compose a new message using a browser-based email client <strong><i>or</i></strong> their default local email app.
 
 MailtoUI is ideal for your static sites or any other site where you don't want to spend time setting up a "Contact Us" form solution.
+
+<p align="center"><img src="https://mariordev.github.io/mailtoui/assets/img/mailtoui-md.png" alt="MailtoUI screenshot"></p>
 
 ## Quick Setup
 
@@ -37,7 +38,7 @@ Anywhere on your page, attach your mailto link(s) to MailtoUI by adding a unique
 
 ### STEP 3
 
-Your mailto link is now attached to MailtoUI. Refresh your page, click on it to test it, and delight your users.
+Your mailto link is now attached to MailtoUI. Refresh your page, click on it to test it, and delight your site visitors.
 
 
 ## Documentation
