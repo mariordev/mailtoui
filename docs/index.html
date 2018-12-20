@@ -117,24 +117,42 @@
                     </pre>
                 </div>
 
-                <h3 class="mb-6 text-grey-darkest">Loading MailtoUI at the top</h3>
+                <div class="mb-16">
+                    <h3 class="mb-6 text-grey-darkest">Loading MailtoUI at the top</h3>
 
-                <p>If you want to load MailtoUI at the top of your page, you must add the <code>defer</code> <strong>or</strong> <code>async=false</code> attribute to the script tag. Either one will defer execution of MailtoUI until after the page has been parsed.</p>
+                    <p>If you're setting up MailtoUI via CDN or Download and want to load it at the top of your page, you must add the <code>defer</code> <strong>or</strong> <code>async=false</code> attribute to the script tag. Either one will defer execution of MailtoUI until after the page has been parsed.</p>
 
-                <pre class="language-html">
-                    <code>
-                        &lt;head&gt;
-                            ...
-                            ...
-                            &lt;script src=&quot;your/path/to/mailtoui.js&quot; defer&gt;&lt;/script&gt;
+                    <pre class="language-html">
+                        <code>
+                            &lt;head&gt;
+                                ...
+                                ...
+                                &lt;script src=&quot;your/path/to/mailtoui.js&quot; defer&gt;&lt;/script&gt;
 
-                            &lt;!-- OR --&gt;
+                                &lt;!-- OR --&gt;
 
-                            &lt;script src=&quot;your/path/to/mailtoui.js&quot; async=false&gt;&lt;/script&gt;
-                        &lt;/head&gt;
-                        &lt;body&gt;
-                    </code>
-                </pre>
+                                &lt;script src=&quot;your/path/to/mailtoui.js&quot; async=false&gt;&lt;/script&gt;
+                            &lt;/head&gt;
+                            &lt;body&gt;
+                        </code>
+                    </pre>
+                </div>
+
+                <div class="mb-16">
+                    <h3 class="mb-6 text-grey-darkest">NPM</h3>
+                        
+                    <p>MailtoUI is available on npm and can be installed using <code>npm</code> or <code>yarn</code>.</p>
+
+                    <pre class="language-bash">
+                        <code>
+                            # install the latest version using npm
+                            npm i mailtoui
+
+                            # install the latest version using yarn
+                            yarn add mailtoui
+                        </code>
+                    </pre>
+                </div>
             </section>
 
             <section class="mb-24">
