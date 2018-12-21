@@ -44,14 +44,14 @@
         </div>
 
 
-        <div id="learn-more" class="container mx-auto px-4 py-8 md:px-10 md:py-32 leading-normal">
-            <section class="mb-24">
+        <div id="learn-more" class="max-w-xl mx-auto px-4 py-8 md:px-10 md:py-32 leading-normal">
+            <section id="introduction" class="mb-24">
                 <h1 class="mb-6 leading-tight">What is MailtoUI?</h1>
 
                 <p>MailtoUI is a library that enhances your mailto links with a convenient user interface. It gives your users the flexibility to compose a new message using a browser-based email client <strong><i>or</i></strong> their default local email app. MailtoUI is written in vanilla JavaScript, so it's nice and lean with no dependencies to worry about. It works across virtually all devices and modern browsers for desktop and mobile.</p>
             </section>
 
-            <section class="mb-24">
+            <section id="motivation" class="mb-24">
                 <h1 class="mb-6 leading-tight">Motivation</h1>
                 
                 <p>We've all done it at some point. You visit a site, you want to contact someone. You click on the mailto link, only to open the default local email app, which you (most likely) don't use. You now have to close the email app. Go back to the site, copy the email address, go to your browser-based email client, compose a new email, and finally paste in the email address... There's got to be a better way!</p>
@@ -65,7 +65,7 @@
                 <p>MailtoUI is ideal for your static sites or any other site where you don't want to spend time setting up a "Contact Us" form solution. Simply drop the MailtoUI script into any page where you want to use it, enable your links, and your users will have a better, more flexible experience interacting with the mailto links on your site.</p>
             </section>
 
-            <section class="mb-24">
+            <section id="how-it-works" class="mb-24">
                 <h1 class="mb-6 leading-tight">How does it work?</h1>
 
                 <p>When a user clicks on a mailto link, they are presented with the option to compose a new email message with Gmail, Outlook, Yahoo, their default local email app, or simply copy the email address. If they select Gmail, for example, it opens a blank new email message in their Gmail account. The message is pre-filled with the "to" field and any other fields used with mailto, such as subject, cc, bcc, and body.</p>
@@ -83,7 +83,7 @@
                 </pre>
             </section>
 
-            <section class="mb-24">
+            <section id="setup" class="mb-24">
                 <h1 class="mb-6">Setup</h1>
 
                 <div class="mb-16">
@@ -142,7 +142,7 @@
                 <div class="mb-16">
                     <h3 class="mb-6 text-grey-darkest">NPM</h3>
                         
-                    <p>MailtoUI is available on npm and can be installed using <code>npm</code> or <code>yarn</code>.</p>
+                    <p>MailtoUI is also available on npm and can be installed using <code>npm</code> or <code>yarn</code>.</p>
 
                     <pre class="language-bash">
                         <code>
@@ -156,12 +156,12 @@
                 </div>
             </section>
 
-            <section class="mb-24">
+            <section id="usage" class="mb-24">
                 <h1 class="mb-6">Usage</h1>
 
-                <p>After adding the MailtoUI script to your page, all you need to do is attach the relevant links to MailtoUI. You do that by making sure each link has a unique ID, and the class <code>mailtoui</code>.</p>
+                <p>After adding the MailtoUI script to your page, all you need to do is attach the mailto links on the page to MailtoUI. You do that by making sure each mailto link has a <strong>unique ID</strong>, and the class <code>mailtoui</code>.</p>
 
-                <p>The ID can be anything you want, as long as it's unique for the page. The default class is <code>mailtoui</code>, but in the unlikely event that this collides with your own CSS code, there's an easy way to change it, which is explained in the <a href="#options">Options</a> section.</p>
+                <p>The ID can be anything you want, as long as it's unique for the page. The default class is <code>mailtoui</code>. In the unlikely event that this class collides with your own CSS code, there's an easy way to change it, which is explained in the <a href="#options">Options</a> section.</p>
 
                 <pre class="language-html mb-16">
                     <code>
@@ -171,10 +171,10 @@
                     </code>
                 </pre>
 
-                <p>That's it. That's the most basic setup. Your mailto link(s) are now ready to use MailtoUI. For more functionality, please read on!</p>
+                <p>That's it. That's the most basic setup. Your mailto links are now ready to use MailtoUI. For more functionality, please read on!</p>
             </section>
 
-            <section class="mb-24">
+            <section id="uri-scheme" class="mb-24">
                 <h1 class="mb-6">URI Scheme</h1>
 
                 <p>MailtoUI supports the most commonly used mailto header fields (mailto URI scheme) that let you specify other details in addition to the email address. This means MailtoUI is compatible with the mailto links you may already have on your page with any of these parameters:</p>
@@ -189,7 +189,7 @@
                 <p>These header fields must comply with the mailto URI scheme encoding requirements, as specified in <a href="https://tools.ietf.org/html/rfc6068" target="_blank">RFC 6068</a>. For more information about mailto links, checkout MDN's <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks#E-mail_links" target="_blank">E-mail links</a>.</p>
 
                 <div class="bg-yellow-lighter text-yellow-darkest border-yellow-dark border-b-2 px-8 py-6">
-                    <p class="mb-0">* Outlook does not currently support the <code>cc</code> and <code>bcc</code> fields in mailto links.</p>
+                    <p class="mb-0">* Sadly, Outlook does not currently support the <code>cc</code> and <code>bcc</code> fields in mailto links.</p>
                 </div>
             </section>
 
@@ -210,19 +210,19 @@
                         <tr>
                             <td class="border-r p-4 align-top"><code>autoClose</code></td>
                             <td class="border-r p-4 align-top"><code>true</code></td>
-                            <td class="p-4 align-top"><p>When set to true, the MailtoUI interface is closed automatically when any of the email client options is clicked. <code>autoClose</code> has no effect when clicking on the Copy button.</p></td>
+                            <td class="p-4 align-top"><p>When set to true, the MailtoUI interface is closed automatically when any of the email client choices is clicked. <code>autoClose</code> has no effect when clicking on the Copy button.</p></td>
                         </tr>
                         <tr>
                             <td class="border-r p-4 align-top"><code>linkClass</code></td>
                             <td class="border-r p-4 align-top"><code>mailtoui</code></td>
-                            <td class="p-4 align-top"><p>The class for mailto links attached to MailtoUI. The default class is <code>mailtoui</code>.</p></td>
+                            <td class="p-4 align-top"><p>The class used on mailto links attached to MailtoUI.</p></td>
                         </tr>
                     </tbody>
                 </table>
 
                 <h2 class="mb-4"><code>autoClose</code></h2>
 
-                <p>If you set <code>autoClose</code> to false, the MailtoUI interface will remain open after clicking on any of the email client  options.</p>
+                <p>If you set <code>autoClose</code> to false, the MailtoUI interface will remain open after clicking on any of the email client  choices.</p>
 
                 <pre class="language-html mb-16">
                     <code>
@@ -250,11 +250,11 @@
                 </pre>
 
                 <div class="bg-yellow-lighter text-yellow-darkest border-yellow-dark border-b-2 px-8 py-6">
-                    <p class="mb-0">If you set a custom link class, be sure to use the same class on your link(s). For example, if you set the linkClass option to <code>superhero</code>, your mailto link(s) must contain the class <code>superhero</code>, as shown above.</p>
+                    <p class="mb-0">If you set a custom link class, be sure to use the same class on your mailto link(s). For example, if you set the linkClass option to <code>superhero</code>, your mailto link(s) must contain the class <code>superhero</code>, as shown above.</p>
                 </div>
             </section>
 
-            <section class="mb-24">
+            <section id="custom-styling" class="mb-24">
                 <h1 class="mb-6">Custom Styling</h1>
 
                 <p>You can easily change the look of MailtoUI to match your site's branding. Simply update a few MailtoUI classes in your own CSS. Here's an example of a dark themed interface.</p>
@@ -319,7 +319,7 @@
                 </div>
             </section>
 
-            <section class="mb-24">
+            <section id="accessibility-responsiveness" class="mb-24">
                 <h1 class="mb-6">Accessibility & Responsiveness</h1>
 
                 <p>MailtoUI is built with accessibility and responsiveness in mind. Much care has been put into adding these small but important features, to make sure it's accessible and it renders properly in virtually all screen sizes:</p>
@@ -333,10 +333,11 @@
                     <li>Hight contrast colors used in the default styling</li>
                     <li>Modal's size auto-adjusts based on screen size</li>
                     <li>Modal is scrollable if screen size forces its content out of view</li>
+                    <li>When modal is closed, focus returns to the last focused element on the page</li>
                 </ul>
             </section>
 
-            <section class="mb-24">
+            <section id="examples" class="mb-24">
                 <h1 class="mb-6">Examples</h1>
 
                 <p>Here are a few working examples of mailto links attached to MailtoUI.</p>
@@ -397,9 +398,15 @@
                     <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6.29 18.25c7.55 0 11.67-6.25 11.67-11.67v-.53c.8-.59 1.49-1.3 2.04-2.13-.75.33-1.54.55-2.36.65a4.12 4.12 0 0 0 1.8-2.27c-.8.48-1.68.81-2.6 1a4.1 4.1 0 0 0-7 3.74 11.65 11.65 0 0 1-8.45-4.3 4.1 4.1 0 0 0 1.27 5.49C2.01 8.2 1.37 8.03.8 7.7v.05a4.1 4.1 0 0 0 3.3 4.03 4.1 4.1 0 0 1-1.86.07 4.1 4.1 0 0 0 3.83 2.85A8.23 8.23 0 0 1 0 16.4a11.62 11.62 0 0 0 6.29 1.84"></path></svg>
                     <span class="ml-2">Twitter</span>
                 </a>
+                
                 <a class="block flex items-center text-grey-darker no-underline hover:text-blue hover:underline mx-5" href="https://github.com/mariordev/mailtoui">
                     <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 0a10 10 0 0 0-3.16 19.49c.5.1.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69a3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.4.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .26.18.58.69.48A10 10 0 0 0 10 0"></path></svg>
                     <span class="ml-2">GitHub</span>
+                </a>
+
+                <a id="email-7" class="mailtoui block flex items-center text-grey-darker no-underline hover:text-blue hover:underline mx-5" href="mailto:mario@teclaworks.com?subject=MailtoUI">
+                    <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23,2H1C0.4,2,0,2.4,0,3v18c0,0.6,0.4,1,1,1h22c0.6,0,1-0.4,1-1V3C24,2.4,23.6,2,23,2z M20.7,6.8l-8,7 C12.5,13.9,12.2,14,12,14s-0.5-0.1-0.7-0.2l-8-7c-0.4-0.4-0.5-1-0.1-1.4c0.4-0.4,1-0.5,1.4-0.1l7.3,6.4l7.3-6.4 c0.4-0.4,1-0.3,1.4,0.1C21.1,5.8,21.1,6.4,20.7,6.8z"/></path></svg>
+                    <span class="ml-2">Email</span>
                 </a>
             </div>
 
@@ -418,7 +425,7 @@
             </div>
         </div>
 
-        <script src="assets/js/mailtoui-min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mariordev/mailtoui@latest/dist/mailtoui-min.js"></script>
         <script src="assets/js/mailtoui-docs-min.js"></script>
         <script src="assets/js/prism.js"></script>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
