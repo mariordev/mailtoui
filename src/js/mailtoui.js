@@ -397,7 +397,7 @@ var mailtouiApp = mailtouiApp || {};
     app.openModal = function(event) {
         event.preventDefault();
 
-        var link = event.target;
+        var link = app.getParentAnchor(event.target);
 
         if (link !== null) {
             lastDocElementFocused = document.activeElement;
@@ -610,9 +610,9 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Get all "bmt" links on the page.
+     * Get all "mailtoui" links on the page.
      *
-     * @return {HTMLCollection} All links with the class mailtoui-link.
+     * @return {HTMLCollection} All links with the class "mailtoui".
      */
     app.getLinks = function() {
         return window.document.getElementsByClassName(app.prefix());
