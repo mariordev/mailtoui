@@ -1,6 +1,12 @@
 /**
- * MailtoUI is a library that enhances your mailto links with a convenient user interface,
- * which gives your site visitors the flexibility to compose a new message using a
+ * MailtoUI - A convenient drop-in user interface for mailto links.
+ *
+ * @link https://mailtoui.com
+ * @author Mario Rodriguez - https://twitter.com/mariordev
+ * @license MIT
+ *
+ * MailtoUI is a library that enhances your mailto links with a convenient user interface.
+ * It gives your site visitors the flexibility to compose a new email message using a
  * browser-based email client or their default local email application.
  */
 
