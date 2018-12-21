@@ -7,7 +7,7 @@ var header = require('gulp-header');
 var browserify = require('gulp-browserify');
 var eslint = require('gulp-eslint');
 var exec = require('gulp-exec');
-var filegetVersionFromPackage = require('./package.json');
+var packageJSONFile = require('./package.json');
 var banner = [
     '/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -34,7 +34,7 @@ function packageCSS() {
 function packageJS() {
     return src('./src/js/mailtoui.js')
         .pipe(minify({ noSource: true }))
-        .pipe(header(banner, { pkg: filegetVersionFromPackage }))
+        .pipe(header(banner, { pkg: packageJSONFile }))
         .pipe(dest('dist'));
 }
 
@@ -64,14 +64,12 @@ function lintJS() {
 
 function watching() {
     watch('src/css/*.css', packageCSS);
-    watch('src/js/*.js', packageJS);
+    watch(['src/js/*.js', './package.json'], series(getVersionFromPackage, packageJS));
 
     watch('docs/source/css/*.css', docsCSS);
-    watch('docs/source/js/*.js', docsJS);
-
-    watch('./package.json', series(getVersionFromPackage, docsJS));
+    watch(['docs/source/js/*.js', './package.json'], series(getVersionFromPackage, docsJS));
 
     watch(['src/js/*.js', 'docs/source/js/*.js'], lintJS);
 }
 
-exports.default = series(getVersionFromPackage, packageCSS, packageJS, docsCSS, docsJS, lintJS, watching);
+exports.default = series(packageCSS, packageJS, docsCSS, docsJS, lintJS, watching);
