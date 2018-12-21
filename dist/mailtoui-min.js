@@ -1,6 +1,6 @@
 /**
  * mailtoui - A convenient drop-in user interface for mailto links.
- * @version v0.1.7
+ * @version v0.1.8
  * @link https://mailtoui.com
  * @author Mario Rodriguez - https://twitter.com/mariordev
  * @license MIT

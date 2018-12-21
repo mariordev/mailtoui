@@ -19,6 +19,10 @@ var banner = [
     '',
 ].join('\n');
 
+function getVersionFromPackage() {
+    return src('./package.json').pipe(exec('genversion version.js'));
+}
+
 function packageCSS() {
     return src('./src/css/mailtoui.css')
         .pipe(
@@ -52,10 +56,6 @@ function docsJS() {
         .pipe(dest('docs/assets/js'));
 }
 
-function getVersionFromPackage() {
-    return src('./package.json').pipe(exec('genversion version.js'));
-}
-
 function lintJS() {
     return src(['src/js/*.js', 'docs/source/js/*.js'])
         .pipe(eslint())
@@ -72,4 +72,4 @@ function watching() {
     watch(['src/js/*.js', 'docs/source/js/*.js'], lintJS);
 }
 
-exports.default = series(packageCSS, packageJS, docsCSS, docsJS, lintJS, watching);
+exports.default = series(getVersionFromPackage, packageCSS, packageJS, docsCSS, docsJS, lintJS, watching);
