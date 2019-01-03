@@ -24,7 +24,7 @@ Add MailtoUI via CDN to the bottom of your page, just before the closing `</body
 <body>
     ...
     ...
-    <script src="https://cdn.jsdelivr.net/gh/mariordev/mailtoui@latest/dist/mailtoui-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mariordev/mailtoui@latest/dist/mailtoui-min.js"></script>
 </body>
 ```
 
