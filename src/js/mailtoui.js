@@ -744,33 +744,45 @@ var mailtouiApp = mailtouiApp || {};
         var isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
 
         if (isiOSDevice) {
-            // Capture original state.
-            var editable = email.contentEditable;
-            var readOnly = email.readOnly;
-
-            // Make email input field temporarily available.
-            email.contentEditable = true;
-            email.readOnly = false;
-
-            var range = document.createRange();
-            range.selectNodeContents(email);
-
-            var selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-
-            email.setSelectionRange(0, 999999);
-
-            // Reset original state.
-            email.contentEditable = editable;
-            email.readOnly = readOnly;
+            app.iOSCopy(email);
         } else {
             email.select();
+            document.execCommand('copy');
         }
+
+        app.setCopyButtonText(event.target);
+    };
+
+    /**
+     * Copy email address to the clipboard on iOS devices.
+     *
+     * @param   {Element}   The email address field.
+     */
+    app.iOSCopy = function(email) {
+        // Capture email field's original state.
+        var editable = email.contentEditable;
+        var readOnly = email.readOnly;
+
+        // Make email input field temporarily available.
+        email.contentEditable = true;
+        email.readOnly = false;
+
+        var range = document.createRange();
+        range.selectNodeContents(email);
+
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        email.setSelectionRange(0, 999999);
 
         document.execCommand('copy');
 
-        app.setCopyButtonText(event.target);
+        // Reset email field's original state.
+        email.setSelectionRange(0, 0);
+        email.contentEditable = editable;
+        email.readOnly = readOnly;
+        selection.removeAllRanges();
     };
 
     /**
