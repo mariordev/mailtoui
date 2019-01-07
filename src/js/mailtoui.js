@@ -96,7 +96,6 @@ var mailtouiApp = mailtouiApp || {};
                 overflow-y: auto;
             }
 
-            /* Small devices, tablets */
             @media only screen and (min-width : 768px) {
                 .mailtoui-modal-content {
                     right: auto;
@@ -150,11 +149,11 @@ var mailtouiApp = mailtouiApp || {};
 
             .mailtoui-label {
                 background-color: #fff;
-                border-radius: 100px;
+                border-radius: 8px;
                 -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
                 box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
                 margin-bottom: 20px;
-                padding: 20px 30px;
+                padding: 15px 20px;
             }
 
             .mailtoui-label:hover {
@@ -177,23 +176,26 @@ var mailtouiApp = mailtouiApp || {};
             }
 
             .mailtoui-copy {
+                border-radius: 8px;
                 margin-top: 20px;
                 position: relative;
+                -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+                height: 59px;
             }
 
             .mailtoui-copy-button {
                 background-color: #fff;
-                -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-                border-radius: 100px;
-                bottom: 21px;
                 border: none;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+                bottom: 21px;
                 color: #303131;
                 font-size: 100%;
-                height: 63px;
-                left: 0;
+                height: 100%;
                 outline: none;
                 position: absolute;
+                right: 0;
                 top: 0;
                 width: 100px;
             }
@@ -208,14 +210,15 @@ var mailtouiApp = mailtouiApp || {};
 
             .mailtoui-copy-email-address {
                 background-color: #d8dcdf;
-                border-radius: 100px;
+                border-radius: 8px;
                 border: none;
                 -webkit-box-sizing : border-box;
                 box-sizing : border-box;
                 color: #48494a;
                 font-size: 100%;
+                height: 100%;
                 outline: none;
-                padding: 20px 30px 20px 120px;
+                padding: 20px 120px 20px 30px;
                 width: 100%;
             }
 
@@ -332,8 +335,8 @@ var mailtouiApp = mailtouiApp || {};
                     </div>
 
                     <div class="mailtoui-copy ${classHideCopyUI}">
-                        <button id="mailtoui-copy-button-${id}" class="mailtoui-copy-button" data-copytargetid="mailtoui-copy-email-address-${id}">Copy</button>
                         <input id="mailtoui-copy-email-address-${id}" class="mailtoui-copy-email-address" type="text" value="${email}" readonly>
+                        <button id="mailtoui-copy-button-${id}" class="mailtoui-copy-button" data-copytargetid="mailtoui-copy-email-address-${id}">Copy</button>
                     </div>
                 </div>
             </div>
@@ -746,24 +749,33 @@ var mailtouiApp = mailtouiApp || {};
         if (isiOSDevice) {
             app.iOSCopy(email);
         } else {
-            email.select();
-            document.execCommand('copy');
+            app.defaultCopy(email);
         }
 
         app.setCopyButtonText(event.target);
     };
 
     /**
+     * Copy email address to the clipboard (default way).
+     *
+     * @param  {Element}    email   The email address field.
+     */
+    app.defaultCopy = function(email) {
+        email.select();
+        document.execCommand('copy');
+    };
+
+    /**
      * Copy email address to the clipboard on iOS devices.
      *
-     * @param   {Element}   The email address field.
+     * @param   {Element}   email   The email address field.
      */
     app.iOSCopy = function(email) {
-        // Capture email field's original state.
-        var editable = email.contentEditable;
-        var readOnly = email.readOnly;
+        var oldState = [];
 
-        // Make email input field temporarily available.
+        oldState['editable'] = email.contentEditable;
+        oldState['readOnly'] = email.readOnly;
+
         email.contentEditable = true;
         email.readOnly = false;
 
@@ -775,14 +787,31 @@ var mailtouiApp = mailtouiApp || {};
         selection.addRange(range);
 
         email.setSelectionRange(0, 999999);
-
         document.execCommand('copy');
 
-        // Reset email field's original state.
-        email.setSelectionRange(0, 0);
-        email.contentEditable = editable;
-        email.readOnly = readOnly;
+        app.resetEmailField(email, oldState);
         selection.removeAllRanges();
+
+        app.hideiOSKeyboard();
+    };
+
+    /**
+     * Reset the original state of the email address field.
+     *
+     * @param  {string} email   The email field.
+     * @param  {Array}  state    Array with properties to modify the state of email address field.
+     */
+    app.resetEmailField = function(email, state) {
+        email.setSelectionRange(0, 0);
+        email.contentEditable = state['editable'];
+        email.readOnly = state['readOnly'];
+    };
+
+    /**
+     * Hide iOS keyboard.
+     */
+    app.hideiOSKeyboard = function() {
+        document.activeElement.blur();
     };
 
     /**

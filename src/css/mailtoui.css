@@ -16,20 +16,27 @@
 }
 
 .mailtoui-modal-content {
+    -webkit-animation: appear 0.4s;
     animation: appear 0.4s;
     background-color: #F1F5F8;
     border-radius: 8px;
     bottom: auto;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     left: 50%;
     max-height: calc(100% - 100px);
     overflow: hidden;
-    overflow-y: scroll;
     padding: 0;
     position: fixed;
     right: -45%;
     top: 50%;
+    -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.mailtoui-modal-content:hover,
+.mailtoui-modal-content:focus {
+    overflow-y: auto;
 }
 
 /* Small devices, tablets */
@@ -86,10 +93,11 @@
 
 .mailtoui-label {
     background-color: #fff;
-    border-radius: 100px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
     box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
     margin-bottom: 20px;
-    padding: 20px 30px;
+    padding: 15px 20px;
 }
 
 .mailtoui-label:hover {
@@ -104,7 +112,7 @@
 .mailtoui-label-icon {
     font-weight: bold;
     position: relative;
-    top: -2px;
+    top: 4px;
 }
 
 .mailtoui-label-text {
@@ -112,22 +120,26 @@
 }
 
 .mailtoui-copy {
+    border-radius: 8px;
     margin-top: 20px;
     position: relative;
+    -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+    height: 59px;
 }
 
 .mailtoui-copy-button {
     background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-    border-radius: 100px;
-    bottom: 21px;
     border: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    bottom: 21px;
     color: #303131;
     font-size: 100%;
-    height: 63px;
-    left: 0;
+    height: 100%;
     outline: none;
     position: absolute;
+    right: 0;
     top: 0;
     width: 100px;
 }
@@ -142,13 +154,15 @@
 
 .mailtoui-copy-email-address {
     background-color: #d8dcdf;
-    border-radius: 100px;
+    border-radius: 8px;
     border: none;
+    -webkit-box-sizing : border-box;
     box-sizing : border-box;
     color: #48494a;
     font-size: 100%;
+    height: 100%;
     outline: none;
-    padding: 20px 30px 20px 120px;
+    padding: 20px 120px 20px 30px;
     width: 100%;
 }
 
@@ -157,13 +171,28 @@
     visibility: hidden;
 }
 
-@keyframes appear {
+@-webkit-keyframes appear {
     0% {
         opacity: 0;
+        -webkit-transform: translate(-50%, -50%) scale(0,0);
         transform: translate(-50%, -50%) scale(0,0);
     }
     100% {
         opacity: 1;
+        -webkit-transform: translate(-50%, -50%) scale(1,1);
+        transform: translate(-50%, -50%) scale(1,1);
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(-50%, -50%) scale(0,0);
+        transform: translate(-50%, -50%) scale(0,0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate(-50%, -50%) scale(1,1);
         transform: translate(-50%, -50%) scale(1,1);
     }
 }
