@@ -54,205 +54,7 @@ var mailtouiApp = mailtouiApp || {};
      */
     app.buildStyleTag = function() {
         var styleTag = window.document.createElement('style');
-        var css = `
-            .mailtoui-modal {
-                background-color: rgb(0,0,0);
-                background-color: rgba(0,0,0,0.4);
-                bottom: 0;
-                color: #303131;
-                display: none;
-                height: 100%;
-                left: 0;
-                margin: 0;
-                padding: 0;
-                position: fixed;
-                right: 0;
-                top: 0;
-                width: 100%;
-                z-index: 1000;
-            }
-
-            .mailtoui-modal-content {
-                -webkit-animation: appear 0.4s;
-                animation: appear 0.4s;
-                background-color: #F1F5F8;
-                border-radius: 8px;
-                bottom: auto;
-                -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-                left: 50%;
-                max-height: calc(100% - 100px);
-                overflow: hidden;
-                padding: 0;
-                position: fixed;
-                right: -45%;
-                top: 50%;
-                -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-            }
-
-            .mailtoui-modal-content:hover,
-            .mailtoui-modal-content:focus {
-                overflow-y: auto;
-            }
-
-            @media only screen and (min-width : 768px) {
-                .mailtoui-modal-content {
-                    right: auto;
-                }
-            }
-
-            .mailtoui-modal-head {
-                background-color: #fff;
-                clear: both;
-                padding: 20px;
-            }
-
-            .mailtoui-modal-title {
-                font-size: 100%;
-                font-weight: bold;
-                margin: 0;
-                padding: 0;
-            }
-
-            .mailtoui-modal-close {
-                color: #aaa;
-                float: right;
-                font-size: 38px;
-                font-weight: bold;
-                position: relative;
-                top: -12px;
-            }
-
-            .mailtoui-modal-close:hover,
-            .mailtoui-modal-close:focus {
-                color: black;
-                cursor: pointer;
-                text-decoration: none;
-            }
-
-            .mailtoui-modal-body {
-                height: 100%;
-                padding: 20px;
-            }
-
-            .mailtoui-client {
-                color: #333;
-                outline: none;
-                text-decoration: none;
-            }
-
-            .mailtoui-client:focus .mailtoui-label {
-                background-color: #555;
-                color: #fff;
-            }
-
-            .mailtoui-label {
-                background-color: #fff;
-                border-radius: 8px;
-                -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-                margin-bottom: 20px;
-                padding: 15px 20px;
-            }
-
-            .mailtoui-label:hover {
-                background-color: #555;
-                color: #fff;
-            }
-
-            .mailtoui-client:last-child .mailtoui-label {
-                margin-bottom: 0;
-            }
-
-            .mailtoui-label-icon {
-                font-weight: bold;
-                position: relative;
-                top: 4px;
-            }
-
-            .mailtoui-label-text {
-                margin-left: 5px;
-            }
-
-            .mailtoui-copy {
-                border-radius: 8px;
-                margin-top: 20px;
-                position: relative;
-                -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-                box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
-                height: 59px;
-            }
-
-            .mailtoui-copy-button {
-                background-color: #fff;
-                border: none;
-                border-top-right-radius: 8px;
-                border-bottom-right-radius: 8px;
-                bottom: 21px;
-                color: #303131;
-                font-size: 100%;
-                height: 100%;
-                outline: none;
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 100px;
-            }
-
-            .mailtoui-copy-button:hover,
-            .mailtoui-copy-button:focus {
-                background-color: #555;
-                color: #fff;
-                cursor: pointer;
-                outline: none;
-            }
-
-            .mailtoui-copy-email-address {
-                background-color: #d8dcdf;
-                border-radius: 8px;
-                border: none;
-                -webkit-box-sizing : border-box;
-                box-sizing : border-box;
-                color: #48494a;
-                font-size: 100%;
-                height: 100%;
-                outline: none;
-                padding: 20px 120px 20px 30px;
-                width: 100%;
-            }
-
-            .mailtoui-is-hidden {
-                display: none;
-                visibility: hidden;
-            }
-
-            @-webkit-keyframes appear {
-                0% {
-                    opacity: 0;
-                    -webkit-transform: translate(-50%, -50%) scale(0,0);
-                    transform: translate(-50%, -50%) scale(0,0);
-                }
-                100% {
-                    opacity: 1;
-                    -webkit-transform: translate(-50%, -50%) scale(1,1);
-                    transform: translate(-50%, -50%) scale(1,1);
-                }
-            }
-
-            @keyframes appear {
-                0% {
-                    opacity: 0;
-                    -webkit-transform: translate(-50%, -50%) scale(0,0);
-                    transform: translate(-50%, -50%) scale(0,0);
-                }
-                100% {
-                    opacity: 1;
-                    -webkit-transform: translate(-50%, -50%) scale(1,1);
-                    transform: translate(-50%, -50%) scale(1,1);
-                }
-            }
-        `;
+        var css = `.mailtoui-modal{background-color:#000;background-color:rgba(0,0,0,.4);bottom:0;color:#303131;display:none;height:100%;left:0;margin:0;padding:0;position:fixed;right:0;top:0;width:100%;z-index:1000}.mailtoui-modal-content{-webkit-animation:appear .4s;animation:appear .4s;background-color:#f1f5f8;border-radius:8px;bottom:auto;-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);left:50%;max-height:calc(100% - 100px);overflow:hidden;padding:0;position:fixed;right:-45%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.mailtoui-modal-content:focus,.mailtoui-modal-content:hover{overflow-y:auto}@media only screen and (min-width :768px){.mailtoui-modal-content{right:auto}}.mailtoui-modal-head{background-color:#fff;clear:both;padding:20px}.mailtoui-modal-title{font-size:100%;font-weight:700;margin:0;padding:0}.mailtoui-modal-close{color:#aaa;float:right;font-size:38px;font-weight:700;position:relative;top:-12px}.mailtoui-modal-close:focus,.mailtoui-modal-close:hover{color:#000;cursor:pointer;text-decoration:none}.mailtoui-modal-body{height:100%;padding:20px}.mailtoui-client{color:#333;outline:0;text-decoration:none}.mailtoui-client:focus .mailtoui-label{background-color:#555;color:#fff}.mailtoui-label{background-color:#fff;border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);margin-bottom:20px;padding:15px 20px}.mailtoui-label:hover{background-color:#555;color:#fff}.mailtoui-client:last-child .mailtoui-label{margin-bottom:0}.mailtoui-label-icon{font-weight:700;position:relative;top:4px}.mailtoui-label-text{margin-left:5px}.mailtoui-copy{border-radius:8px;margin-top:20px;position:relative;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);height:59px}.mailtoui-copy-button{background-color:#fff;border:none;border-top-right-radius:8px;border-bottom-right-radius:8px;bottom:21px;color:#303131;font-size:100%;height:100%;outline:0;position:absolute;right:0;top:0;width:100px}.mailtoui-copy-button:focus,.mailtoui-copy-button:hover{background-color:#555;color:#fff;cursor:pointer;outline:0}.mailtoui-copy-email-address{background-color:#d8dcdf;border-radius:8px;border:none;-webkit-box-sizing:border-box;box-sizing:border-box;color:#48494a;font-size:100%;height:100%;outline:0;overflow:hidden;padding:20px 120px 20px 20px;width:100%}.mailtoui-is-hidden{display:none;visibility:hidden}@-webkit-keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}@keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}`;
 
         css = css.replace(/mailtoui/g, app.prefix());
 
@@ -335,7 +137,7 @@ var mailtouiApp = mailtouiApp || {};
                     </div>
 
                     <div class="mailtoui-copy ${classHideCopyUI}">
-                        <input id="mailtoui-copy-email-address-${id}" class="mailtoui-copy-email-address" type="text" value="${email}" readonly>
+                        <div id="mailtoui-copy-email-address-${id}" class="mailtoui-copy-email-address">${email}</div>
                         <button id="mailtoui-copy-button-${id}" class="mailtoui-copy-button" data-copytargetid="mailtoui-copy-email-address-${id}">Copy</button>
                     </div>
                 </div>
@@ -744,74 +546,26 @@ var mailtouiApp = mailtouiApp || {};
 
         var targetId = event.target.getAttribute('data-copytargetid');
         var email = document.getElementById(targetId);
-        var isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-
-        if (isiOSDevice) {
-            app.iOSCopy(email);
-        } else {
-            app.defaultCopy(email);
-        }
-
-        app.setCopyButtonText(event.target);
-    };
-
-    /**
-     * Copy email address to the clipboard (default way).
-     *
-     * @param  {Element}    email   The email address field.
-     */
-    app.defaultCopy = function(email) {
-        email.select();
-        document.execCommand('copy');
-    };
-
-    /**
-     * Copy email address to the clipboard on iOS devices.
-     *
-     * @param   {Element}   email   The email address field.
-     */
-    app.iOSCopy = function(email) {
-        var oldState = [];
-
-        oldState['editable'] = email.contentEditable;
-        oldState['readOnly'] = email.readOnly;
-
-        email.contentEditable = true;
-        email.readOnly = false;
-
         var range = document.createRange();
+
         range.selectNodeContents(email);
 
         var selection = window.getSelection();
         selection.removeAllRanges();
         selection.addRange(range);
 
-        email.setSelectionRange(0, 999999);
         document.execCommand('copy');
 
-        app.resetEmailField(email, oldState);
-        selection.removeAllRanges();
-
-        app.hideiOSKeyboard();
+        app.setCopyButtonText(event.target);
     };
 
     /**
-     * Reset the original state of the email address field.
+     * Check if device is running iOS.
      *
-     * @param  {string} email   The email field.
-     * @param  {Array}  state    Array with properties to modify the state of email address field.
+     * @return {boolean}    True if device runs iOS.
      */
-    app.resetEmailField = function(email, state) {
-        email.setSelectionRange(0, 0);
-        email.contentEditable = state['editable'];
-        email.readOnly = state['readOnly'];
-    };
-
-    /**
-     * Hide iOS keyboard.
-     */
-    app.hideiOSKeyboard = function() {
-        document.activeElement.blur();
+    app.isiOSDevice = function() {
+        return navigator.userAgent.match(/ipad|iphone/i);
     };
 
     /**
