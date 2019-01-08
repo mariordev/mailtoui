@@ -31,7 +31,8 @@ function packageCSS() {
                 cascade: false,
             })
         )
-        .pipe(rename('src/css/mailtoui-prefixed.css'))
+        .pipe(cleanCSS())
+        .pipe(rename('src/css/mailtoui-min.css'))
         .pipe(dest('./'));
 }
 
