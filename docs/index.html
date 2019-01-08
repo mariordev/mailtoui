@@ -25,19 +25,35 @@
         <div id="hero" class="flex items-center min-h-screen bg-grey-lighter bg-pattern">
             <div class="container mx-auto text-center px-4 py-8 md:px-10 md:py-32">
                 <div class="flex flex-wrap mb-10 items-center">
-                    <div class="w-full md:w-1/2">
+                    <div class="w-full --md:w-1/2">
                         <h1 class="font-black text-5xl mb-2">MailtoUI</h1>
-                        <p class="text-grey-dark mb-10">v<span id="version"></span></p>
-                        <p class="text-2xl text-grey-darkest">A convenient drop-in user interface for mailto links.</p>
+                        <p class="text-grey-dark mb-2">v<span id="version"></span></p>
+                        <p class="text-2xl text-grey-darkest mb-16">A simple way to enhance your mailto links with a convenient user interface.</p>
+                        
+                        <div class="sm:flex sm:justify-center">
+                            <a id="email-0" class="mailtoui mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal bg-white text-teal hover:text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="mailto:mario@teclaworks.com">Try it now</a>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <div class="font-cursive text-3xl mt-4 mb-8">
+                                This mailto link<br>is using MailtoUI
+                            </div>
+                            <div>
+                                <svg class="h-24 w-24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.2 151.79"><title>arrow up</title><path d="M8.52,3.51c98.07,91.59-2.2,146-2.2,146" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:5.18848180770874px"/><line x1="7.75" y1="1.28" x2="2.12" y2="46.28" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:4.268180286289336px"/><line x1="6.14" y1="1.99" x2="57.42" y2="21.85" style="fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:4.268180286289336px"/></svg>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center mb-16">
+                            <pre class="language-html">
+                                <code>
+                                    &lt;a id=&quot;email-0&quot; class=&quot;mailtoui&quot; href=&quot;mailto:mario@teclaworks.com&quot;&gt;Try it now&lt;/a&gt;
+                                </code>
+                            </pre>
+                        </div>
                         
                         <div class="sm:flex sm:justify-center">
                             <a id="button-learn-more" class="mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal bg-teal text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="#learn-more">Learn more</a>
-
-                            <a class="mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal text-teal hover:text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="https://github.com/mariordev/mailtoui">GitHub</a>
                         </div>
-                    </div>
-                    <div class="w-full invisible hidden md:w-1/2 md:visible md:block">
-                        <img style="max-height: 500px;" class="invisible md:visible" src="assets/img/mailtoui.png" alt="MailtoUI modal">
                     </div>
                 </div>
             </div>
@@ -48,13 +64,13 @@
             <section id="introduction" class="mb-24">
                 <h1 class="mb-6 leading-tight">What is MailtoUI?</h1>
 
-                <p>MailtoUI is a JavaScript library that enhances your mailto links with a convenient user interface. It gives your users the flexibility to compose a new message using a browser-based email client <strong><i>or</i></strong> their default local email app. MailtoUI is written in vanilla JavaScript, so it's nice and lean with no dependencies to worry about. It works across virtually all devices and modern browsers for desktop and mobile.</p>
+                <p>MailtoUI is an <a href="https://github.com/mariordev/mailtoui">open source</a> JavaScript library that enhances your mailto links with a convenient user interface. It gives your users the flexibility to compose a new message using a browser-based email client <strong><i>or</i></strong> their default local email app. MailtoUI is written in vanilla JavaScript, so it's nice and lean with no dependencies to worry about. It works across virtually all devices and modern browsers for desktop and mobile.</p>
             </section>
 
             <section id="motivation" class="mb-24">
                 <h1 class="mb-6 leading-tight">Motivation</h1>
                 
-                <p>We've all done it at some point. You visit a site, you want to contact someone. You click on the mailto link, only to open the default local email app, which you (most likely) don't use. You now have to close the email app. Go back to the site, copy the email address, go to your browser-based email client, compose a new email, and finally paste in the email address... There's got to be a better way!</p>
+                <p>We've all done it at some point. You visit a site, you want to contact someone. You click on the mailto link, only to open the default local email app, which you (most likely) don't use. You then have to close the email app. Go back to the site, copy the email address, go to your browser-based email client, compose a new email, and finally paste in the email address... There's got to be a better way!</p>
 
                 <div class="w-full md:w-1/2 mx-auto mb-10">
                     <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">What type of email client do you use primarily?</p>&mdash; Mario Rodriguez (@mariordev) <a href="https://twitter.com/mariordev/status/1072756167577751552?ref_src=twsrc%5Etfw">December 12, 2018</a></blockquote>
@@ -62,10 +78,10 @@
                 
                 <p>I think it's safe to say that most people use a browser-based email client. So why keep using rigid mailto links that always open the default local email app? Mailto links should be more flexible to accommodate both types of users. That's what MailtoUI helps you achieve.</p>
 
-                <p>MailtoUI is ideal for your static sites or any other site where you don't want to spend time setting up a "Contact Us" form solution. Simply drop the MailtoUI script into any page where you want to use it, enable your links, and your users will have a better, more flexible experience interacting with the mailto links on your site.</p>
+                <p>MailtoUI is ideal for static sites or any other site where you don't want to spend time setting up a "Contact Us" form solution. Simply drop the MailtoUI script into any page where you want to use it, enable your links, and your users will have a better, more flexible experience interacting with the mailto links on your site.</p>
             </section>
 
-            <section id="how-it-works" class="mb-24">
+            <!-- <section id="how-it-works" class="mb-24">
                 <h1 class="mb-6 leading-tight">How does it work?</h1>
 
                 <p>When a user clicks on a mailto link, they are presented with the option to compose a new email message with Gmail, Outlook, Yahoo, their default local email app, or simply copy the email address. If they select Gmail, for example, it opens a blank new email message in their Gmail account. The message is pre-filled with the "to" field and any other fields used with mailto, such as subject, cc, bcc, and body.</p>
@@ -81,7 +97,7 @@
                         &lt;a id=&quot;email-0&quot; class=&quot;mailtoui&quot; href=&quot;mailto:mario@teclaworks.com?subject=Hello!&quot;&gt;Say hello!&lt;/a&gt;
                     </code>
                 </pre>
-            </section>
+            </section> -->
 
             <section id="setup" class="mb-24">
                 <h1 class="mb-6">Setup</h1>
@@ -395,24 +411,25 @@
         <div class="bg-grey-lighter text-center text-base h-auto px-4 py-8 md:px-10 md:py-16">
             <div class="mb-16 mx-auto flex flex-wrap justify-center text-grey-darker">
                 <a class="block flex items-center text-grey-darker no-underline hover:text-blue hover:underline mr-3 md:mr-5" href="https://twitter.com/mariordev">
-                    <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6.29 18.25c7.55 0 11.67-6.25 11.67-11.67v-.53c.8-.59 1.49-1.3 2.04-2.13-.75.33-1.54.55-2.36.65a4.12 4.12 0 0 0 1.8-2.27c-.8.48-1.68.81-2.6 1a4.1 4.1 0 0 0-7 3.74 11.65 11.65 0 0 1-8.45-4.3 4.1 4.1 0 0 0 1.27 5.49C2.01 8.2 1.37 8.03.8 7.7v.05a4.1 4.1 0 0 0 3.3 4.03 4.1 4.1 0 0 1-1.86.07 4.1 4.1 0 0 0 3.83 2.85A8.23 8.23 0 0 1 0 16.4a11.62 11.62 0 0 0 6.29 1.84"></path></svg>
-                    <span class="ml-2">Twitter</span>
+                    <svg aria-hidden="true" data-prefix="fab" data-icon="twitter" class="fill-current w-6 h-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
                 </a>
                 
-                <a class="block flex items-center text-grey-darker no-underline hover:text-blue hover:underline mx-3 md:mx-5" href="https://github.com/mariordev/mailtoui">
-                    <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 0a10 10 0 0 0-3.16 19.49c.5.1.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69a3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.4.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .26.18.58.69.48A10 10 0 0 0 10 0"></path></svg>
-                    <span class="ml-2">GitHub</span>
+                <a class="block flex items-center text-grey-darker no-underline hover:text-black hover:underline mx-3 md:mx-5" href="https://github.com/mariordev/mailtoui">
+                    <svg aria-hidden="true" data-prefix="fab" data-icon="github" class="fill-current w-6 h-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
                 </a>
 
-                <a id="email-7" class="mailtoui block flex items-center text-grey-darker no-underline hover:text-blue hover:underline ml-3 md:ml-5" href="mailto:mario@teclaworks.com?subject=MailtoUI">
-                    <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23,2H1C0.4,2,0,2.4,0,3v18c0,0.6,0.4,1,1,1h22c0.6,0,1-0.4,1-1V3C24,2.4,23.6,2,23,2z M20.7,6.8l-8,7 C12.5,13.9,12.2,14,12,14s-0.5-0.1-0.7-0.2l-8-7c-0.4-0.4-0.5-1-0.1-1.4c0.4-0.4,1-0.5,1.4-0.1l7.3,6.4l7.3-6.4 c0.4-0.4,1-0.3,1.4,0.1C21.1,5.8,21.1,6.4,20.7,6.8z"/></path></svg>
-                    <span class="ml-2">Email</span>
+                <a class="block flex items-center text-grey-darker no-underline hover:text-red hover:underline mx-3 md:mx-5" href="https://www.npmjs.com/package/mailtoui">
+                    <svg aria-hidden="true" data-prefix="fab" data-icon="npm" class="fill-current w-10 h-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"></path></svg>
+                </a>
+
+                <a id="email-7" class="mailtoui block flex items-center text-grey-darker no-underline hover:text-teal hover:underline ml-3 md:ml-5" href="mailto:mario@teclaworks.com?subject=MailtoUI">
+                    <svg aria-hidden="true" data-prefix="fas" data-icon="envelope" class="fill-current w-6 h-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg>
                 </a>
             </div>
 
             <h4 class="text-grey-dark mb-12">A PROJECT BY</h4>
 
-            <div class="flex justify-center text-grey-darkest">
+            <div class="flex justify-center text-grey-darkest mb-16">
                 <div class="flex items-center">
                     <a class="block mb-2 text-grey-darkest no-underline hover:underline" href="https://twitter.com/mariordev">
                         <img class="rounded-full h-24 w-24" src="assets/img/mr.jpg" alt="Mario Rodriguez">
@@ -423,6 +440,8 @@
                     </div>
                 </div>
             </div>
+
+            <p class="text-sm text-grey-dark">Unmodified icons by <a class="text-grey-dark font-normal" href="https://fontawesome.com/license">Font Awesome</a></p>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/mailtoui@latest/dist/mailtoui-min.js"></script>
