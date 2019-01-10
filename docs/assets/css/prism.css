@@ -11,6 +11,7 @@ pre[class*="language-"] {
 	color: #ccc;
 	background: none;
 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 16px;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
@@ -26,7 +27,6 @@ pre[class*="language-"] {
 	-moz-hyphens: none;
 	-ms-hyphens: none;
 	hyphens: none;
-
 }
 
 /* Code blocks */
@@ -154,19 +154,18 @@ pre[class*="language-"].line-numbers > code {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-
 }
 
-	.line-numbers-rows > span {
-		pointer-events: none;
-		display: block;
-		counter-increment: linenumber;
-	}
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
 
-		.line-numbers-rows > span:before {
-			content: counter(linenumber);
-			color: #999;
-			display: block;
-			padding-right: 0.8em;
-			text-align: right;
-		}
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
