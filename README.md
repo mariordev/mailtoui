@@ -6,6 +6,13 @@
 
 <p align="center">A simple way to enhance your mailto links with a convenient user interface.</p>
 
+<p align="center">
+	<a href="https://github.com/mariordev/mailtoui/releases"><img src="https://img.shields.io/npm/v/mailtoui.svg" alt="Latest release"></a>
+	<a href="https://www.npmjs.com/package/mailtoui"><img src="https://img.shields.io/npm/dt/mailtoui.svg" alt="Total downloads"></a>
+	<a href="https://github.com/mariordev/mailtoui/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mariordev/mailtoui.svg" alt="License"></a>
+	<a href="https://twitter.com/intent/tweet?text=Check%20this%20out!%20&url=https%3A%2F%2Fmailtoui.com"><img src="https://img.shields.io/twitter/url/https/mailtoui.com.svg?style=social" alt="Share on Twitter"></a>
+</p>
+
 ## Introduction
 
 MailtoUI is a JavaScript library that enhances your mailto links with a convenient user interface. It gives your users the flexibility to compose a new message using a browser-based email client <strong><i>or</i></strong> their default local email app.
