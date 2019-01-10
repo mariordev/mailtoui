@@ -1,20 +1,30 @@
 {
     "name": "mailtoui",
-    "description": "A convenient drop-in user interface for mailto links.",
-    "version": "0.1.12",
+    "description": "A simple way to enhance your mailto links with a convenient user interface.",
+    "version": "0.1.13",
     "homepage": "https://mailtoui.com",
     "author": {
         "name": "Mario Rodriguez",
         "url": "https://twitter.com/mariordev"
     },
-    "keywords": ["mailtoui", "mailto", "ui", "mail", "email", "interface", "user interface"],
+    "keywords": [
+        "mailtoui",
+        "mailto",
+        "ui",
+        "mail",
+        "email",
+        "interface",
+        "user interface"
+    ],
     "license": "MIT",
     "repository": "https://github.com/mariordev/mailtoui.git",
     "bugs": "https://github.com/mariordev/mailtoui/issues",
     "devDependencies": {
+        "acorn": "^6.0.5",
         "eslint": "^5.10.0",
         "eslint-config-prettier": "^3.3.0",
         "eslint-plugin-prettier": "^3.0.0",
+        "fs-extra": "^7.0.1",
         "gulp": "^4.0.0",
         "gulp-autoprefixer": "^6.0.0",
         "gulp-browserify": "^0.5.1",
@@ -22,6 +32,7 @@
         "gulp-eslint": "^5.0.0",
         "gulp-exec": "^3.0.2",
         "gulp-header": "^2.0.7",
+        "gulp-htmlmin": "^5.0.1",
         "gulp-minify": "^3.1.0",
         "gulp-rename": "^1.4.0",
         "gulp-util": "^3.0.8",
