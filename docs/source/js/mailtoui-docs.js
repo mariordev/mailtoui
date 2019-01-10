@@ -1,12 +1,4 @@
 /**
- * Run when DOM is ready.
- */
-domReady(function() {
-    embedVersion();
-    setDarkTheme();
-});
-
-/**
  * Set dark theme CSS class to show the custom styling example.
  */
 function setDarkTheme() {
@@ -45,3 +37,11 @@ function domReady(fn) {
         fn();
     }
 }
+
+/**
+ * Run when DOM is ready.
+ */
+domReady(function() {
+    embedVersion();
+    setDarkTheme();
+});
