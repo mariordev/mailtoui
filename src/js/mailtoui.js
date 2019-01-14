@@ -17,9 +17,9 @@ var mailtouiApp = mailtouiApp || {};
 
 (function(app) {
     /**
-     * Keep track of the modal currently open.
+     * The active MailtoUI modal.
      */
-    var activeModal = null;
+    var modal = null;
 
     /**
      * List of focusable elements within modal.
@@ -33,7 +33,7 @@ var mailtouiApp = mailtouiApp || {};
     var lastDocElementFocused = null;
 
     /**
-     * User options set via data-options attribute on script tag.
+     * User options to change MailtoUI's behavior.
      */
     var options = new Object();
 
@@ -58,6 +58,7 @@ var mailtouiApp = mailtouiApp || {};
 
         css = css.replace(/mailtoui/g, app.prefix());
 
+        styleTag.id = app.prefix('-styles');
         styleTag.type = 'text/css';
 
         if (styleTag.styleSheet) {
@@ -74,36 +75,44 @@ var mailtouiApp = mailtouiApp || {};
      * Embed style tag on the page.
      */
     app.embedStyleTag = function() {
+        if (app.styleTagExists()) {
+            return;
+        }
+
         var firstHeadChild = window.document.head.firstChild;
 
         window.document.head.insertBefore(app.buildStyleTag(), firstHeadChild);
     };
 
     /**
-     * Build a modal for the email address passed in the given link object.
+     * Check if style tag has already been embedded on the page.
      *
-     * @param {Element} link    The link that was clicked.
+     * @return {boolean} True if style tag is already embedded.
+     */
+    app.styleTagExists = function() {
+        if (window.document.getElementById(app.prefix('-styles'))) {
+            return true;
+        }
+
+        return false;
+    };
+
+    /**
+     * Build the modal markup.
      *
      * @return {string} The modal markup.
      */
-    app.buildModal = function(link) {
-        var id = link.id;
-        var email = app.getEmail(link);
-        var subject = app.getLinkSchemeField(link, 'subject');
-        var cc = app.getLinkSchemeField(link, 'cc');
-        var bcc = app.getLinkSchemeField(link, 'bcc');
-        var body = app.getLinkSchemeField(link, 'body');
+    app.buildModal = function() {
         var modal = window.document.createElement('div');
-        var classHideCopyUI = app.hideCopyUI(email);
         var worldSVG =
             '<svg viewBox="0 0 24 24" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M5.704,2.979 c0.694,0.513,1.257,1.164,1.767,2.02C7.917,5.746,8.908,7.826,8,9c-1.027,1.328-4,1.776-4,3c0,0.921,1.304,1.972,2,3 c1.047,1.546,0.571,3.044,0,4c-0.296,0.496-0.769,0.92-1.293,1.234" stroke-linecap="butt"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M20.668,5.227 C18.509,6.262,15.542,6.961,15,7c-1.045,0.075-1.2-0.784-2-2c-0.6-0.912-2-2.053-2-3c0-0.371,0.036-0.672,0.131-0.966" stroke-linecap="butt"/> <circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="12" cy="12" r="11"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M19.014,12.903 C19.056,15.987,15.042,19.833,13,19c-1.79-0.73-0.527-2.138-0.986-6.097c-0.191-1.646,1.567-3,3.5-3S18.992,11.247,19.014,12.903z" stroke-linecap="butt"/></g></svg>';
         var uiSVG =
             '<svg viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><line data-color="color-2" fill="none" stroke-miterlimit="10" x1="5" y1="6" x2="6" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="10" y1="6" x2="11" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="15" y1="6" x2="19" y2="6"/> <line fill="none" stroke="currentColor" stroke-miterlimit="10" x1="1" y1="10" x2="23" y2="10"/> <rect x="1" y="2" fill="none" stroke="currentColor" stroke-miterlimit="10" width="22" height="20"/></g></svg>';
-        var markup = `<div class="mailtoui-modal-content"><div class="mailtoui-modal-head"><span id="mailtoui-modal-close-${id}" class="mailtoui-modal-close">&times</span> <span class="mailtoui-modal-title">Compose new email with</span></div><div class="mailtoui-modal-body"><div class="mailtoui-clients"><a id="mailtoui-client-${id}" class="mailtoui-client" href="https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&cc=${cc}&bcc=${bcc}&body=${body}" target="_blank"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Gmail in browser</span></div></a><a id="mailtoui-client-${id}" class="mailtoui-client" href="https://outlook.office.com/owa/?path=/mail/action/compose&to=${email}&subject=${subject}&body=${body}" target="_blank"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Outlook in browser</span></div></a><a id="mailtoui-client-${id}" class="mailtoui-client" href="https://compose.mail.yahoo.com/?to=${email}&subject=${subject}&cc=${cc}&bcc=${bcc}&body=${body}" target="_blank"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Yahoo in browser</span></div></a><a id="mailtoui-client-${id}" class="mailtoui-client" href="mailto:${email}?subject=${subject}&cc=${cc}&bcc=${bcc}&body=${body}"><div class="mailtoui-label"><span class="mailtoui-label-icon">${uiSVG}</span> <span class="mailtoui-label-text">Default email app</span></div></a></div><div class="mailtoui-copy ${classHideCopyUI}"><div id="mailtoui-copy-email-address-${id}" class="mailtoui-copy-email-address">${email}</div><button id="mailtoui-copy-button-${id}" class="mailtoui-copy-button" data-copytargetid="mailtoui-copy-email-address-${id}">Copy</button></div></div></div>`;
+        var markup = `<div class="mailtoui-modal-content"><div class="mailtoui-modal-head"><span id="mailtoui-modal-close" class="mailtoui-modal-close">&times</span> <span class="mailtoui-modal-title">Compose new email with</span></div><div class="mailtoui-modal-body"><div class="mailtoui-clients"><a id="mailtoui-client-gmail" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Gmail in browser</span></div></a><a id="mailtoui-client-outlook" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Outlook in browser</span></div></a><a id="mailtoui-client-yahoo" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Yahoo in browser</span></div></a><a id="mailtoui-client-default" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${uiSVG}</span> <span class="mailtoui-label-text">Default email app</span></div></a></div><div id="mailtoui-copy" class="mailtoui-copy"><div id="mailtoui-copy-email-address" class="mailtoui-copy-email-address"></div><button id="mailtoui-copy-button" class="mailtoui-copy-button" data-copytargetid="mailtoui-copy-email-address">Copy</button></div></div></div>`;
 
         markup = markup.replace(/mailtoui/g, app.prefix());
 
-        modal.id = app.prefix('-modal-' + id);
+        modal.id = app.prefix('-modal');
         modal.className = app.prefix('-modal');
         modal.setAttribute('style', 'display: none;');
         modal.setAttribute('aria-hidden', true);
@@ -117,44 +126,71 @@ var mailtouiApp = mailtouiApp || {};
      *
      * @param {Element}  link    The link that was clicked.
      */
-    app.embedModal = function(link) {
-        var modal = app.buildModal(link);
-
-        window.document.getElementById(app.prefix('-modals')).appendChild(modal);
-    };
-
-    /**
-     * Embed each required modal on the page.
-     *
-     * @param {HTMLCollection}  The links found by getLinks().
-     */
-    app.embedAllModals = function() {
-        var links = app.getLinks();
-        var modals = window.document.createElement('div');
-        var firstBodyChild = window.document.body.firstChild;
-
-        modals.id = app.prefix('-modals');
-        modals.className = app.prefix('-modals');
-        modals.innerHTML = '';
-
-        window.document.body.insertBefore(modals, firstBodyChild);
-
-        for (var i = 0; i < links.length; i++) {
-            app.embedModal(links[i]);
+    app.embedModal = function() {
+        if (app.modalExists()) {
+            return;
         }
+
+        var modal = app.buildModal();
+
+        var firstBodyChild = window.document.body.firstChild;
+        window.document.body.insertBefore(modal, firstBodyChild);
     };
 
     /**
-     * Get modal associated with the given link.
+     * Check if modal markup has already been embedded on page.
+     *
+     * @return {boolean} True if modal markup ia already embedded.
+     */
+    app.modalExists = function() {
+        if (window.document.getElementById(app.prefix('-modal'))) {
+            return true;
+        }
+
+        return false;
+    };
+
+    /**
+     * Get modal populated with data from the given link.
      *
      * @param {Element} link    The link that was clicked.
      *
      * @return {Element} The modal associated with the given link.
      */
     app.getModal = function(link) {
-        if (link !== null) {
-            return window.document.getElementById(app.prefix('-modal-' + link.id));
-        }
+        app.hydrateModal(link);
+
+        return window.document.getElementById(app.prefix('-modal'));
+    };
+
+    /**
+     * Populate current modal with data from the link that was clicked.
+     *
+     * @param  {Element} link   The link that was clicked.
+     */
+    app.hydrateModal = function(link) {
+        var email = app.getEmail(link);
+        var subject = app.getLinkField(link, 'subject');
+        var cc = app.getLinkField(link, 'cc');
+        var bcc = app.getLinkField(link, 'bcc');
+        var body = app.getLinkField(link, 'body');
+
+        var gmail = window.document.getElementById(app.prefix('-client-gmail'));
+        gmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + email + '&su=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
+
+        var outlook = window.document.getElementById(app.prefix('-client-outlook'));
+        outlook.href = 'https://outlook.office.com/owa/?path=/mail/action/compose&to=' + email + '&subject=' + subject + '&body=' + body;
+
+        var yahoo = window.document.getElementById(app.prefix('-client-yahoo'));
+        yahoo.href = 'https://compose.mail.yahoo.com/?to=' + email + '&subject=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
+
+        var defaultApp = window.document.getElementById(app.prefix('-client-default'));
+        defaultApp.href = 'mailto:' + email + '?subject=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
+
+        var emailField = window.document.getElementById(app.prefix('-copy-email-address'));
+        emailField.innerHTML = email;
+
+        app.toggleHideCopyUI(email);
     };
 
     /**
@@ -167,41 +203,54 @@ var mailtouiApp = mailtouiApp || {};
 
         var link = app.getParentAnchor(event.target);
 
-        if (link !== null) {
-            lastDocElementFocused = document.activeElement;
-            activeModal = app.getModal(link);
-            activeModal.style.display = 'block';
-            activeModal.focusableChildren = Array.from(activeModal.querySelectorAll(focusable));
-            activeModal.focusableChildren[0].focus();
+        lastDocElementFocused = document.activeElement;
+        modal = app.getModal(link);
+        modal.style.display = 'block';
+        modal.focusableChildren = Array.from(modal.querySelectorAll(focusable));
+        modal.focusableChildren[0].focus();
 
-            app.hideModalFromScreenReader(false);
-        }
+        app.hideModalFromScreenReader(false);
     };
 
     /**
-     * Close active modal.
+     * Close current modal.
      */
-    app.closeModal = function() {
-        if (activeModal !== null) {
-            app.hideModalFromScreenReader(true);
+    app.closeModal = function(event) {
+        event.preventDefault();
 
-            activeModal.style.display = 'none';
-            activeModal = null;
+        if (modal == null) {
+            return;
         }
 
-        if (lastDocElementFocused !== null) {
-            lastDocElementFocused.focus();
-        }
+        var event = new Event('onclose');
+        modal.dispatchEvent(event);
+
+        app.hideModal();
+        app.docRefocus();
+    };
+
+    /**
+     * Hide current modal.
+     */
+    app.hideModal = function() {
+        app.hideModalFromScreenReader(true);
+
+        modal.style.display = 'none';
+        modal = null;
+    };
+
+    /**
+     * Set focus back on the last element focused on the page.
+     */
+    app.docRefocus = function() {
+        lastDocElementFocused.focus();
     };
 
     /**
      * Set aria attributes to hide modal from screen readers.
      */
     app.hideModalFromScreenReader = function(hidden) {
-        var content = window.document.getElementById(app.prefix('-modals')).nextElementSibling;
-
-        activeModal.setAttribute('aria-hidden', hidden);
-        content.setAttribute('aria-hidden', !hidden);
+        modal.setAttribute('aria-hidden', hidden);
     };
 
     /**
@@ -227,19 +276,19 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for events.
      */
-    app.listenForEvents = function() {
-        app.listenForClickOnLink();
-        app.listenForClickOnClient();
-        app.listenForClickOnCopy();
-        app.listenForClickOnClose();
-        app.listenForClickOnWindow();
-        app.listenForKeys();
+    app.watchEvents = function() {
+        app.watchClickOnLink();
+        app.watchClickOnClient();
+        app.watchClickOnCopy();
+        app.watchClickOnClose();
+        app.watchClickOnWindow();
+        app.watchKeys();
     };
 
     /**
      * Listen for click event on mailto link to open modal.
      */
-    app.listenForClickOnLink = function() {
+    app.watchClickOnLink = function() {
         var links = window.document.getElementsByClassName(app.prefix());
 
         for (var i = 0; i < links.length; i++) {
@@ -256,19 +305,29 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on client links to auto-close modal.
      */
-    app.listenForClickOnClient = function() {
-        if (options.autoClose !== true) {
-            return;
-        }
-
+    app.watchClickOnClient = function() {
         var clients = window.document.getElementsByClassName(app.prefix('-client'));
 
         for (var i = 0; i < clients.length; i++) {
             clients[i].addEventListener(
                 'click',
                 function(event) {
-                    if (app.getParentAnchor(event.target) !== null) {
-                        app.closeModal();
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    var client = app.getParentAnchor(event.target);
+                    var target = '_blank';
+
+                    if (client !== null) {
+                        if (client.id == 'mailtoui-client-default') {
+                            target = '_self';
+                        }
+
+                        window.open(client.href, target);
+
+                        if (options.autoClose) {
+                            app.closeModal(event);
+                        }
                     }
                 },
                 false
@@ -279,7 +338,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on modal's copy button.
      */
-    app.listenForClickOnCopy = function() {
+    app.watchClickOnCopy = function() {
         var copiers = window.document.getElementsByClassName(app.prefix('-copy-button'));
 
         for (var i = 0; i < copiers.length; i++) {
@@ -296,14 +355,14 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on modal's close button.
      */
-    app.listenForClickOnClose = function() {
+    app.watchClickOnClose = function() {
         var closers = window.document.getElementsByClassName(app.prefix('-modal-close'));
 
         for (var i = 0; i < closers.length; i++) {
             closers[i].addEventListener(
                 'click',
                 function(event) {
-                    app.closeModal();
+                    app.closeModal(event);
                 },
                 false
             );
@@ -313,13 +372,14 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on window (to close modal).
      */
-    app.listenForClickOnWindow = function() {
+    app.watchClickOnWindow = function() {
         window.addEventListener(
             'click',
             function(event) {
                 var element = event.target;
+
                 if (element !== null && element.classList.contains(app.prefix('-modal'))) {
-                    app.closeModal();
+                    app.closeModal(event);
                 }
             },
             false
@@ -329,7 +389,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for keydown events to escape modal or tab within it.
      */
-    app.listenForKeys = function() {
+    app.watchKeys = function() {
         window.document.addEventListener(
             'keydown',
             function(event) {
@@ -347,7 +407,7 @@ var mailtouiApp = mailtouiApp || {};
      */
     app.escapeModal = function(event) {
         if (event.keyCode === 27) {
-            app.closeModal();
+            app.closeModal(event);
         }
     };
 
@@ -358,20 +418,20 @@ var mailtouiApp = mailtouiApp || {};
      * @param KeyboardEvent The event generated by pressing a key.
      */
     app.trapTabWithinModal = function(event) {
-        if (event.keyCode === 9 && activeModal !== null) {
+        if (event.keyCode === 9 && modal !== null) {
             var currentFocus = document.activeElement;
-            var totalOfFocusable = activeModal.focusableChildren.length;
-            var focusedIndex = activeModal.focusableChildren.indexOf(currentFocus);
+            var totalFocusable = modal.focusableChildren.length;
+            var focusedIndex = modal.focusableChildren.indexOf(currentFocus);
 
             if (event.shiftKey) {
                 if (focusedIndex === 0) {
                     event.preventDefault();
-                    activeModal.focusableChildren[totalOfFocusable - 1].focus();
+                    modal.focusableChildren[totalFocusable - 1].focus();
                 }
             } else {
-                if (focusedIndex == totalOfFocusable - 1) {
+                if (focusedIndex == totalFocusable - 1) {
                     event.preventDefault();
-                    activeModal.focusableChildren[0].focus();
+                    modal.focusableChildren[0].focus();
                 }
             }
         }
@@ -394,7 +454,7 @@ var mailtouiApp = mailtouiApp || {};
      *
      * @return {array} The two parts of the link scheme separated at '?'.
      */
-    app.splitLinkScheme = function(link) {
+    app.splitLink = function(link) {
         var scheme = link.href.replace('mailto:', '').trim();
         var parts = scheme.split('?', 1);
 
@@ -413,8 +473,8 @@ var mailtouiApp = mailtouiApp || {};
      *
      * @return {string} The value corresponding to the given field.
      */
-    app.getLinkSchemeField = function(link, field) {
-        var parts = app.splitLinkScheme(link);
+    app.getLinkField = function(link, field) {
+        var parts = app.splitLink(link);
         var query = '';
         var terms = [];
         var keyValues = [];
@@ -455,7 +515,7 @@ var mailtouiApp = mailtouiApp || {};
      * @return {string} The email address.
      */
     app.getEmail = function(link) {
-        var parts = app.splitLinkScheme(link);
+        var parts = app.splitLink(link);
         var email = '';
 
         if (parts !== null && parts.length > 0) {
@@ -466,18 +526,27 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * If there's no email address, no need to show the Copy email address UI.
-     *
-     * @param   {string}    email   The email address in the mailto link.
+     * Build and return the class name used to hide Copy UI.
      *
      * @return {string} The CSS class name needed to hide the Copy UI.
      */
-    app.hideCopyUI = function(email) {
-        if (email == null || email.trim() == '') {
-            return app.prefix('-is-hidden');
-        }
+    app.getClassHideCopyUI = function() {
+        return app.prefix('-is-hidden');
+    };
 
-        return '';
+    /**
+     * Show or hide Copy UI based on email address presence.
+     *
+     * @param {string} email    The email address to be checked.
+     */
+    app.toggleHideCopyUI = function(email) {
+        var copyUi = window.document.getElementById(app.prefix('-copy'));
+
+        if (email.length == 0) {
+            copyUi.classList.add(app.getClassHideCopyUI());
+        } else {
+            copyUi.classList.remove(app.getClassHideCopyUI());
+        }
     };
 
     /**
@@ -519,7 +588,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Check if device is running iOS.
      *
-     * @return {boolean}    True if device runs iOS.
+     * @return {boolean} True if device runs iOS.
      */
     app.isiOSDevice = function() {
         return navigator.userAgent.match(/ipad|iphone/i);
@@ -562,11 +631,11 @@ var mailtouiApp = mailtouiApp || {};
     app.run = function() {
         app.setOptions();
 
-        app.embedAllModals();
+        app.embedModal();
 
         app.embedStyleTag();
 
-        app.listenForEvents();
+        app.watchEvents();
     };
 })(mailtouiApp);
 

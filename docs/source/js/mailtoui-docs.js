@@ -7,8 +7,17 @@ function setDarkTheme() {
     darkThemeLink.addEventListener(
         'click',
         function(event) {
-            var darkThemeModal = window.document.getElementById('mailtoui-modal-email-dark');
+            var darkThemeModal = window.document.getElementById('mailtoui-modal');
+
             darkThemeModal.classList.add('dark-theme');
+            
+            darkThemeModal.addEventListener(
+                'onclose',
+                function(event) {
+                    darkThemeModal.classList.remove('dark-theme');
+                },
+                false
+            );
         },
         false
     );

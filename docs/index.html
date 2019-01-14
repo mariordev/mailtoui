@@ -31,13 +31,13 @@
 
                         <p class="text-base text-grey-dark mb-4">
                             v<span id="version"></span> &nbsp; 
-                            <span class="text-sm bg-grey text-white px-1 rounded-sm">12 KB</span>
+                            <span class="text-sm bg-grey text-white px-1 rounded-sm">13 KB</span>
                         </p>
                         
                         <p class="text-2xl text-grey-darkest mb-16">A simple way to enhance your mailto links with a convenient user interface.</p>
                         
                         <div class="sm:flex sm:justify-center">
-                            <a id="email-0" class="mailtoui mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal bg-white text-teal hover:text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="mailto:mario@teclaworks.com">Try it now</a>
+                            <a class="mailtoui mb-4 mx-auto sm:mx-2 max-w-xs rounded-full text-center leading-none no-underline block px-12 py-3 border-2 border-teal bg-white text-teal hover:text-white hover:border-teal-light hover:bg-teal-light hover:bg-teal-light" href="mailto:mario@teclaworks.com">Try it now</a>
                         </div>
 
                         <div class="flex justify-center">
@@ -52,7 +52,7 @@
                         <div class="flex justify-center mb-16">
                             <pre class="language-html">
                                 <code>
-                                    &lt;a id=&quot;email-0&quot; class=&quot;mailtoui&quot; href=&quot;mailto:mario@teclaworks.com&quot;&gt;Try it now&lt;/a&gt;
+                                    &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:mario@teclaworks.com&quot;&gt;Try it now&lt;/a&gt;
                                 </code>
                             </pre>
                         </div>
@@ -188,15 +188,15 @@
                     <section id="usage" class="mb-24">
                         <h1 class="mb-6">Usage</h1>
 
-                        <p>After adding the MailtoUI script to your page, all you need to do is attach the mailto links on the page to MailtoUI. You do that by making sure each mailto link has a <strong>unique ID</strong>, and the class <code>mailtoui</code>.</p>
+                        <p>After adding the MailtoUI script to your page, all you need to do is attach the mailto links on the page to MailtoUI. You do that by making sure each mailto link has the class <code>mailtoui</code>.</p>
 
-                        <p>The ID can be anything you want, as long as it's unique for the page. The default class is <code>mailtoui</code>. In the unlikely event that this class collides with your own CSS code, there's an easy way to change it, which is explained in the <a href="#options">Options</a> section.</p>
+                        <p>The default class is <code>mailtoui</code>. In the unlikely event that this class collides with your own CSS code, there's an easy way to change it, which is explained in the <a href="#options">Options</a> section.</p>
 
                         <pre class="language-html mb-16">
                             <code>
-                                &lt;a id=&quot;email-1&quot; class=&quot;mailtoui&quot; href=&quot;mailto:tony.stark@example.com&quot;&gt;Tony&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:tony.stark@example.com&quot;&gt;Tony&lt;/a&gt;
 
-                                &lt;a id=&quot;email-2&quot; class=&quot;mailtoui&quot; href=&quot;mailto:pepper.potts@example.com&quot;&gt;Pepper&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:pepper.potts@example.com&quot;&gt;Pepper&lt;/a&gt;
                             </code>
                         </pre>
 
@@ -272,7 +272,7 @@
                         <pre class="language-html mb-10">
                             <code>
                                 &lt;body&gt;
-                                    &lt;a id=&quot;email-3&quot; class=&quot;superhero&quot; href=&quot;mailto:thor@example.com&quot;&gt;Thor&lt;/a&gt;
+                                    &lt;a class=&quot;superhero&quot; href=&quot;mailto:thor@example.com&quot;&gt;Thor&lt;/a&gt;
                                     ...
                                     ...
                                     &lt;script src=&quot;mailtoui.js&quot; data-options='{ &quot;linkClass&quot;: "superhero" }'&gt;&lt;/script&gt;
@@ -373,51 +373,51 @@
 
                         <p>Here are a few working examples of mailto links attached to MailtoUI.</p>
 
-                        <p class="mb-4"><a id="email-1" class="mailtoui" href="mailto:user1@example.com?subject=Hi%20there!">With subject</a></p>
+                        <p class="mb-4"><a class="mailtoui" href="mailto:user1@example.com?subject=Hi%20there!">With subject</a></p>
 
                         <pre class="language-html mb-16">
                             <code>
-                                &lt;a id=&quot;email-1&quot; class=&quot;mailtoui&quot; href=&quot;mailto:user1@example.com?subject=Hi%20there!&quot;&gt;With subject&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:user1@example.com?subject=Hi%20there!&quot;&gt;With subject&lt;/a&gt;
                             </code>
                         </pre>
 
-                        <p class="mb-4"><a id="email-2" class="mailtoui" href="mailto:user2@example.com?cc=user3@example.com">With cc</a></p>
+                        <p class="mb-4"><a class="mailtoui" href="mailto:user2@example.com?cc=user3@example.com">With cc</a></p>
 
                         <pre class="language-html mb-16">
                             <code>
-                                &lt;a id=&quot;email-2&quot; class=&quot;mailtoui&quot; href=&quot;mailto:user2@example.com?cc=user3@example.com&quot;&gt;With cc&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:user2@example.com?cc=user3@example.com&quot;&gt;With cc&lt;/a&gt;
                             </code>
                         </pre>
 
-                        <p class="mb-4"><a id="email-3" class="mailtoui" href="mailto:user3@example.com?bcc=user1@example.com,user5@example.com">With multiple bcc</a> <span class="text-grey-dark">- You can do the same with cc.</span></p>
+                        <p class="mb-4"><a class="mailtoui" href="mailto:user3@example.com?bcc=user1@example.com,user5@example.com">With multiple bcc</a> <span class="text-grey-dark">- You can do the same with cc.</span></p>
 
                         <pre class="language-html mb-16">
                             <code>
-                                &lt;a id=&quot;email-3&quot; class=&quot;mailtoui&quot; href=&quot;mailto:user3@example.com?bcc=user1@example.com,user5@example.com&quot;&gt;With multiple bcc&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:user3@example.com?bcc=user1@example.com,user5@example.com&quot;&gt;With multiple bcc&lt;/a&gt;
                             </code>
                         </pre>
 
-                        <p class="mb-4"><a id="email-4" class="mailtoui" href="mailto:user4@example.com?body=Hope%20you're%20doing%20well.">With body</a></p>
+                        <p class="mb-4"><a class="mailtoui" href="mailto:user4@example.com?body=Hope%20you're%20doing%20well.">With body</a></p>
 
                         <pre class="language-html mb-16">
                             <code>
-                                &lt;a id=&quot;email-4&quot; class=&quot;mailtoui&quot; href=&quot;mailto:user4@example.com?body=Hope%20you're%20doing%20well.&quot;&gt;With body&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:user4@example.com?body=Hope%20you're%20doing%20well.&quot;&gt;With body&lt;/a&gt;
                             </code>
                         </pre>
 
-                        <p class="mb-4"><a id="email-5" class="mailtoui" href="mailto:user5@example.com,user2@example.com?subject=Winter%20is%20coming&cc=user3@example.com,user4@example.com&bcc=user1@example.com&body=Fear%20cuts%20deeper%20than%20swords.">With all fields</a> <span class="text-grey-dark"></span></p>
+                        <p class="mb-4"><a class="mailtoui" href="mailto:user5@example.com,user2@example.com?subject=Winter%20is%20coming&cc=user3@example.com,user4@example.com&bcc=user1@example.com&body=Fear%20cuts%20deeper%20than%20swords.">With all fields</a> <span class="text-grey-dark"></span></p>
 
                         <pre class="language-html mb-16">
                             <code>
-                                &lt;a id=&quot;email-5&quot; class=&quot;mailtoui&quot; href=&quot;mailto:user5@example.com,user2@example.com?subject=Winter%20is%20coming&amp;cc=user3@example.com,user4@example.com&amp;bcc=user1@example.com&amp;body=Fear%20cuts%20deeper%20than%20swords.&quot;&gt;With all fields&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:user5@example.com,user2@example.com?subject=Winter%20is%20coming&amp;cc=user3@example.com,user4@example.com&amp;bcc=user1@example.com&amp;body=Fear%20cuts%20deeper%20than%20swords.&quot;&gt;With all fields&lt;/a&gt;
                             </code>
                         </pre>
 
-                        <p class="mb-4"><a id="email-6" class="mailtoui" href="mailto:">With no fields</a> <span class="text-grey-dark">- yes, it's a valid mailto link 😉</span></p>
+                        <p class="mb-4"><a class="mailtoui" href="mailto:">With no fields</a> <span class="text-grey-dark">- yes, it's a valid mailto link 😉</span></p>
 
                         <pre class="language-html mb-16">
                             <code>
-                                &lt;a id=&quot;email-6&quot; class=&quot;mailtoui&quot; href=&quot;mailto:&quot;&gt;With no fields&lt;/a&gt;
+                                &lt;a class=&quot;mailtoui&quot; href=&quot;mailto:&quot;&gt;With no fields&lt;/a&gt;
                             </code>
                         </pre>
                     </section>
@@ -439,7 +439,7 @@
                     <svg aria-hidden="true" data-prefix="fab" data-icon="npm" class="fill-current w-10 h-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"></path></svg>
                 </a>
 
-                <a id="email-7" class="mailtoui block flex items-center text-grey-darker no-underline hover:text-teal hover:underline ml-3 md:ml-5" href="mailto:mario@teclaworks.com?subject=MailtoUI">
+                <a class="mailtoui block flex items-center text-grey-darker no-underline hover:text-teal hover:underline ml-3 md:ml-5" href="mailto:mario@teclaworks.com?subject=MailtoUI">
                     <svg aria-hidden="true" data-prefix="fas" data-icon="envelope" class="fill-current w-6 h-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg>
                 </a>
             </div>
@@ -461,7 +461,9 @@
             <p class="text-sm text-grey-dark">Unmodified icons by <a class="text-grey-dark font-normal" href="https://fontawesome.com/license">Font Awesome</a></p>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/mailtoui@0.1.13/dist/mailtoui-min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/mailtoui@0.1.14/dist/mailtoui-min.js"></script> -->
+        <script src="../src/js/mailtoui.js"></script>
+        
         <script src="assets/js/mailtoui-docs-min.js"></script>
         <script src="assets/js/prism.js"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131247697-1"></script>

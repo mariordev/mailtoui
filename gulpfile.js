@@ -110,7 +110,8 @@ function getPackageJSON() {
  */
 function watchFiles() {
     gulp.watch('./package.json', getPackageJSON);
-    gulp.watch('./src/css/mailtoui.css', libStyles);
+    gulp.watch('./src/html/component.html', libMarkup);
+    gulp.watch('./src/css/component.css', libStyles);
     gulp.watch(['./src/js/mailtoui.js', './version.js'], gulp.series(libScriptsLint, libScripts));
     gulp.watch('./docs/source/css/mailtoui-docs.css', docsStyles);
     gulp.watch(['./docs/source/js/mailtoui-docs.js', './version.js'], gulp.series(docsScriptsLint, docsScripts))

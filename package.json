@@ -1,7 +1,7 @@
 {
     "name": "mailtoui",
     "description": "A simple way to enhance your mailto links with a convenient user interface.",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "homepage": "https://mailtoui.com",
     "author": {
         "name": "Mario Rodriguez",
