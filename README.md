@@ -35,7 +35,7 @@ Add MailtoUI via CDN to the bottom of your page, just before the closing `</body
 
 ### STEP 2
 
-Attach your mailto link to MailtoUI by adding a **unique id**, *and* the class `mailtoui` to the `<a>` tag.
+Attach your mailto link to MailtoUI by adding the class `mailtoui` to the `<a>` tag.
 
 ```html
 <a id="email-1" class="mailtoui" href="mailto:tony.stark@example.com">Contact Tony</a>
