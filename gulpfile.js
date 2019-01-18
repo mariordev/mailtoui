@@ -1,15 +1,14 @@
-var gulp = require('gulp');
-var autoprefixer = require('gulp-autoprefixer');
-var minify = require('gulp-minify');
-var cleanCSS = require('gulp-clean-css');
-var rename = require('gulp-rename');
-var header = require('gulp-header');
-var browserify = require('gulp-browserify');
-var eslint = require('gulp-eslint');
-var exec = require('gulp-exec');
+const gulp = require('gulp');
+const autoprefixer = require('gulp-autoprefixer');
+const minify = require('gulp-minify');
+const cleanCss = require('gulp-clean-css');
+const rename = require('gulp-rename');
+const header = require('gulp-header');
+const eslint = require('gulp-eslint');
 const fs = require('fs-extra');
-const htmlmin = require('gulp-htmlmin');
-var packageJSON = null;
+const htmlMin = require('gulp-htmlmin');
+
+var packageJson = null;
 var banner = [
     '/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -24,17 +23,17 @@ var banner = [
 /**
  * Process HTML files.
  */
-function libMarkup() {
+function markup() {
     return gulp.src('./src/html/component.html')
-        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(htmlMin({ collapseWhitespace: true }))
         .pipe(rename('./src/html/component-min.html'))
         .pipe(gulp.dest('./'));
 }
 
 /**
- * Process library CSS files.
+ * Process CSS files.
  */
-function libStyles() {
+function styles() {
     return gulp.src('./src/css/component.css')
         .pipe(
             autoprefixer({
@@ -42,98 +41,62 @@ function libStyles() {
                 cascade: false,
             })
         )
-        .pipe(cleanCSS())
+        .pipe(cleanCss())
         .pipe(rename('./src/css/component-min.css'))
         .pipe(gulp.dest('./'));
 }
 
 /**
- * Lint library JavaScript files.
+ * Lint JavaScript files.
  */
-function libScriptsLint() {
+function lintScripts() {
     return gulp.src('./src/js/mailtoui.js')
         .pipe(eslint())
         .pipe(eslint.format());
 }
 
 /**
- * Process library JavaScript files.
+ * Process JavaScript files.
  */
-function libScripts() {
+function scripts() {
     return gulp.src('./src/js/mailtoui.js')
         .pipe(minify({ noSource: true }))
-        .pipe(header(banner, { pkg: packageJSON }))
+        .pipe(header(banner, { pkg: packageJson }))
         .pipe(gulp.dest('dist'));
 }
 
 /**
- * Process docs CSS files.
+ * Read package.json and update version.js. This is needed
+ * to update the library header info automatically.
  */
-function docsStyles() {
-    return gulp.src('./docs/source/css/mailtoui-docs.css')
-        .pipe(cleanCSS())
-        .pipe(rename('./docs/assets/css/mailtoui-docs-min.css'))
-        .pipe(gulp.dest('./'));
-}
-
-/**
- * Lint docs JavaScript files.
- */
-function docsScriptsLint() {
-    return gulp.src('./docs/source/js/mailtoui-docs.js')
-        .pipe(eslint())
-        .pipe(eslint.format());
-}
-
-/**
- * Process docs JavaScript files.
- */
-function docsScripts() {
-    return gulp.src('./docs/source/js/mailtoui-docs.js')
-        .pipe(minify({ noSource: true }))
-        .pipe(browserify())
-        .pipe(gulp.dest('./docs/assets/js'));
-}
-
-/**
- * Read package.json and update version.js. Both are needed
- * to update the library header and version shown in docs.
- */
-function getPackageJSON() {
-    packageJSON = fs.readJsonSync('./package.json');
-
-    return gulp.src('./package.json').pipe(exec('genversion version.js'));
+function getPackageJson(done) {
+    packageJson = fs.readJsonSync('./package.json');
+    done();
 }
 
 /**
  * The all seeing eye...
  */
 function watchFiles() {
-    gulp.watch('./package.json', getPackageJSON);
-    gulp.watch('./src/html/component.html', libMarkup);
-    gulp.watch('./src/css/component.css', libStyles);
-    gulp.watch(['./src/js/mailtoui.js', './version.js'], gulp.series(libScriptsLint, libScripts));
-    gulp.watch('./docs/source/css/mailtoui-docs.css', docsStyles);
-    gulp.watch(['./docs/source/js/mailtoui-docs.js', './version.js'], gulp.series(docsScriptsLint, docsScripts))
+    gulp.watch('./package.json', getPackageJson);
+    gulp.watch('./src/html/component.html', markup);
+    gulp.watch('./src/css/component.css', styles);
+    gulp.watch(['./src/js/mailtoui.js', './package.json'], gulp.series(lintScripts, scripts));
 }
 
 /**
  * Define complex tasks.
  */
-const libJS = gulp.series(libScriptsLint, libScripts);
-const docsJS = gulp.series(docsScriptsLint, docsScripts);
-const build = gulp.series(getPackageJSON, libMarkup, gulp.parallel(libStyles, libScripts), gulp.parallel(docsStyles, docsScripts));
+const js = gulp.series(lintScripts, scripts);
+const build = gulp.series(getPackageJson, gulp.parallel(markup, styles), js);
 const watch = gulp.series(build, watchFiles);
 
 /**
  * Make tasks available to the outside world.
  */
-exports.libHTML = libMarkup;
-exports.libCSS = libStyles;
-exports.libJSLint = libScriptsLint;
-exports.libJS = libJS;
-exports.docsCSS = docsStyles;
-exports.docsJSLint = docsScriptsLint;
-exports.docsJS = docsJS;
+exports.html = markup;
+exports.css = styles;
+exports.lintJs = lintScripts;
+exports.js = js;
 exports.watch = watch;
 exports.default = build;
