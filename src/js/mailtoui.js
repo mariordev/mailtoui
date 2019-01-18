@@ -58,8 +58,8 @@ var mailtouiApp = mailtouiApp || {};
 
         css = css.replace(/mailtoui/g, app.prefix());
 
-        styleTag.id = app.prefix('-styles');
-        styleTag.type = 'text/css';
+        styleTag.setAttribute('id', app.prefix('-styles'));
+        styleTag.setAttribute('type', 'text/css');
 
         if (styleTag.styleSheet) {
             // Required for IE8 and below.
@@ -112,8 +112,8 @@ var mailtouiApp = mailtouiApp || {};
 
         markup = markup.replace(/mailtoui/g, app.prefix());
 
-        modal.id = app.prefix('-modal');
-        modal.className = app.prefix('-modal');
+        modal.setAttribute('id', app.prefix('-modal'));
+        modal.setAttribute('class', app.prefix('-modal'));
         modal.setAttribute('style', 'display: none;');
         modal.setAttribute('aria-hidden', true);
         modal.innerHTML = markup;
@@ -209,11 +209,12 @@ var mailtouiApp = mailtouiApp || {};
         modal.focusableChildren = Array.from(modal.querySelectorAll(focusable));
         modal.focusableChildren[0].focus();
 
+        app.triggerEvent(modal, 'open');
         app.hideModalFromScreenReader(false);
     };
 
     /**
-     * Close current modal.
+     * Close modal.
      */
     app.closeModal = function(event) {
         event.preventDefault();
@@ -221,9 +222,6 @@ var mailtouiApp = mailtouiApp || {};
         if (modal == null) {
             return;
         }
-
-        var event = new Event('onclose');
-        modal.dispatchEvent(event);
 
         app.hideModal();
         app.docRefocus();
@@ -236,6 +234,8 @@ var mailtouiApp = mailtouiApp || {};
         app.hideModalFromScreenReader(true);
 
         modal.style.display = 'none';
+        app.triggerEvent(modal, 'close');
+
         modal = null;
     };
 
@@ -254,11 +254,33 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
+     * Open the given client.
+     *
+     * @param  {Element} client     The client link that was clicked.
+     */
+    app.openClient = function(client) {
+        var target = '_blank';
+
+        if (client !== null) {
+            if (client.id == app.prefix('-client-default')) {
+                target = '_self';
+            }
+
+            window.open(client.href, target);
+            app.triggerEvent(client, 'compose');
+
+            if (options.autoClose) {
+                app.closeModal(event);
+            }
+        }
+    };
+
+    /**
      * When an anchor tag (<a>) contains other elements, the element returned can vary
      * depending on where you click. We need to search up the DOM tree until we find
      * the parent anchor tag, which is the element that was intended to be clicked.
      *
-     * @param   {Element}   element     The element that was clicked.
+     * @param   {Element} element     The element that was clicked.
      *
      * @return {Element} The parent anchor tag of the element that was clicked.
      */
@@ -274,21 +296,33 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
+     * Fire up an event for the given element.
+     *
+     * @param  {Element}    element     Trigger event for this element.
+     * @param  {string}     eventName   The name of the event to be triggered.
+     */
+    app.triggerEvent = function(element, eventName) {
+        var event = new Event(eventName);
+
+        element.dispatchEvent(event);
+    };
+
+    /**
      * Listen for events.
      */
-    app.watchEvents = function() {
-        app.watchClickOnLink();
-        app.watchClickOnClient();
-        app.watchClickOnCopy();
-        app.watchClickOnClose();
-        app.watchClickOnWindow();
-        app.watchKeys();
+    app.listenForEvents = function() {
+        app.listenForClickOnLink();
+        app.listenForClickOnClient();
+        app.listenForClickOnCopy();
+        app.listenForClickOnClose();
+        app.listenForClickOnWindow();
+        app.listenForKeys();
     };
 
     /**
      * Listen for click event on mailto link to open modal.
      */
-    app.watchClickOnLink = function() {
+    app.listenForClickOnLink = function() {
         var links = window.document.getElementsByClassName(app.prefix());
 
         for (var i = 0; i < links.length; i++) {
@@ -305,7 +339,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on client links to auto-close modal.
      */
-    app.watchClickOnClient = function() {
+    app.listenForClickOnClient = function() {
         var clients = window.document.getElementsByClassName(app.prefix('-client'));
 
         for (var i = 0; i < clients.length; i++) {
@@ -316,19 +350,7 @@ var mailtouiApp = mailtouiApp || {};
                     event.stopPropagation();
 
                     var client = app.getParentAnchor(event.target);
-                    var target = '_blank';
-
-                    if (client !== null) {
-                        if (client.id == 'mailtoui-client-default') {
-                            target = '_self';
-                        }
-
-                        window.open(client.href, target);
-
-                        if (options.autoClose) {
-                            app.closeModal(event);
-                        }
-                    }
+                    app.openClient(client);
                 },
                 false
             );
@@ -338,7 +360,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on modal's copy button.
      */
-    app.watchClickOnCopy = function() {
+    app.listenForClickOnCopy = function() {
         var copiers = window.document.getElementsByClassName(app.prefix('-copy-button'));
 
         for (var i = 0; i < copiers.length; i++) {
@@ -355,7 +377,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on modal's close button.
      */
-    app.watchClickOnClose = function() {
+    app.listenForClickOnClose = function() {
         var closers = window.document.getElementsByClassName(app.prefix('-modal-close'));
 
         for (var i = 0; i < closers.length; i++) {
@@ -372,7 +394,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for click event on window (to close modal).
      */
-    app.watchClickOnWindow = function() {
+    app.listenForClickOnWindow = function() {
         window.addEventListener(
             'click',
             function(event) {
@@ -389,7 +411,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Listen for keydown events to escape modal or tab within it.
      */
-    app.watchKeys = function() {
+    app.listenForKeys = function() {
         window.document.addEventListener(
             'keydown',
             function(event) {
@@ -581,6 +603,7 @@ var mailtouiApp = mailtouiApp || {};
         selection.addRange(range);
 
         document.execCommand('copy');
+        app.triggerEvent(email, 'copy');
 
         app.setCopyButtonText(event.target);
     };
@@ -595,15 +618,18 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Get user options provided in JSON format in the data attribute
-     * of the script tag. Save them in the global options object.
+     * Get user options provided as an object parameter in the run
+     * method, or as a JSON string provided in a data attribute
+     * of the script tag. Save all in the options object.
      */
-    app.setOptions = function() {
-        var scripts = document.getElementsByTagName('script');
-        var scriptName = scripts[scripts.length - 1];
-        var userOptions = scriptName.getAttribute('data-options');
+    app.setOptions = function(optionsObj) {
+        if (optionsObj) {
+            var userOptions = JSON.stringify(optionsObj);
+        } else {
+            var userOptions = app.getOptionsFromScriptTag();
+        }
 
-        if (userOptions !== null && userOptions.trim().length > 0) {
+        if (userOptions && userOptions.trim().length > 0) {
             userOptions = JSON.parse(userOptions);
 
             for (var name in options) {
@@ -612,6 +638,18 @@ var mailtouiApp = mailtouiApp || {};
                 }
             }
         }
+    };
+
+    /**
+     * Read options passed in the data-options attribute of the script tag.
+     *
+     * @return {string} Options string provided in JSON format.
+     */
+    app.getOptionsFromScriptTag = function() {
+        var scripts = document.getElementsByTagName('script');
+        var scriptName = scripts[scripts.length - 1];
+
+        return scriptName.getAttribute('data-options');
     };
 
     /**
@@ -628,19 +666,26 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Let's kick things off.
      */
-    app.run = function() {
-        app.setOptions();
+    app.run = function(optionsObj = null) {
+        app.setOptions(optionsObj);
 
         app.embedModal();
 
         app.embedStyleTag();
 
-        app.watchEvents();
+        app.listenForEvents();
     };
 })(mailtouiApp);
 
 /**
- * "Now you wouldn't believe me if I told you, but I could run like the wind
- * blows. From that day on, if I was ever going somewhere, I was running!"
+ * Are we loaded in the browser? If so, run MailtoUI automatically. 
+ * Otherwise, make MailtoUI available to the outside world, so 
+ * the user can trigger MailtoUI.run() manually when needed.
  */
-mailtouiApp.run();
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    // We're not in the browser.
+    module.exports = mailtouiApp;
+} else {
+    // We're in the browser.
+    mailtouiApp.run();
+}
