@@ -17,6 +17,11 @@ var mailtouiApp = mailtouiApp || {};
 
 (function(app) {
     /**
+     * The body element.
+     */
+    var body = window.document.getElementsByTagName('body')[0];
+
+    /**
      * The active MailtoUI modal.
      */
     var modal = null;
@@ -48,13 +53,18 @@ var mailtouiApp = mailtouiApp || {};
     options.autoClose = true;
 
     /**
+     * Keep track of the page's scroll position.
+     */
+    scrollPosition = 0;
+
+    /**
      * Build a style tag with default styling to be embedded on the page.
      *
      * @return {string} The style tag markup.
      */
     app.buildStyleTag = function() {
         var styleTag = window.document.createElement('style');
-        var css = `.mailtoui-modal{background-color:#000;background-color:rgba(0,0,0,.4);bottom:0;color:#303131;display:none;height:100%;left:0;margin:0;padding:0;position:fixed;right:0;top:0;width:100%;z-index:1000}.mailtoui-modal-content{-webkit-animation:appear .4s;animation:appear .4s;background-color:#f1f5f8;border-radius:8px;bottom:auto;-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);left:50%;max-height:calc(100% - 100px);overflow:hidden;padding:0;position:fixed;right:-45%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.mailtoui-modal-content:focus,.mailtoui-modal-content:hover{overflow-y:auto}@media only screen and (min-width :768px){.mailtoui-modal-content{right:auto}}.mailtoui-modal-head{background-color:#fff;clear:both;padding:20px}.mailtoui-modal-title{font-size:100%;font-weight:700;margin:0;padding:0}.mailtoui-modal-close{color:#aaa;float:right;font-size:38px;font-weight:700;position:relative;top:-12px}.mailtoui-modal-close:focus,.mailtoui-modal-close:hover{color:#000;cursor:pointer;text-decoration:none}.mailtoui-modal-body{height:100%;padding:20px}.mailtoui-client{color:#333;outline:0;text-decoration:none}.mailtoui-client:focus .mailtoui-label{background-color:#555;color:#fff}.mailtoui-label{background-color:#fff;border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);margin-bottom:20px;padding:15px 20px}.mailtoui-label:hover{background-color:#555;color:#fff}.mailtoui-client:last-child .mailtoui-label{margin-bottom:0}.mailtoui-label-icon{font-weight:700;position:relative;top:4px}.mailtoui-label-text{margin-left:5px}.mailtoui-copy{border-radius:8px;margin-top:20px;position:relative;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);height:59px}.mailtoui-copy-button{background-color:#fff;border:none;border-top-right-radius:8px;border-bottom-right-radius:8px;bottom:21px;color:#303131;font-size:100%;height:100%;outline:0;position:absolute;right:0;top:0;width:100px}.mailtoui-copy-button:focus,.mailtoui-copy-button:hover{background-color:#555;color:#fff;cursor:pointer;outline:0}.mailtoui-copy-email-address{background-color:#d8dcdf;border-radius:8px;border:none;-webkit-box-sizing:border-box;box-sizing:border-box;color:#48494a;font-size:100%;height:100%;outline:0;overflow:hidden;padding:20px 120px 20px 20px;width:100%}.mailtoui-is-hidden{display:none;visibility:hidden}@-webkit-keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}@keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}`;
+        var css = `.mailtoui-modal{background-color:#000;background-color:rgba(0,0,0,.4);bottom:0;color:#303131;display:none;height:100%;left:0;margin:0;padding:0;position:fixed;right:0;top:0;width:100%;z-index:1000}.mailtoui-modal-content{-webkit-animation:appear .4s;animation:appear .4s;background-color:#f1f5f8;border-radius:8px;bottom:auto;-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);left:50%;max-height:calc(100% - 100px);overflow:scroll;padding:0;position:fixed;right:-45%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.mailtoui-modal-content:focus,.mailtoui-modal-content:hover{overflow-y:auto}@media only screen and (min-width :768px){.mailtoui-modal-content{right:auto}}.mailtoui-modal-head{background-color:#fff;clear:both;padding:20px}.mailtoui-modal-title{font-size:100%;font-weight:700;margin:0;padding:0}.mailtoui-modal-close{color:#aaa;float:right;font-size:38px;font-weight:700;position:relative;top:-12px}.mailtoui-modal-close:focus,.mailtoui-modal-close:hover{color:#000;cursor:pointer;text-decoration:none}.mailtoui-modal-body{height:100%;padding:20px}.mailtoui-client{color:#333;outline:0;text-decoration:none}.mailtoui-client:focus .mailtoui-label{background-color:#555;color:#fff}.mailtoui-label{background-color:#fff;border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);margin-bottom:20px;padding:15px 20px}.mailtoui-label:hover{background-color:#555;color:#fff}.mailtoui-client:last-child .mailtoui-label{margin-bottom:0}.mailtoui-label-icon{font-weight:700;position:relative;top:4px}.mailtoui-label-text{margin-left:5px}.mailtoui-copy{border-radius:8px;margin-top:20px;position:relative;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);height:59px}.mailtoui-copy-button{background-color:#fff;border:none;border-top-right-radius:8px;border-bottom-right-radius:8px;bottom:21px;color:#303131;font-size:100%;height:100%;outline:0;position:absolute;right:0;top:0;width:100px}.mailtoui-copy-button:focus,.mailtoui-copy-button:hover{background-color:#555;color:#fff;cursor:pointer;outline:0}.mailtoui-copy-email-address{background-color:#d8dcdf;border-radius:8px;border:none;-webkit-box-sizing:border-box;box-sizing:border-box;color:#48494a;font-size:100%;height:100%;outline:0;overflow:hidden;padding:20px 120px 20px 20px;width:100%}.mailtoui-no-scroll{overflow:hidden;position:fixed;width:100%}.mailtoui-is-hidden{display:none;visibility:hidden}@-webkit-keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}@keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}`;
 
         css = css.replace(/mailtoui/g, app.prefix());
 
@@ -194,6 +204,34 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
+     * Whem the modal is displayed, the "no-scroll" class sets the body's position to fixed. This has the
+     * side effect of the page getting scrolled to the top. To counter that, we need to save the scroll
+     * position when the modal is displayed, so it can be restored later on when the modal is closed.
+     */
+    app.saveMobilePageScrollPosition = function() {
+        scrollPosition = window.pageYOffset;
+        body.style.top = -scrollPosition + 'px';
+    };
+
+    /**
+     * When the modal is closed, we need to reset the page scroll position. Needed due to
+     * the position:fixed being set by the "no-scroll" class on the body element when
+     * the modal is open. Refer to saveMobilePageScrollPosition() for details.
+     */
+    app.resetMobilePageScrollPosition = function() {
+        window.scrollTo(0, scrollPosition);
+        body.style.top = 0;
+    };
+
+    /**
+     * Save the last doc element to have focus before displaying modal,
+     * so that we can reset focus to it when the modal is closed.
+     */
+    app.saveLastDocElementFocused = function() {
+        lastDocElementFocused = document.activeElement;
+    };
+
+    /**
      * Open modal.
      *
      * @param  {Object} event   The object created by the click event.
@@ -201,16 +239,32 @@ var mailtouiApp = mailtouiApp || {};
     app.openModal = function(event) {
         event.preventDefault();
 
-        var link = app.getParentAnchor(event.target);
+        app.saveLastDocElementFocused();
+        app.saveMobilePageScrollPosition();
 
-        lastDocElementFocused = document.activeElement;
+        app.displayModal(event);
+
+        app.hideModalFromScreenReader(false);
+        app.enablePageScrolling(false);
+        app.modalFocus();
+        app.triggerEvent(modal, 'open');
+    };
+
+    /**
+     * Display modal and carry out other tasks needed when modal is open.
+     */
+    app.displayModal = function(event) {
+        var link = app.getParentAnchor(event.target);
         modal = app.getModal(link);
         modal.style.display = 'block';
+    };
+
+    /**
+     * Set focus on the first focusable element of the modal.
+     */
+    app.modalFocus = function() {
         modal.focusableChildren = Array.from(modal.querySelectorAll(focusable));
         modal.focusableChildren[0].focus();
-
-        app.triggerEvent(modal, 'open');
-        app.hideModalFromScreenReader(false);
     };
 
     /**
@@ -219,12 +273,12 @@ var mailtouiApp = mailtouiApp || {};
     app.closeModal = function(event) {
         event.preventDefault();
 
-        if (modal == null) {
-            return;
-        }
-
         app.hideModal();
+
+        app.enablePageScrolling(true);
+        app.resetMobilePageScrollPosition();
         app.docRefocus();
+        app.triggerEvent(modal, 'close');
     };
 
     /**
@@ -234,9 +288,32 @@ var mailtouiApp = mailtouiApp || {};
         app.hideModalFromScreenReader(true);
 
         modal.style.display = 'none';
-        app.triggerEvent(modal, 'close');
+    };
 
-        modal = null;
+    /**
+     * Set aria attributes to hide modal from screen readers.
+     *
+     * @param {boolean}     hidden  True to hide modal from screen reader. False otherwise.
+     */
+    app.hideModalFromScreenReader = function(hidden) {
+        modal.setAttribute('aria-hidden', hidden);
+    };
+
+    /**
+     * Toggle a css class to enable/disable page scrolling.
+     *
+     * @param  {boolean} enabled    True to enable page scrolling. False to disable it.
+     */
+    app.enablePageScrolling = function(enabled) {
+        var htmlTag = window.document.getElementsByTagName('html')[0];
+
+        if (enabled) {
+            body.classList.remove(app.prefix('-no-scroll'));
+            htmlTag.classList.remove(app.prefix('-no-scroll'));
+        } else {
+            body.classList.add(app.prefix('-no-scroll'));
+            htmlTag.classList.add(app.prefix('-no-scroll'));
+        }
     };
 
     /**
@@ -244,13 +321,6 @@ var mailtouiApp = mailtouiApp || {};
      */
     app.docRefocus = function() {
         lastDocElementFocused.focus();
-    };
-
-    /**
-     * Set aria attributes to hide modal from screen readers.
-     */
-    app.hideModalFromScreenReader = function(hidden) {
-        modal.setAttribute('aria-hidden', hidden);
     };
 
     /**
@@ -678,8 +748,8 @@ var mailtouiApp = mailtouiApp || {};
 })(mailtouiApp);
 
 /**
- * Are we loaded in the browser? If so, run MailtoUI automatically. 
- * Otherwise, make MailtoUI available to the outside world, so 
+ * Are we loaded in the browser? If so, run MailtoUI automatically.
+ * Otherwise, make MailtoUI available to the outside world, so
  * the user can trigger MailtoUI.run() manually when needed.
  */
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {

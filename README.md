@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://mailtoui.com">
-       <img src="https://mariordev.github.io/mailtoui/assets/img/unfurl.jpg" alt="MailtoUI">
+       <img src="https://mailtoui.com/assets/img/heading.jpg" alt="MailtoUI">
     </a>
 </p>
 
