@@ -17,6 +17,11 @@ var mailtouiApp = mailtouiApp || {};
 
 (function(app) {
     /**
+     * The html element.
+     */
+    var html = window.document.getElementsByTagName('html')[0];
+
+    /**
      * The body element.
      */
     var body = window.document.getElementsByTagName('body')[0];
@@ -56,6 +61,11 @@ var mailtouiApp = mailtouiApp || {};
      * Keep track of the page's scroll position.
      */
     scrollPosition = 0;
+
+    /**
+     * Keep track of the page's original scroll behavior.
+     */
+    scrollBehavior = 'auto';
 
     /**
      * Build a style tag with default styling to be embedded on the page.
@@ -218,9 +228,26 @@ var mailtouiApp = mailtouiApp || {};
      * the position:fixed being set by the "no-scroll" class on the body element when
      * the modal is open. Refer to saveMobilePageScrollPosition() for details.
      */
-    app.resetMobilePageScrollPosition = function() {
+    app.restoreMobilePageScrollPosition = function() {
         window.scrollTo(0, scrollPosition);
         body.style.top = 0;
+    };
+
+    /**
+     * Save the page's current scroll behavior AND set it to auto, in case the current
+     * scroll behavior is set to smooth. This prevents smooth scrolling from showing
+     * when scrollPosition is restored via restoreMobilePageScrollPosition().
+     */
+    app.saveScrollBehavior = function() {
+        scrollBehavior = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+    };
+
+    /**
+     * Restore the original page scroll behavior saved by saveScrollBehavior().
+     */
+    app.restoreScrollBehavior = function() {
+        html.style.scrollBehavior = scrollBehavior;
     };
 
     /**
@@ -241,6 +268,7 @@ var mailtouiApp = mailtouiApp || {};
 
         app.saveLastDocElementFocused();
         app.saveMobilePageScrollPosition();
+        app.saveScrollBehavior();
 
         app.displayModal(event);
 
@@ -276,7 +304,8 @@ var mailtouiApp = mailtouiApp || {};
         app.hideModal();
 
         app.enablePageScrolling(true);
-        app.resetMobilePageScrollPosition();
+        app.restoreMobilePageScrollPosition();
+        app.restoreScrollBehavior();
         app.docRefocus();
         app.triggerEvent(modal, 'close');
     };
@@ -305,14 +334,12 @@ var mailtouiApp = mailtouiApp || {};
      * @param  {boolean} enabled    True to enable page scrolling. False to disable it.
      */
     app.enablePageScrolling = function(enabled) {
-        var htmlTag = window.document.getElementsByTagName('html')[0];
-
         if (enabled) {
             body.classList.remove(app.prefix('-no-scroll'));
-            htmlTag.classList.remove(app.prefix('-no-scroll'));
+            html.classList.remove(app.prefix('-no-scroll'));
         } else {
             body.classList.add(app.prefix('-no-scroll'));
-            htmlTag.classList.add(app.prefix('-no-scroll'));
+            html.classList.add(app.prefix('-no-scroll'));
         }
     };
 
