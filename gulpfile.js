@@ -1,4 +1,5 @@
-const gulp = require('gulp');
+const { src, dest, parallel, series, watch } = require('gulp');
+const csslint = require('gulp-csslint');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-minify');
 const cleanCss = require('gulp-clean-css');
@@ -7,6 +8,9 @@ const header = require('gulp-header');
 const eslint = require('gulp-eslint');
 const fs = require('fs-extra');
 const htmlMin = require('gulp-htmlmin');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
 
 var packageJson = null;
 var banner = [
@@ -23,18 +27,20 @@ var banner = [
 /**
  * Process HTML files.
  */
-function markup() {
-    return gulp.src('./src/html/component.html')
+function html() {
+    return src('./src/html/component.html')
         .pipe(htmlMin({ collapseWhitespace: true }))
         .pipe(rename('./src/html/component-min.html'))
-        .pipe(gulp.dest('./'));
+        .pipe(dest('./'));
 }
 
 /**
  * Process CSS files.
  */
-function styles() {
-    return gulp.src('./src/css/component.css')
+function css() {
+    return src('./src/css/component.css')
+        .pipe(csslint())
+        .pipe(csslint.formatter())
         .pipe(
             autoprefixer({
                 browsers: ['last 2 versions'],
@@ -43,26 +49,36 @@ function styles() {
         )
         .pipe(cleanCss())
         .pipe(rename('./src/css/component-min.css'))
-        .pipe(gulp.dest('./'));
-}
-
-/**
- * Lint JavaScript files.
- */
-function lintScripts() {
-    return gulp.src('./src/js/mailtoui.js')
-        .pipe(eslint())
-        .pipe(eslint.format());
+        .pipe(dest('./'));
 }
 
 /**
  * Process JavaScript files.
  */
-function scripts() {
-    return gulp.src('./src/js/mailtoui.js')
+function js() {
+    return src('./src/js/mailtoui.js')
+        .pipe(eslint())
+        .pipe(eslint.format())
         .pipe(minify({ noSource: true }))
         .pipe(header(banner, { pkg: packageJson }))
-        .pipe(gulp.dest('dist'));
+        .pipe(dest('dist'));
+}
+
+/**
+ * Process test JavaScript file.
+ */
+function indexJs() {
+    return browserify({
+            entries: './index.js',
+            debug: true
+        })
+        .bundle()
+        .pipe(source('index.js'))
+        .pipe(buffer())
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(minify({ noSource: true }))
+        .pipe(dest('./'));
 }
 
 /**
@@ -78,25 +94,25 @@ function getPackageJson(done) {
  * The all seeing eye...
  */
 function watchFiles() {
-    gulp.watch('./package.json', getPackageJson);
-    gulp.watch('./src/html/component.html', markup);
-    gulp.watch('./src/css/component.css', styles);
-    gulp.watch(['./src/js/mailtoui.js', './package.json'], gulp.series(lintScripts, scripts));
+    watch('./package.json', getPackageJson);
+    watch('./src/html/component.html', html);
+    watch('./src/css/component.css', css);
+    watch(['./src/js/mailtoui.js', './package.json'], series(js, indexJs));
+    watch('./index.js', indexJs);
 }
 
 /**
  * Define complex tasks.
  */
-const js = gulp.series(lintScripts, scripts);
-const build = gulp.series(getPackageJson, gulp.parallel(markup, styles), js);
-const watch = gulp.series(build, watchFiles);
+const build = series(getPackageJson, parallel(html, css), js, indexJs);
+const watching = series(build, watchFiles);
 
 /**
  * Make tasks available to the outside world.
  */
-exports.html = markup;
-exports.css = styles;
-exports.lintJs = lintScripts;
+exports.html = html;
+exports.css = css;
 exports.js = js;
-exports.watch = watch;
+exports.indexJs = indexJs;
+exports.watch = watching;
 exports.default = build;

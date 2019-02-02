@@ -18,63 +18,162 @@ var mailtouiApp = mailtouiApp || {};
 (function(app) {
     /**
      * The html element.
+     * @type {Element}
      */
-    var html = window.document.getElementsByTagName('html')[0];
+    var html = document.getElementsByTagName('html')[0];
 
     /**
      * The body element.
+     * @type {Element}
      */
-    var body = window.document.getElementsByTagName('body')[0];
+    var body = document.getElementsByTagName('body')[0];
 
     /**
      * The active MailtoUI modal.
+     * @type {Element}
      */
     var modal = null;
 
     /**
      * List of focusable elements within modal.
+     * @type {String}
      */
-    var focusable = 'a[href], input:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    var focusable = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
     /**
      * The last document element to have focus before the modal was opened.
      * Focus is to be set back on this element after the modal is closed.
+     * @type {Element}
      */
     var lastDocElementFocused = null;
 
     /**
+     * The default svg icon for email clients.
+     * @type {String}
+     */
+    var worldSvg = `<svg viewBox="0 0 24 24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M5.704,2.979 c0.694,0.513,1.257,1.164,1.767,2.02C7.917,5.746,8.908,7.826,8,9c-1.027,1.328-4,1.776-4,3c0,0.921,1.304,1.972,2,3 c1.047,1.546,0.571,3.044,0,4c-0.296,0.496-0.769,0.92-1.293,1.234" stroke-linecap="butt"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M20.668,5.227 C18.509,6.262,15.542,6.961,15,7c-1.045,0.075-1.2-0.784-2-2c-0.6-0.912-2-2.053-2-3c0-0.371,0.036-0.672,0.131-0.966" stroke-linecap="butt"/> <circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="12" cy="12" r="11"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M19.014,12.903 C19.056,15.987,15.042,19.833,13,19c-1.79-0.73-0.527-2.138-0.986-6.097c-0.191-1.646,1.567-3,3.5-3S18.992,11.247,19.014,12.903z" stroke-linecap="butt"/></g></svg>`;
+
+    /**
+     * The default svg icon for default email app.
+     * @type {String}
+     */
+    var uiSvg = `<svg viewBox="0 0 24 24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><line data-color="color-2" fill="none" stroke-miterlimit="10" x1="5" y1="6" x2="6" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="10" y1="6" x2="11" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="15" y1="6" x2="19" y2="6"/> <line fill="none" stroke="currentColor" stroke-miterlimit="10" x1="1" y1="10" x2="23" y2="10"/> <rect x="1" y="2" fill="none" stroke="currentColor" stroke-miterlimit="10" width="22" height="20"/></g></svg>`;
+
+    /**
+     * The default svg icon for copy button.
+     * @type {String}
+     */
+    var clipboardSvg = `<svg viewBox="0 0 24 24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor"><polyline fill="none" stroke="currentColor" stroke-miterlimit="10" points="20,4 22,4 22,23 2,23 2,4 4,4 "/> <path fill="none" stroke="currentColor" stroke-miterlimit="10" d="M14,3c0-1.105-0.895-2-2-2 s-2,0.895-2,2H7v4h10V3H14z"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="7" y1="11" x2="17" y2="11"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="7" y1="15" x2="17" y2="15"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="7" y1="19" x2="11" y2="19"/></g></svg>`;
+
+    /**
      * User options to change MailtoUI's behavior.
+     * @type {Object}
      */
     var options = new Object();
 
     /**
      * Allows for a custom class to namespace css classes.
+     * @type {String}
      */
     options.linkClass = 'mailtoui';
 
     /**
      * When set to true, the modal is closed automatically when email client is clicked.
+     * @type {Boolean}
      */
     options.autoClose = true;
 
     /**
-     * Keep track of the page's scroll position.
+     * The modal title.
+     * @type {String}
      */
-    scrollPosition = 0;
+    options.title = 'Compose new email with';
+
+    /**
+     * Text for button 1.
+     * @type {String}
+     */
+    options.buttonText1 = 'Gmail in browser';
+
+    /**
+     * Text for button 2.
+     * @type {String}
+     */
+    options.buttonText2 = 'Outlook in browser';
+
+    /**
+     * Text for button 3.
+     * @type {String}
+     */
+    options.buttonText3 = 'Yahoo in browser';
+
+    /**
+     * Text for button 4.
+     * @type {String}
+     */
+    options.buttonText4 = 'Default email app';
+
+    /**
+     * URL or svg markup for icon 1.
+     * @type {String}
+     */
+    options.buttonIcon1 = worldSvg;
+
+    /**
+     * URL or svg markup for icon 2.
+     * @type {String}
+     */
+    options.buttonIcon2 = worldSvg;
+
+    /**
+     * URL or svg markup for icon 3.
+     * @type {String}
+     */
+    options.buttonIcon3 = worldSvg;
+
+    /**
+     * URL or svg markup for icon 4.
+     * @type {String}
+     */
+    options.buttonIcon4 = uiSvg;
+
+    /**
+     * URL or svg markup for Copy button icon.
+     * @type {String}
+     */
+    options.buttonIconCopy = clipboardSvg;
+
+    /**
+     * Text for Copy button.
+     * @type {String}
+     */
+    options.buttonTextCopy = 'Copy';
+
+    /**
+     * Text for Copy button when clicked.
+     * @type {String}
+     */
+    options.buttonTextCopyAction = 'Copied!';
+
+    /**
+     * Keep track of the page's scroll position.
+     * @type {Number}
+     */
+    var scrollPosition = 0;
 
     /**
      * Keep track of the page's original scroll behavior.
+     * @type {String}
      */
-    scrollBehavior = 'auto';
+    var scrollBehavior = 'auto';
 
     /**
      * Build a style tag with default styling to be embedded on the page.
-     *
-     * @return {string} The style tag markup.
+     * @return {String} The style tag markup.
      */
     app.buildStyleTag = function() {
-        var styleTag = window.document.createElement('style');
-        var css = `.mailtoui-modal{background-color:#000;background-color:rgba(0,0,0,.4);bottom:0;color:#303131;display:none;height:100%;left:0;margin:0;padding:0;position:fixed;right:0;top:0;width:100%;z-index:1000}.mailtoui-modal-content{-webkit-animation:appear .4s;animation:appear .4s;background-color:#f1f5f8;border-radius:8px;bottom:auto;-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);left:50%;max-height:calc(100% - 100px);overflow:scroll;padding:0;position:fixed;right:-45%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.mailtoui-modal-content:focus,.mailtoui-modal-content:hover{overflow-y:auto}@media only screen and (min-width :768px){.mailtoui-modal-content{right:auto}}.mailtoui-modal-head{background-color:#fff;clear:both;padding:20px}.mailtoui-modal-title{font-size:100%;font-weight:700;margin:0;padding:0}.mailtoui-modal-close{color:#aaa;float:right;font-size:38px;font-weight:700;position:relative;top:-12px}.mailtoui-modal-close:focus,.mailtoui-modal-close:hover{color:#000;cursor:pointer;text-decoration:none}.mailtoui-modal-body{height:100%;padding:20px}.mailtoui-client{color:#333;outline:0;text-decoration:none}.mailtoui-client:focus .mailtoui-label{background-color:#555;color:#fff}.mailtoui-label{background-color:#fff;border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);margin-bottom:20px;padding:15px 20px}.mailtoui-label:hover{background-color:#555;color:#fff}.mailtoui-client:last-child .mailtoui-label{margin-bottom:0}.mailtoui-label-icon{font-weight:700;position:relative;top:4px}.mailtoui-label-text{margin-left:5px}.mailtoui-copy{border-radius:8px;margin-top:20px;position:relative;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);height:59px}.mailtoui-copy-button{background-color:#fff;border:none;border-top-right-radius:8px;border-bottom-right-radius:8px;bottom:21px;color:#303131;font-size:100%;height:100%;outline:0;position:absolute;right:0;top:0;width:100px}.mailtoui-copy-button:focus,.mailtoui-copy-button:hover{background-color:#555;color:#fff;cursor:pointer;outline:0}.mailtoui-copy-email-address{background-color:#d8dcdf;border-radius:8px;border:none;-webkit-box-sizing:border-box;box-sizing:border-box;color:#48494a;font-size:100%;height:100%;outline:0;overflow:hidden;padding:20px 120px 20px 20px;width:100%}.mailtoui-no-scroll{overflow:hidden;position:fixed;width:100%}.mailtoui-is-hidden{display:none;visibility:hidden}@-webkit-keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}@keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}`;
+        var styleTag = document.createElement('style');
+        var css = `.mailtoui-modal{background-color:#000;background-color:rgba(0,0,0,.4);bottom:0;color:#303131;display:none;height:100%;left:0;margin:0;padding:0;position:fixed;right:0;top:0;width:100%;z-index:1000}.mailtoui-modal-content{-webkit-animation:appear .4s;animation:appear .4s;background-color:#f1f5f8;border-radius:8px;bottom:auto;-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);left:50%;max-height:calc(100% - 100px);overflow:scroll;padding:0;position:fixed;right:-45%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.mailtoui-modal-content:focus,.mailtoui-modal-content:hover{overflow-y:auto}@media only screen and (min-width :768px){.mailtoui-modal-content{right:auto}}.mailtoui-modal-head{-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#fff;clear:both;display:-webkit-box;display:-ms-flexbox;display:flex;min-width:0;padding:10px 20px}.mailtoui-modal-title{-webkit-box-flex:1;-ms-flex:1;flex:1;font-size:120%;font-weight:700;margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}.mailtoui-modal-close{color:#aaa;-webkit-box-flex:initial;-ms-flex:initial;flex:initial;font-size:38px;margin-left:20px;position:relative;text-align:right;text-decoration:none;top:-4px}.mailtoui-modal-close:focus,.mailtoui-modal-close:hover{color:#000;cursor:pointer;font-weight:700;outline:0}.mailtoui-modal-body{height:100%;padding:20px}.mailtoui-button{color:#333;text-decoration:none}.mailtoui-button:focus{outline:0}.mailtoui-button:focus .mailtoui-button-content{background-color:#555;color:#fff}.mailtoui-button-content{background-color:#fff;border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);margin-bottom:20px;overflow:hidden;padding:15px 20px;text-overflow:ellipsis;white-space:nowrap}.mailtoui-button-content:hover{background-color:#555;color:#fff}.mailtoui-button:last-child .mailtoui-button-content{margin-bottom:0}.mailtoui-button-icon{font-weight:700;position:relative;top:4px}.mailtoui-button-icon svg{height:24px;width:24px}.mailtoui-button-text{margin-left:5px;position:relative;top:-2px}.mailtoui-copy{border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);height:59px;margin-top:20px;position:relative}.mailtoui-button-copy{background-color:#fff;border:none;border-bottom-left-radius:8px;border-top-left-radius:8px;bottom:21px;color:#303131;font-size:100%;height:100%;left:0;overflow:hidden;padding:15px 20px;position:absolute;text-overflow:ellipsis;top:0;white-space:nowrap;width:120px}.mailtoui-button-copy:focus,.mailtoui-button-copy:hover{background-color:#555;color:#fff;cursor:pointer;outline:0}.mailtoui-button-copy-clicked,.mailtoui-button-copy-clicked:focus,.mailtoui-button-copy-clicked:hover{background-color:#1f9d55;color:#fff}.mailtoui-button-copy-clicked .mailtoui-button-icon,.mailtoui-button-copy-clicked:focus .mailtoui-button-icon,.mailtoui-button-copy-clicked:hover .mailtoui-button-icon{display:none;visibility:hidden}.mailtoui-button-copy-clicked .mailtoui-button-text,.mailtoui-button-copy-clicked:focus .mailtoui-button-text,.mailtoui-button-copy-clicked:hover .mailtoui-button-text{color:#fff;top:2px}.mailtoui-email-address{background-color:#d8dcdf;border:none;border-radius:8px;-webkit-box-sizing:border-box;box-sizing:border-box;color:#48494a;font-size:100%;height:100%;overflow:hidden;padding:20px 20px 20px 140px;text-overflow:ellipsis;white-space:nowrap;width:100%}.mailtoui-brand{color:#888;font-size:80%;margin-top:20px;text-align:center}.mailtoui-brand a{color:#888}.mailtoui-brand a:focus,.mailtoui-brand a:hover{font-weight:700;outline:0}.mailtoui-no-scroll{overflow:hidden;position:fixed;width:100%}.mailtoui-is-hidden{display:none;visibility:hidden}@-webkit-keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}@keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}`;
 
         css = css.replace(/mailtoui/g, app.prefix());
 
@@ -99,18 +198,17 @@ var mailtouiApp = mailtouiApp || {};
             return;
         }
 
-        var firstHeadChild = window.document.head.firstChild;
+        var firstHeadChild = document.head.firstChild;
 
-        window.document.head.insertBefore(app.buildStyleTag(), firstHeadChild);
+        document.head.insertBefore(app.buildStyleTag(), firstHeadChild);
     };
 
     /**
      * Check if style tag has already been embedded on the page.
-     *
-     * @return {boolean} True if style tag is already embedded.
+     * @return {Boolean} True if style tag is already embedded.
      */
     app.styleTagExists = function() {
-        if (window.document.getElementById(app.prefix('-styles'))) {
+        if (document.getElementById(app.prefix('-styles'))) {
             return true;
         }
 
@@ -119,16 +217,12 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Build the modal markup.
-     *
-     * @return {string} The modal markup.
+     * @return {String} The modal markup.
      */
     app.buildModal = function() {
-        var modal = window.document.createElement('div');
-        var worldSVG =
-            '<svg viewBox="0 0 24 24" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M5.704,2.979 c0.694,0.513,1.257,1.164,1.767,2.02C7.917,5.746,8.908,7.826,8,9c-1.027,1.328-4,1.776-4,3c0,0.921,1.304,1.972,2,3 c1.047,1.546,0.571,3.044,0,4c-0.296,0.496-0.769,0.92-1.293,1.234" stroke-linecap="butt"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M20.668,5.227 C18.509,6.262,15.542,6.961,15,7c-1.045,0.075-1.2-0.784-2-2c-0.6-0.912-2-2.053-2-3c0-0.371,0.036-0.672,0.131-0.966" stroke-linecap="butt"/> <circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="12" cy="12" r="11"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M19.014,12.903 C19.056,15.987,15.042,19.833,13,19c-1.79-0.73-0.527-2.138-0.986-6.097c-0.191-1.646,1.567-3,3.5-3S18.992,11.247,19.014,12.903z" stroke-linecap="butt"/></g></svg>';
-        var uiSVG =
-            '<svg viewBox="0 0 24 24" xml:space="preserve" width="24" height="24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><line data-color="color-2" fill="none" stroke-miterlimit="10" x1="5" y1="6" x2="6" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="10" y1="6" x2="11" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="15" y1="6" x2="19" y2="6"/> <line fill="none" stroke="currentColor" stroke-miterlimit="10" x1="1" y1="10" x2="23" y2="10"/> <rect x="1" y="2" fill="none" stroke="currentColor" stroke-miterlimit="10" width="22" height="20"/></g></svg>';
-        var markup = `<div class="mailtoui-modal-content"><div class="mailtoui-modal-head"><span id="mailtoui-modal-close" class="mailtoui-modal-close">&times</span> <span class="mailtoui-modal-title">Compose new email with</span></div><div class="mailtoui-modal-body"><div class="mailtoui-clients"><a id="mailtoui-client-gmail" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Gmail in browser</span></div></a><a id="mailtoui-client-outlook" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Outlook in browser</span></div></a><a id="mailtoui-client-yahoo" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${worldSVG}</span> <span class="mailtoui-label-text">Yahoo in browser</span></div></a><a id="mailtoui-client-default" class="mailtoui-client" href="#"><div class="mailtoui-label"><span class="mailtoui-label-icon">${uiSVG}</span> <span class="mailtoui-label-text">Default email app</span></div></a></div><div id="mailtoui-copy" class="mailtoui-copy"><div id="mailtoui-copy-email-address" class="mailtoui-copy-email-address"></div><button id="mailtoui-copy-button" class="mailtoui-copy-button" data-copytargetid="mailtoui-copy-email-address">Copy</button></div></div></div>`;
+        var modal = document.createElement('div');
+
+        var markup = `<div class="mailtoui-modal-content"><div class="mailtoui-modal-head"><div id="mailtoui-modal-title" class="mailtoui-modal-title">${options.title}</div><a id="mailtoui-modal-close" class="mailtoui-modal-close" href="#">&times</a></div><div class="mailtoui-modal-body"><div class="mailtoui-clients"><a id="mailtoui-button-1" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-1" class="mailtoui-button-icon">${options.buttonIcon1}</span> <span id="mailtoui-button-text-1" class="mailtoui-button-text">${options.buttonText1}</span></div></a><a id="mailtoui-button-2" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-2" class="mailtoui-button-icon">${options.buttonIcon2}</span> <span id="mailtoui-button-text-2" class="mailtoui-button-text">${options.buttonText2}</span></div></a><a id="mailtoui-button-3" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-3" class="mailtoui-button-icon">${options.buttonIcon3}</span> <span id="mailtoui-button-text-3" class="mailtoui-button-text">${options.buttonText3}</span></div></a><a id="mailtoui-button-4" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-4" class="mailtoui-button-icon">${options.buttonIcon4}</span> <span id="mailtoui-button-text-4" class="mailtoui-button-text">${options.buttonText4}</span></div></a></div><div id="mailtoui-copy" class="mailtoui-copy"><div id="mailtoui-email-address" class="mailtoui-email-address"></div><button id="mailtoui-button-copy" class="mailtoui-button-copy" data-copytargetid="mailtoui-email-address"><span id="mailtoui-button-icon-copy" class="mailtoui-button-icon">${options.buttonIconCopy}</span> <span id="mailtoui-button-text-copy" class="mailtoui-button-text">${options.buttonTextCopy}</span></button></div><div class="mailtoui-brand"><a href="https://mailtoui.com?ref=ui" target="_blank">Powered by MailtoUI</a></div></div></div>`;
 
         markup = markup.replace(/mailtoui/g, app.prefix());
 
@@ -143,8 +237,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Embed modal on the page.
-     *
-     * @param {Element}  link    The link that was clicked.
+     * @param {Element} link    The link that was clicked.
      */
     app.embedModal = function() {
         if (app.modalExists()) {
@@ -152,18 +245,17 @@ var mailtouiApp = mailtouiApp || {};
         }
 
         var modal = app.buildModal();
+        var firstBodyChild = document.body.firstChild;
 
-        var firstBodyChild = window.document.body.firstChild;
-        window.document.body.insertBefore(modal, firstBodyChild);
+        document.body.insertBefore(modal, firstBodyChild);
     };
 
     /**
      * Check if modal markup has already been embedded on page.
-     *
-     * @return {boolean} True if modal markup ia already embedded.
+     * @return {Boolean}    True if modal markup ia already embedded.
      */
     app.modalExists = function() {
-        if (window.document.getElementById(app.prefix('-modal'))) {
+        if (document.getElementById(app.prefix('-modal'))) {
             return true;
         }
 
@@ -172,20 +264,17 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Get modal populated with data from the given link.
-     *
-     * @param {Element} link    The link that was clicked.
-     *
-     * @return {Element} The modal associated with the given link.
+     * @param   {Element} link  The link that was clicked.
+     * @return  {Element}       The modal associated with the given link.
      */
     app.getModal = function(link) {
         app.hydrateModal(link);
 
-        return window.document.getElementById(app.prefix('-modal'));
+        return document.getElementById(app.prefix('-modal'));
     };
 
     /**
      * Populate current modal with data from the link that was clicked.
-     *
      * @param  {Element} link   The link that was clicked.
      */
     app.hydrateModal = function(link) {
@@ -195,22 +284,37 @@ var mailtouiApp = mailtouiApp || {};
         var bcc = app.getLinkField(link, 'bcc');
         var body = app.getLinkField(link, 'body');
 
-        var gmail = window.document.getElementById(app.prefix('-client-gmail'));
+        var gmail = document.getElementById(app.prefix('-button-1'));
         gmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + email + '&su=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
 
-        var outlook = window.document.getElementById(app.prefix('-client-outlook'));
+        var outlook = document.getElementById(app.prefix('-button-2'));
         outlook.href = 'https://outlook.office.com/owa/?path=/mail/action/compose&to=' + email + '&subject=' + subject + '&body=' + body;
 
-        var yahoo = window.document.getElementById(app.prefix('-client-yahoo'));
+        var yahoo = document.getElementById(app.prefix('-button-3'));
         yahoo.href = 'https://compose.mail.yahoo.com/?to=' + email + '&subject=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
 
-        var defaultApp = window.document.getElementById(app.prefix('-client-default'));
+        var defaultApp = document.getElementById(app.prefix('-button-4'));
         defaultApp.href = 'mailto:' + email + '?subject=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
 
-        var emailField = window.document.getElementById(app.prefix('-copy-email-address'));
+        var emailField = document.getElementById(app.prefix('-email-address'));
         emailField.innerHTML = email;
 
-        app.toggleHideCopyUI(email);
+        var buttonIcon1 = document.getElementById(app.prefix('-button-icon-1'));
+        buttonIcon1.innerHTML = options.buttonIcon1;
+
+        var buttonIcon2 = document.getElementById(app.prefix('-button-icon-2'));
+        buttonIcon2.innerHTML = options.buttonIcon2;
+
+        var buttonIcon3 = document.getElementById(app.prefix('-button-icon-3'));
+        buttonIcon3.innerHTML = options.buttonIcon3;
+
+        var buttonIcon4 = document.getElementById(app.prefix('-button-icon-4'));
+        buttonIcon4.innerHTML = options.buttonIcon4;
+
+        var buttonIconCopy = document.getElementById(app.prefix('-button-icon-copy'));
+        buttonIconCopy.innerHTML = options.buttonIconCopy;
+
+        app.toggleHideCopyUi(email);
     };
 
     /**
@@ -260,7 +364,6 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Open modal.
-     *
      * @param  {Object} event   The object created by the click event.
      */
     app.openModal = function(event) {
@@ -282,17 +385,17 @@ var mailtouiApp = mailtouiApp || {};
      * Display modal and carry out other tasks needed when modal is open.
      */
     app.displayModal = function(event) {
-        var link = app.getParentAnchor(event.target);
+        var link = app.getParentElement(event.target, 'a');
         modal = app.getModal(link);
         modal.style.display = 'block';
     };
 
     /**
-     * Set focus on the first focusable element of the modal.
+     * Set focus on the first button in the modal.
      */
     app.modalFocus = function() {
         modal.focusableChildren = Array.from(modal.querySelectorAll(focusable));
-        modal.focusableChildren[0].focus();
+        modal.focusableChildren[1].focus();
     };
 
     /**
@@ -321,8 +424,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Set aria attributes to hide modal from screen readers.
-     *
-     * @param {boolean}     hidden  True to hide modal from screen reader. False otherwise.
+     * @param {Boolean}     hidden  True to hide modal from screen reader. False otherwise.
      */
     app.hideModalFromScreenReader = function(hidden) {
         modal.setAttribute('aria-hidden', hidden);
@@ -330,8 +432,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Toggle a css class to enable/disable page scrolling.
-     *
-     * @param  {boolean} enabled    True to enable page scrolling. False to disable it.
+     * @param  {Boolean} enabled    True to enable page scrolling. False to disable it.
      */
     app.enablePageScrolling = function(enabled) {
         if (enabled) {
@@ -352,23 +453,21 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Open the given client.
-     *
      * @param  {Element} client     The client link that was clicked.
      */
-    app.openClient = function(client) {
+    app.openClient = function(client, event) {
         var target = '_blank';
 
-        if (client !== null) {
-            if (client.id == app.prefix('-client-default')) {
-                target = '_self';
-            }
+        if (client.id == app.prefix('-button-4')) {
+            target = '_self';
+        }
 
-            window.open(client.href, target);
-            app.triggerEvent(client, 'compose');
+        window.open(client.href, target);
 
-            if (options.autoClose) {
-                app.closeModal(event);
-            }
+        app.triggerEvent(client, 'compose');
+
+        if (options.autoClose) {
+            app.closeModal(event);
         }
     };
 
@@ -376,16 +475,15 @@ var mailtouiApp = mailtouiApp || {};
      * When an anchor tag (<a>) contains other elements, the element returned can vary
      * depending on where you click. We need to search up the DOM tree until we find
      * the parent anchor tag, which is the element that was intended to be clicked.
-     *
-     * @param   {Element} element     The element that was clicked.
-     *
-     * @return {Element} The parent anchor tag of the element that was clicked.
+     * @param   {Element}   element     The element that was clicked.
+     * @return  {Element}               The parent anchor tag of the element that was clicked.
      */
-    app.getParentAnchor = function(element) {
+    app.getParentElement = function(element, parentTag) {
         while (element !== null) {
-            if (element.tagName.toUpperCase() === 'A') {
+            if (element.tagName.toUpperCase() == parentTag.toUpperCase()) {
                 return element;
             }
+
             element = element.parentNode;
         }
 
@@ -394,9 +492,8 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Fire up an event for the given element.
-     *
      * @param  {Element}    element     Trigger event for this element.
-     * @param  {string}     eventName   The name of the event to be triggered.
+     * @param  {String}     eventName   The name of the event to be triggered.
      */
     app.triggerEvent = function(element, eventName) {
         var event = new Event(eventName);
@@ -420,7 +517,7 @@ var mailtouiApp = mailtouiApp || {};
      * Listen for click event on mailto link to open modal.
      */
     app.listenForClickOnLink = function() {
-        var links = window.document.getElementsByClassName(app.prefix());
+        var links = document.getElementsByClassName(app.prefix());
 
         for (var i = 0; i < links.length; i++) {
             links[i].addEventListener(
@@ -437,7 +534,7 @@ var mailtouiApp = mailtouiApp || {};
      * Listen for click event on client links to auto-close modal.
      */
     app.listenForClickOnClient = function() {
-        var clients = window.document.getElementsByClassName(app.prefix('-client'));
+        var clients = document.getElementsByClassName(app.prefix('-button'));
 
         for (var i = 0; i < clients.length; i++) {
             clients[i].addEventListener(
@@ -446,8 +543,9 @@ var mailtouiApp = mailtouiApp || {};
                     event.preventDefault();
                     event.stopPropagation();
 
-                    var client = app.getParentAnchor(event.target);
-                    app.openClient(client);
+                    var client = app.getParentElement(event.target, 'a');
+
+                    app.openClient(client, event);
                 },
                 false
             );
@@ -458,34 +556,30 @@ var mailtouiApp = mailtouiApp || {};
      * Listen for click event on modal's copy button.
      */
     app.listenForClickOnCopy = function() {
-        var copiers = window.document.getElementsByClassName(app.prefix('-copy-button'));
+        var copyButton = document.getElementById(app.prefix('-button-copy'));
 
-        for (var i = 0; i < copiers.length; i++) {
-            copiers[i].addEventListener(
-                'click',
-                function(event) {
-                    app.copy(event);
-                },
-                false
-            );
-        }
+        copyButton.addEventListener(
+            'click',
+            function(event) {
+                app.copy(event);
+            },
+            false
+        );
     };
 
     /**
      * Listen for click event on modal's close button.
      */
     app.listenForClickOnClose = function() {
-        var closers = window.document.getElementsByClassName(app.prefix('-modal-close'));
+        var closeButton = document.getElementById(app.prefix('-modal-close'));
 
-        for (var i = 0; i < closers.length; i++) {
-            closers[i].addEventListener(
-                'click',
-                function(event) {
-                    app.closeModal(event);
-                },
-                false
-            );
-        }
+        closeButton.addEventListener(
+            'click',
+            function(event) {
+                app.closeModal(event);
+            },
+            false
+        );
     };
 
     /**
@@ -509,7 +603,7 @@ var mailtouiApp = mailtouiApp || {};
      * Listen for keydown events to escape modal or tab within it.
      */
     app.listenForKeys = function() {
-        window.document.addEventListener(
+        document.addEventListener(
             'keydown',
             function(event) {
                 app.escapeModal(event);
@@ -521,7 +615,6 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Close modal when Esc key is pressed.
-     *
      * @param {KeyboardEvent}   event   The event generated by pressing a key.
      */
     app.escapeModal = function(event) {
@@ -533,8 +626,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Should not be able to tab outside the modal. Pressing the tab
      * key moves focus to the next focusable element within modal.
-     *
-     * @param KeyboardEvent The event generated by pressing a key.
+     * @param KeyboardEvent     The event generated by pressing a key.
      */
     app.trapTabWithinModal = function(event) {
         if (event.keyCode === 9 && modal !== null) {
@@ -558,20 +650,17 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Get all "mailtoui" links on the page.
-     *
-     * @return {HTMLCollection} All links with the class "mailtoui".
+     * @return {HTMLCollection}     All links with the class "mailtoui".
      */
     app.getLinks = function() {
-        return window.document.getElementsByClassName(app.prefix());
+        return document.getElementsByClassName(app.prefix());
     };
 
     /**
      * Split the URL scheme of given link in two strings: the email address, and the
      * key-value query string. Also remove 'mailto:' to get nice clean values.
-     *
-     * @param  {Element}    link     The link element clicked.
-     *
-     * @return {array} The two parts of the link scheme separated at '?'.
+     * @param  {Element}    link    The link element clicked.
+     * @return {array}              The two parts of the link scheme separated at '?'.
      */
     app.splitLink = function(link) {
         var scheme = link.href.replace('mailto:', '').trim();
@@ -586,11 +675,9 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Extract the value of the given field from the link.
-     *
      * @param   {Element}   link    The link element clicked.
-     * @param   {string}    field   The name of the field we want to get.
-     *
-     * @return {string} The value corresponding to the given field.
+     * @param   {String}    field   The name of the field we want to get.
+     * @return  {String}            The value corresponding to the given field.
      */
     app.getLinkField = function(link, field) {
         var parts = app.splitLink(link);
@@ -627,11 +714,9 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Extract email address from the mailto: string.
-     *
-     * @param  {Element}    link     The link element clicked.
-     *
-     * @return {string} The email address.
+     * Extract email address from mailto string.
+     * @param  {Element}    link    The link element clicked.
+     * @return {String}             The email address.
      */
     app.getEmail = function(link) {
         var parts = app.splitLink(link);
@@ -646,50 +731,50 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Build and return the class name used to hide Copy UI.
-     *
-     * @return {string} The CSS class name needed to hide the Copy UI.
+     * @return {String}     The CSS class name needed to hide the Copy UI.
      */
-    app.getClassHideCopyUI = function() {
+    app.getClassHideCopyUi = function() {
         return app.prefix('-is-hidden');
     };
 
     /**
      * Show or hide Copy UI based on email address presence.
-     *
-     * @param {string} email    The email address to be checked.
+     * @param {String} email    The email address to be checked.
      */
-    app.toggleHideCopyUI = function(email) {
-        var copyUi = window.document.getElementById(app.prefix('-copy'));
+    app.toggleHideCopyUi = function(email) {
+        var copyUi = document.getElementById(app.prefix('-copy'));
 
         if (email.length == 0) {
-            copyUi.classList.add(app.getClassHideCopyUI());
+            copyUi.classList.add(app.getClassHideCopyUi());
         } else {
-            copyUi.classList.remove(app.getClassHideCopyUI());
+            copyUi.classList.remove(app.getClassHideCopyUi());
         }
     };
 
     /**
      * Set copy button text to indicate the email address has been copied.
-     *
-     * @param {Element}  button  The Copy button that was clicked.
+     * @param {Element}  button     The Copy button that was clicked.
      */
-    app.setCopyButtonText = function(button) {
-        button.innerHTML = 'Copied!';
+    app.toggleCopyButton = function() {
+        button = document.getElementById(app.prefix('-button-copy'));
+        buttonText = document.getElementById(app.prefix('-button-text-copy'));
+        buttonText.innerHTML = options.buttonTextCopyAction;
+        button.classList.add(app.prefix('-button-copy-clicked'));
 
         setTimeout(function() {
-            button.innerHTML = 'Copy';
+            buttonText.innerHTML = options.buttonTextCopy;
+            button.classList.remove(app.prefix('-button-copy-clicked'));
         }, 600);
     };
 
     /**
      * Copy email address to the clipboard.
-     *
-     * @param {string}  event  The event generated by clicking on Copy button.
+     * @param {String}  event   The event generated by clicking on Copy button.
      */
     app.copy = function(event) {
         event.preventDefault();
 
-        var targetId = event.target.getAttribute('data-copytargetid');
+        var targetId = app.getParentElement(event.target, 'button').getAttribute('data-copytargetid');
         var email = document.getElementById(targetId);
         var range = document.createRange();
 
@@ -702,13 +787,12 @@ var mailtouiApp = mailtouiApp || {};
         document.execCommand('copy');
         app.triggerEvent(email, 'copy');
 
-        app.setCopyButtonText(event.target);
+        app.toggleCopyButton();
     };
 
     /**
      * Check if device is running iOS.
-     *
-     * @return {boolean} True if device runs iOS.
+     * @return {Boolean}    True if device runs iOS.
      */
     app.isiOSDevice = function() {
         return navigator.userAgent.match(/ipad|iphone/i);
@@ -718,6 +802,7 @@ var mailtouiApp = mailtouiApp || {};
      * Get user options provided as an object parameter in the run
      * method, or as a JSON string provided in a data attribute
      * of the script tag. Save all in the options object.
+     * @param {Object}  optionsObj  An object containing user options.
      */
     app.setOptions = function(optionsObj) {
         if (optionsObj) {
@@ -731,16 +816,139 @@ var mailtouiApp = mailtouiApp || {};
 
             for (var name in options) {
                 if (userOptions.hasOwnProperty(name)) {
-                    options[name] = userOptions[name];
+                    options[name] = app.sanitizeUserOption(name, userOptions[name]);
                 }
             }
         }
     };
 
     /**
+     * Clean up given user options.
+     * @param  {String} name    The name of the user option to be sanitized.
+     * @param  {String} value   The value of the user option.
+     * @return {mixed}          The sanitized value when applicable, or the original value.
+     */
+    app.sanitizeUserOption = function(name, value) {
+        if (app.stringContains(name, 'icon')) {
+            return app.validateSvg(name, value);
+        }
+
+        if (app.isString(value)) {
+            return app.stripHtml(value);
+        }
+
+        return value;
+    };
+
+    /**
+     * Check svg file for possible problems or tampering.
+     * @param   {String} name   The name of an 'icon' user option (must exist in options array).
+     * @param   {String} url    The url to an svg file.
+     */
+    app.validateSvg = function(name, url) {
+        app.getSvg(name, url).then(function(promise) {
+            if (!app.stringIsSvg(promise.responseText)) {
+                throw new Error(name + ': ' + url + ' is not an SVG file.');
+            }
+
+            if (app.stringHasScript(promise.responseText)) {
+                throw new Error(name + ': ' + url + ' is an invalid SVG file.');
+            } else {
+                options[name] = promise.responseText;
+            }
+        }).catch(function(error) {
+            if (name == 'buttonIconCopy') {
+                options[name] = clipboardSvg;
+            } else {
+                options[name] = worldSvg;
+            }
+            console.log(error);
+        });
+    };
+
+    /**
+     * Load an svg file from the given url.
+     * @param   {String} name   The name of an 'icon' user option (must exist in options array).
+     * @param   {String} url    The url to an svg file.
+     * @return  {Promise}       The resolved or rejected promise after ajax call to load svg file.
+     */
+    app.loadSvg = function(name, url) {
+        return new Promise((resolve, reject) => {
+            var ajax = new XMLHttpRequest();
+
+            ajax.open('GET', url, true);
+            
+            ajax.onload = function(event) {
+                if (ajax.status == 200) {
+                    resolve(ajax);
+                } else {
+                    reject(ajax);
+                }
+            };
+
+            ajax.send();
+        });
+    };
+
+    /**
+     * Async method to load an svg file via options.
+     * @param  {String} name    The name of an 'icon' user option (must exist in options array).
+     * @param  {String} url     The url to an svg file.
+     * @return {Promise}        The Promise with the result returned by loadSvg().
+     */
+    app.getSvg = async function(name, url) {
+        return await app.loadSvg(name, url);
+    };
+
+    /**
+     * Check if given value is a string.
+     * @param  {mixed}  value   The value to be checked.
+     * @return {Boolean}        True if value is a string. False otherwise.
+     */
+    app.isString = function(value) {
+        return typeof value === 'string';
+    };
+
+    /**
+     * Remove html tags from given string.
+     * @param  {String} text    The string to be stripped.
+     * @return {String}         The given string stripped off markup tags.
+     */
+    app.stripHtml = function(text) {
+        return text.replace(/(<([^>]+)>)/g, '');
+    };
+
+    /**
+     * Check if a string contains another string (looking for "needle in a haystack").
+     * @param  {String} haystack    The string where to search.
+     * @param  {String} needle      The string to search for.
+     * @return {Boolean}            True if needle is found in haystack. False otherwise.
+     */
+    app.stringContains = function(haystack, needle) {
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    /**
+     * Check if given string is an svg file.
+     * @param  {String} text    The string to be checked.
+     * @return {Boolean}        True if string starts with '<svg'. False otherwise.
+     */
+    app.stringIsSvg = function(text) {
+        return text.startsWith('<svg');
+    };
+
+    /**
+     * Check if given string contains an embedded <script> tag.
+     * @param  {String} text    The string to be checked.
+     * @return {Boolean}        True if given string contains <script>. False otherwise.
+     */
+    app.stringHasScript = function(text) {
+        return app.stringContains(text, '<script');
+    };
+
+    /**
      * Read options passed in the data-options attribute of the script tag.
-     *
-     * @return {string} Options string provided in JSON format.
+     * @return {String}     Options string provided in JSON format.
      */
     app.getOptionsFromScriptTag = function() {
         var scripts = document.getElementsByTagName('script');
@@ -751,10 +959,8 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Append the linkClass user option to the given string.
-     *
-     * @param {string}  text    The string to which the linkClass will be appended.
-     *
-     * @return {string} The linkClass user option appended to the given string.
+     * @param   {String}  text      The string to which the linkClass will be appended.
+     * @return  {String}            The linkClass user option appended to the given string.
      */
     app.prefix = function(text = '') {
         return options.linkClass + text;
@@ -762,6 +968,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Let's kick things off.
+     * @param {Object}  optionsObj  An object containing user options.
      */
     app.run = function(optionsObj = null) {
         app.setOptions(optionsObj);
@@ -777,11 +984,11 @@ var mailtouiApp = mailtouiApp || {};
 /**
  * Are we loaded in the browser? If so, run MailtoUI automatically.
  * Otherwise, make MailtoUI available to the outside world, so
- * the user can trigger MailtoUI.run() manually when needed.
+ * the user can trigger MailtoUI manually when appropriate.
  */
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     // We're not in the browser.
-    module.exports = mailtouiApp;
+    module.exports = mailtouiApp.run;
 } else {
     // We're in the browser.
     mailtouiApp.run();
