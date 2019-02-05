@@ -23,7 +23,9 @@ MailtoUI is ideal for static sites or any other site where you don't want to spe
 
 ### STEP 1
 
-Add MailtoUI via CDN to the bottom of your page, just before the closing `</body>` tag. Be sure to replace `[version]` with the latest version number.
+Add MailtoUI via CDN to the bottom of your page, just before the closing `</body>` tag. 
+
+IMPORTANT: Be sure to replace `[version]` with the latest version number.
 
 ```html
 <body>
