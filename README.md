@@ -23,13 +23,13 @@ MailtoUI is ideal for static sites or any other site where you don't want to spe
 
 ### STEP 1
 
-Add MailtoUI via CDN to the bottom of your page, just before the closing `</body>` tag.
+Add MailtoUI via CDN to the bottom of your page, just before the closing `</body>` tag. Be sure to replace `[version]` with the latest version number.
 
 ```html
 <body>
     ...
     ...
-    <script src="https://cdn.jsdelivr.net/npm/mariordev/mailtoui@latest/dist/mailtoui-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mariordev/mailtoui@[version]/dist/mailtoui-min.js"></script>
 </body>
 ```
 
