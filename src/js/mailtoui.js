@@ -983,12 +983,14 @@ var mailtouiApp = mailtouiApp || {};
 
 /**
  * Are we loaded in the browser? If so, run MailtoUI automatically.
- * Otherwise, make MailtoUI available to the outside world, so
- * the user can trigger MailtoUI manually when appropriate.
+ * Otherwise, make MailtoUI available to the outside world so
+ * it can be triggered (run) manually when appropriate.
  */
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     // We're not in the browser.
-    module.exports = mailtouiApp.run;
+    module.exports = {
+        run: mailtouiApp.run
+    }
 } else {
     // We're in the browser.
     mailtouiApp.run();
