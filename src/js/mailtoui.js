@@ -452,19 +452,19 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Open the given client.
-     * @param  {Element} client     The client link that was clicked.
+     * Open the given client link element.
+     * @param  {Element} element     The client link that was clicked.
      */
-    app.openClient = function(client, event) {
+    app.openClient = function(element, event) {
         var target = '_blank';
 
-        if (client.id == app.prefix('-button-4')) {
+        if (element.id == app.prefix('-button-4')) {
             target = '_self';
         }
 
-        window.open(client.href, target);
-
-        app.triggerEvent(client, 'compose');
+        window.open(element.href, target);
+        
+        app.triggerEvent(element, 'compose');
 
         if (options.autoClose) {
             app.closeModal(event);
