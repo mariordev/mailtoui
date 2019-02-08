@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 
 
-## [Unreleased](https://github.com/mariordev/mailtoui/commits/master)
+## [1.0.0](https://github.com/mariordev/mailtoui/releases/tag/v1.0.0) - 2019-02-08
 
 ### Added
 
