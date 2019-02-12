@@ -6,6 +6,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 
 
+## [1.0.1](https://github.com/mariordev/mailtoui/releases/tag/v1.0.1) - 2019-02-12
+
+### Fixed
+
+- Update correct version number displayed in mailtoui-min.js header comments. No code changes.
+
+
+
 ## [1.0.0](https://github.com/mariordev/mailtoui/releases/tag/v1.0.0) - 2019-02-08
 
 ### Added
