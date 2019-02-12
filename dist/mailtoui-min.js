@@ -1,6 +1,6 @@
 /**
  * mailtoui - A simple way to enhance your mailto links with a convenient user interface.
- * @version v0.2.2
+ * @version v1.0.1
  * @link https://mailtoui.com
  * @author Mario Rodriguez - https://twitter.com/mariordev
  * @license MIT
