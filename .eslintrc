@@ -1,0 +1,23 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+	},
+	"plugins": ["prettier"],
+	"extends": ["plugin:prettier/recommended"],
+    "rules": {
+        "prettier/prettier": [
+			"error",
+			{
+				"semi": true,
+				"singleQuote": true,
+				"printWidth": 125,
+				"tabWidth": 4,
+				"useTabs": false,
+				"trailingComma": "none",
+				"bracketSpacing": true,
+				"parser": "flow"
+			}
+        ]
+    }    
+}
