@@ -222,7 +222,29 @@ var mailtouiApp = mailtouiApp || {};
     app.buildModal = function() {
         var modal = document.createElement('div');
 
-        var markup = `<div class="mailtoui-modal-content"><div class="mailtoui-modal-head"><div id="mailtoui-modal-title" class="mailtoui-modal-title">${options.title}</div><a id="mailtoui-modal-close" class="mailtoui-modal-close" href="#">&times</a></div><div class="mailtoui-modal-body"><div class="mailtoui-clients"><a id="mailtoui-button-1" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-1" class="mailtoui-button-icon">${options.buttonIcon1}</span> <span id="mailtoui-button-text-1" class="mailtoui-button-text">${options.buttonText1}</span></div></a><a id="mailtoui-button-2" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-2" class="mailtoui-button-icon">${options.buttonIcon2}</span> <span id="mailtoui-button-text-2" class="mailtoui-button-text">${options.buttonText2}</span></div></a><a id="mailtoui-button-3" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-3" class="mailtoui-button-icon">${options.buttonIcon3}</span> <span id="mailtoui-button-text-3" class="mailtoui-button-text">${options.buttonText3}</span></div></a><a id="mailtoui-button-4" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-4" class="mailtoui-button-icon">${options.buttonIcon4}</span> <span id="mailtoui-button-text-4" class="mailtoui-button-text">${options.buttonText4}</span></div></a></div><div id="mailtoui-copy" class="mailtoui-copy"><div id="mailtoui-email-address" class="mailtoui-email-address"></div><button id="mailtoui-button-copy" class="mailtoui-button-copy" data-copytargetid="mailtoui-email-address"><span id="mailtoui-button-icon-copy" class="mailtoui-button-icon">${options.buttonIconCopy}</span> <span id="mailtoui-button-text-copy" class="mailtoui-button-text">${options.buttonTextCopy}</span></button></div><div class="mailtoui-brand"><a href="https://mailtoui.com?ref=ui" target="_blank">Powered by MailtoUI</a></div></div></div>`;
+        var markup = `<div class="mailtoui-modal-content"><div class="mailtoui-modal-head"><div id="mailtoui-modal-title" class="mailtoui-modal-title">${
+            options.title
+        }</div><a id="mailtoui-modal-close" class="mailtoui-modal-close" href="#">&times</a></div><div class="mailtoui-modal-body"><div class="mailtoui-clients"><a id="mailtoui-button-1" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-1" class="mailtoui-button-icon">${
+            options.buttonIcon1
+        }</span> <span id="mailtoui-button-text-1" class="mailtoui-button-text">${
+            options.buttonText1
+        }</span></div></a><a id="mailtoui-button-2" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-2" class="mailtoui-button-icon">${
+            options.buttonIcon2
+        }</span> <span id="mailtoui-button-text-2" class="mailtoui-button-text">${
+            options.buttonText2
+        }</span></div></a><a id="mailtoui-button-3" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-3" class="mailtoui-button-icon">${
+            options.buttonIcon3
+        }</span> <span id="mailtoui-button-text-3" class="mailtoui-button-text">${
+            options.buttonText3
+        }</span></div></a><a id="mailtoui-button-4" class="mailtoui-button" href="#"><div class="mailtoui-button-content"><span id="mailtoui-button-icon-4" class="mailtoui-button-icon">${
+            options.buttonIcon4
+        }</span> <span id="mailtoui-button-text-4" class="mailtoui-button-text">${
+            options.buttonText4
+        }</span></div></a></div><div id="mailtoui-copy" class="mailtoui-copy"><div id="mailtoui-email-address" class="mailtoui-email-address"></div><button id="mailtoui-button-copy" class="mailtoui-button-copy" data-copytargetid="mailtoui-email-address"><span id="mailtoui-button-icon-copy" class="mailtoui-button-icon">${
+            options.buttonIconCopy
+        }</span> <span id="mailtoui-button-text-copy" class="mailtoui-button-text">${
+            options.buttonTextCopy
+        }</span></button></div><div class="mailtoui-brand"><a href="https://mailtoui.com?ref=ui" target="_blank">Powered by MailtoUI</a></div></div></div>`;
 
         markup = markup.replace(/mailtoui/g, app.prefix());
 
@@ -285,13 +307,39 @@ var mailtouiApp = mailtouiApp || {};
         var body = app.getLinkField(link, 'body');
 
         var gmail = document.getElementById(app.prefix('-button-1'));
-        gmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + email + '&su=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
+        gmail.href =
+            'https://mail.google.com/mail/?view=cm&fs=1&to=' +
+            email +
+            '&su=' +
+            subject +
+            '&cc=' +
+            cc +
+            '&bcc=' +
+            bcc +
+            '&body=' +
+            body;
 
         var outlook = document.getElementById(app.prefix('-button-2'));
-        outlook.href = 'https://outlook.office.com/owa/?path=/mail/action/compose&to=' + email + '&subject=' + subject + '&body=' + body;
+        outlook.href =
+            'https://outlook.office.com/owa/?path=/mail/action/compose&to=' +
+            email +
+            '&subject=' +
+            subject +
+            '&body=' +
+            body;
 
         var yahoo = document.getElementById(app.prefix('-button-3'));
-        yahoo.href = 'https://compose.mail.yahoo.com/?to=' + email + '&subject=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
+        yahoo.href =
+            'https://compose.mail.yahoo.com/?to=' +
+            email +
+            '&subject=' +
+            subject +
+            '&cc=' +
+            cc +
+            '&bcc=' +
+            bcc +
+            '&body=' +
+            body;
 
         var defaultApp = document.getElementById(app.prefix('-button-4'));
         defaultApp.href = 'mailto:' + email + '?subject=' + subject + '&cc=' + cc + '&bcc=' + bcc + '&body=' + body;
@@ -463,7 +511,7 @@ var mailtouiApp = mailtouiApp || {};
         }
 
         window.open(element.href, target);
-        
+
         app.triggerEvent(element, 'compose');
 
         if (options.autoClose) {
@@ -846,24 +894,26 @@ var mailtouiApp = mailtouiApp || {};
      * @param   {String} url    The url to an svg file.
      */
     app.validateSvg = function(name, url) {
-        app.getSvg(name, url).then(function(promise) {
-            if (!app.stringIsSvg(promise.responseText)) {
-                throw new Error(name + ': ' + url + ' is not an SVG file.');
-            }
+        app.getSvg(name, url)
+            .then(function(promise) {
+                if (!app.stringIsSvg(promise.responseText)) {
+                    throw new Error(name + ': ' + url + ' is not an SVG file.');
+                }
 
-            if (app.stringHasScript(promise.responseText)) {
-                throw new Error(name + ': ' + url + ' is an invalid SVG file.');
-            } else {
-                options[name] = promise.responseText;
-            }
-        }).catch(function(error) {
-            if (name == 'buttonIconCopy') {
-                options[name] = clipboardSvg;
-            } else {
-                options[name] = worldSvg;
-            }
-            console.log(error);
-        });
+                if (app.stringHasScript(promise.responseText)) {
+                    throw new Error(name + ': ' + url + ' is an invalid SVG file.');
+                } else {
+                    options[name] = promise.responseText;
+                }
+            })
+            .catch(function(error) {
+                if (name == 'buttonIconCopy') {
+                    options[name] = clipboardSvg;
+                } else {
+                    options[name] = worldSvg;
+                }
+                console.log(error);
+            });
     };
 
     /**
@@ -877,7 +927,7 @@ var mailtouiApp = mailtouiApp || {};
             var ajax = new XMLHttpRequest();
 
             ajax.open('GET', url, true);
-            
+
             ajax.onload = function(event) {
                 if (ajax.status == 200) {
                     resolve(ajax);
@@ -990,7 +1040,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     // We're not in the browser.
     module.exports = {
         run: mailtouiApp.run
-    }
+    };
 } else {
     // We're in the browser.
     mailtouiApp.run();
