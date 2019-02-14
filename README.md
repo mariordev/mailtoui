@@ -50,6 +50,10 @@ That's it! Your mailto link is now using MailtoUI. Refresh your page and try it 
 
 For full documentation, visit [mailtoui.com](https://mailtoui.com).
 
+## Contributing
+
+If you're interested in contributing to MailtoUI, please follow the directions in the [contributing docs](https://github.com/mariordev/mailtoui/blob/master/.github/CONTRIBUTING.md) **before working on a pull request**.
+
 ## License
 
 [MIT](https://github.com/mariordev/mailtoui/blob/master/LICENSE)
