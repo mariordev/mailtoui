@@ -16,6 +16,23 @@ If you work on any part of the project, please ensure there are no dependencies 
 Please do not use nested CSS/SCSS syntax. While it does make code more compact, or even look "more advanced", it also makes code a bit harder to read, in my opinion. Call me old school, but I prefer the more verbose traditional syntax which makes code more readable and easier to follow.
 
 
+## Coding Standards
+
+MailtoUI coding standards are defined in [.eslintrc](https://github.com/mariordev/mailtoui/blob/master/.eslintrc).
+
+To check your code against these standards:
+
+```
+npm run lint
+```
+
+To automatically fix any violations to these standards in your code:
+
+```
+npm run lint --fix
+```
+
+
 ## Code of Conduct
 
 ### Pledge
