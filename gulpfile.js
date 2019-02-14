@@ -21,7 +21,7 @@ var banner = [
     ' * @author <%= pkg.author.name %> - <%= pkg.author.url %>',
     ' * @license <%= pkg.license %>',
     ' */',
-    '',
+    ''
 ].join('\n');
 
 /**
@@ -44,7 +44,7 @@ function css() {
         .pipe(
             autoprefixer({
                 browsers: ['last 2 versions'],
-                cascade: false,
+                cascade: false
             })
         )
         .pipe(cleanCss())
@@ -53,9 +53,11 @@ function css() {
 }
 
 /**
- * Process JavaScript files.
+ * Process the JavaScript library file.
  */
 function js() {
+    packageJson = fs.readJsonSync('./package.json');
+
     return src('./src/js/mailtoui.js')
         .pipe(eslint())
         .pipe(eslint.format())
@@ -65,46 +67,41 @@ function js() {
 }
 
 /**
- * Process test JavaScript file.
+ * Lint JavaScript file used on demo page.
  */
-function indexJs() {
-    return browserify({
-            entries: './index.js',
-            debug: true
-        })
-        .bundle()
-        .pipe(source('index.js'))
-        .pipe(buffer())
+function lintDemoJs() {
+    return src('./demo/demo.js')
         .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(minify({ noSource: true }))
-        .pipe(dest('./'));
+        .pipe(eslint.format());
 }
 
 /**
- * Read package.json and update version.js. This is needed
- * to update the library header info automatically.
+ * Process JavaScript file used on demo page.
  */
-function getPackageJson(done) {
-    packageJson = fs.readJsonSync('./package.json');
-    done();
+function processDemoJs() {
+    return browserify('./demo/demo.js')
+        .bundle()
+        .pipe(source('./demo/demo.js'))
+        .pipe(buffer())
+        .pipe(minify({ noSource: true }))
+        .pipe(dest('./'));
 }
 
 /**
  * The all seeing eye...
  */
 function watchFiles() {
-    watch('./package.json', getPackageJson);
     watch('./src/html/component.html', html);
     watch('./src/css/component.css', css);
-    watch(['./src/js/mailtoui.js', './package.json'], series(js, indexJs));
-    watch('./index.js', indexJs);
+    watch(['./src/js/mailtoui.js', './package.json'], series(js, lintDemoJs, processDemoJs));
+    watch('./demo/demo.js', demoJs);
 }
 
 /**
  * Define complex tasks.
  */
-const build = series(getPackageJson, parallel(html, css), js, indexJs);
+const demoJs = series(lintDemoJs, processDemoJs);
+const build = series(parallel(html, css), js, demoJs);
 const watching = series(build, watchFiles);
 
 /**
@@ -113,6 +110,6 @@ const watching = series(build, watchFiles);
 exports.html = html;
 exports.css = css;
 exports.js = js;
-exports.indexJs = indexJs;
+exports.demoJs = demoJs;
 exports.watch = watching;
 exports.default = build;

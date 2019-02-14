@@ -1,7 +1,4 @@
 /node_modules
-index.html
-index.js
-index-min.js
-*.svg
 .DS_Store
 .eslintrc.json
+.vscode
