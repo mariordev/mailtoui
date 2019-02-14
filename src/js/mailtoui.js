@@ -48,13 +48,13 @@ var mailtouiApp = mailtouiApp || {};
     var lastDocElementFocused = null;
 
     /**
-     * The default svg icon for email clients.
+     * The default svg icon for email client buttons.
      * @type {String}
      */
     var worldSvg = `<svg viewBox="0 0 24 24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M5.704,2.979 c0.694,0.513,1.257,1.164,1.767,2.02C7.917,5.746,8.908,7.826,8,9c-1.027,1.328-4,1.776-4,3c0,0.921,1.304,1.972,2,3 c1.047,1.546,0.571,3.044,0,4c-0.296,0.496-0.769,0.92-1.293,1.234" stroke-linecap="butt"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M20.668,5.227 C18.509,6.262,15.542,6.961,15,7c-1.045,0.075-1.2-0.784-2-2c-0.6-0.912-2-2.053-2-3c0-0.371,0.036-0.672,0.131-0.966" stroke-linecap="butt"/> <circle fill="none" stroke="currentColor" stroke-miterlimit="10" cx="12" cy="12" r="11"/> <path data-cap="butt" data-color="color-2" fill="none" stroke-miterlimit="10" d="M19.014,12.903 C19.056,15.987,15.042,19.833,13,19c-1.79-0.73-0.527-2.138-0.986-6.097c-0.191-1.646,1.567-3,3.5-3S18.992,11.247,19.014,12.903z" stroke-linecap="butt"/></g></svg>`;
 
     /**
-     * The default svg icon for default email app.
+     * The default svg icon for default email app button.
      * @type {String}
      */
     var uiSvg = `<svg viewBox="0 0 24 24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" fill="currentColor" stroke="currentColor"><line data-color="color-2" fill="none" stroke-miterlimit="10" x1="5" y1="6" x2="6" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="10" y1="6" x2="11" y2="6"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="15" y1="6" x2="19" y2="6"/> <line fill="none" stroke="currentColor" stroke-miterlimit="10" x1="1" y1="10" x2="23" y2="10"/> <rect x="1" y="2" fill="none" stroke="currentColor" stroke-miterlimit="10" width="22" height="20"/></g></svg>`;
@@ -66,7 +66,7 @@ var mailtouiApp = mailtouiApp || {};
     var clipboardSvg = `<svg viewBox="0 0 24 24"><g class="nc-icon-wrapper" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor"><polyline fill="none" stroke="currentColor" stroke-miterlimit="10" points="20,4 22,4 22,23 2,23 2,4 4,4 "/> <path fill="none" stroke="currentColor" stroke-miterlimit="10" d="M14,3c0-1.105-0.895-2-2-2 s-2,0.895-2,2H7v4h10V3H14z"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="7" y1="11" x2="17" y2="11"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="7" y1="15" x2="17" y2="15"/> <line data-color="color-2" fill="none" stroke-miterlimit="10" x1="7" y1="19" x2="11" y2="19"/></g></svg>`;
 
     /**
-     * User options to change MailtoUI's behavior.
+     * User options to change MailtoUI's behavior and/or appearance.
      * @type {Object}
      */
     var options = new Object();
@@ -114,31 +114,31 @@ var mailtouiApp = mailtouiApp || {};
     options.buttonText4 = 'Default email app';
 
     /**
-     * URL or svg markup for icon 1.
+     * URL of svg file used as icon for button 1.
      * @type {String}
      */
     options.buttonIcon1 = worldSvg;
 
     /**
-     * URL or svg markup for icon 2.
+     * URL of svg file used as icon for button 2.
      * @type {String}
      */
     options.buttonIcon2 = worldSvg;
 
     /**
-     * URL or svg markup for icon 3.
+     * URL of svg file used as icon for button 3.
      * @type {String}
      */
     options.buttonIcon3 = worldSvg;
 
     /**
-     * URL or svg markup for icon 4.
+     * URL of svg file used as icon for button 4.
      * @type {String}
      */
     options.buttonIcon4 = uiSvg;
 
     /**
-     * URL or svg markup for Copy button icon.
+     * URL of svg file used as icon for Copy button.
      * @type {String}
      */
     options.buttonIconCopy = clipboardSvg;
@@ -169,7 +169,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Build a style tag with default styling to be embedded on the page.
-     * @return {String} The style tag markup.
+     * @return {String}     The style tag markup.
      */
     app.buildStyleTag = function() {
         var styleTag = document.createElement('style');
@@ -205,7 +205,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if style tag has already been embedded on the page.
-     * @return {Boolean} True if style tag is already embedded.
+     * @return {Boolean}    True if style tag is already embedded.
      */
     app.styleTagExists = function() {
         if (document.getElementById(app.prefix('-styles'))) {
@@ -217,7 +217,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Build the modal markup.
-     * @return {String} The modal markup.
+     * @return {String}     The modal markup.
      */
     app.buildModal = function() {
         var modal = document.createElement('div');
@@ -366,11 +366,11 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Whem the modal is displayed, the "no-scroll" class sets the body's position to fixed. This has the
+     * When the modal is displayed, the "no-scroll" class sets the body's position to fixed. This has the
      * side effect of the page getting scrolled to the top. To counter that, we need to save the scroll
      * position when the modal is displayed, so it can be restored later on when the modal is closed.
      */
-    app.saveMobilePageScrollPosition = function() {
+    app.savePageScrollPosition = function() {
         scrollPosition = window.pageYOffset;
         body.style.top = -scrollPosition + 'px';
     };
@@ -378,9 +378,9 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * When the modal is closed, we need to reset the page scroll position. Needed due to
      * the position:fixed being set by the "no-scroll" class on the body element when
-     * the modal is open. Refer to saveMobilePageScrollPosition() for details.
+     * the modal is open. Refer to savePageScrollPosition() for details.
      */
-    app.restoreMobilePageScrollPosition = function() {
+    app.restorePageScrollPosition = function() {
         window.scrollTo(0, scrollPosition);
         body.style.top = 0;
     };
@@ -388,7 +388,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Save the page's current scroll behavior AND set it to auto, in case the current
      * scroll behavior is set to smooth. This prevents smooth scrolling from showing
-     * when scrollPosition is restored via restoreMobilePageScrollPosition().
+     * when scrollPosition is restored via restorePageScrollPosition().
      */
     app.saveScrollBehavior = function() {
         scrollBehavior = html.style.scrollBehavior;
@@ -418,7 +418,7 @@ var mailtouiApp = mailtouiApp || {};
         event.preventDefault();
 
         app.saveLastDocElementFocused();
-        app.saveMobilePageScrollPosition();
+        app.savePageScrollPosition();
         app.saveScrollBehavior();
 
         app.displayModal(event);
@@ -455,14 +455,14 @@ var mailtouiApp = mailtouiApp || {};
         app.hideModal();
 
         app.enablePageScrolling(true);
-        app.restoreMobilePageScrollPosition();
+        app.restorePageScrollPosition();
         app.restoreScrollBehavior();
         app.docRefocus();
         app.triggerEvent(modal, 'close');
     };
 
     /**
-     * Hide current modal.
+     * Hide modal.
      */
     app.hideModal = function() {
         app.hideModalFromScreenReader(true);
@@ -506,7 +506,7 @@ var mailtouiApp = mailtouiApp || {};
     app.openClient = function(element, event) {
         var target = '_blank';
 
-        if (element.id == app.prefix('-button-4')) {
+        if (app.isDefaultEmailAppButton(element)) {
             target = '_self';
         }
 
@@ -517,6 +517,15 @@ var mailtouiApp = mailtouiApp || {};
         if (options.autoClose) {
             app.closeModal(event);
         }
+    };
+
+    /**
+     * Determine if the given element is the Default Email App button.
+     * @param {Element}     element     The element to be checked.
+     * @return {Boolean}                True if the given element's id corresponds to button 4.
+     */
+    app.isDefaultEmailAppButton = function(element) {
+        return element.id == app.prefix('-button-4');
     };
 
     /**
@@ -562,7 +571,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Listen for click event on mailto link to open modal.
+     * Listen for click event on mailto links.
      */
     app.listenForClickOnLink = function() {
         var links = document.getElementsByClassName(app.prefix());
@@ -579,7 +588,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Listen for click event on client links to auto-close modal.
+     * Listen for click event on client links.
      */
     app.listenForClickOnClient = function() {
         var clients = document.getElementsByClassName(app.prefix('-button'));
@@ -601,7 +610,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Listen for click event on modal's copy button.
+     * Listen for click event on Copy button.
      */
     app.listenForClickOnCopy = function() {
         var copyButton = document.getElementById(app.prefix('-button-copy'));
@@ -616,7 +625,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Listen for click event on modal's close button.
+     * Listen for click event on Close button.
      */
     app.listenForClickOnClose = function() {
         var closeButton = document.getElementById(app.prefix('-modal-close'));
@@ -674,7 +683,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Should not be able to tab outside the modal. Pressing the tab
      * key moves focus to the next focusable element within modal.
-     * @param KeyboardEvent     The event generated by pressing a key.
+     * @param {KeyboardEvent}   event     The event generated by pressing a key.
      */
     app.trapTabWithinModal = function(event) {
         if (event.keyCode === 9 && modal !== null) {
@@ -698,7 +707,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Get all "mailtoui" links on the page.
-     * @return {HTMLCollection}     All links with the class "mailtoui".
+     * @return {HTMLCollection}     All links with the class "mailtoui" (default).
      */
     app.getLinks = function() {
         return document.getElementsByClassName(app.prefix());
@@ -708,7 +717,7 @@ var mailtouiApp = mailtouiApp || {};
      * Split the URL scheme of given link in two strings: the email address, and the
      * key-value query string. Also remove 'mailto:' to get nice clean values.
      * @param  {Element}    link    The link element clicked.
-     * @return {array}              The two parts of the link scheme separated at '?'.
+     * @return {Array}              The two parts of the link scheme separated at '?'.
      */
     app.splitLink = function(link) {
         var scheme = link.href.replace('mailto:', '').trim();
@@ -778,7 +787,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Build and return the class name used to hide Copy UI.
+     * Build and return the class name used to hide the Copy UI.
      * @return {String}     The CSS class name needed to hide the Copy UI.
      */
     app.getClassHideCopyUi = function() {
@@ -786,7 +795,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Show or hide Copy UI based on email address presence.
+     * Show or hide the Copy UI based on email address presence.
      * @param {String} email    The email address to be checked.
      */
     app.toggleHideCopyUi = function(email) {
@@ -801,7 +810,6 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Set copy button text to indicate the email address has been copied.
-     * @param {Element}  button     The Copy button that was clicked.
      */
     app.toggleCopyButton = function() {
         button = document.getElementById(app.prefix('-button-copy'));
@@ -873,7 +881,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Clean up given user options.
      * @param  {String} name    The name of the user option to be sanitized.
-     * @param  {String} value   The value of the user option.
+     * @param  {mixed} value    The value of the user option.
      * @return {mixed}          The sanitized value when applicable, or the original value.
      */
     app.sanitizeUserOption = function(name, value) {
@@ -941,7 +949,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Async method to load an svg file via options.
+     * Async method to load svg file from given url.
      * @param  {String} name    The name of an 'icon' user option (must exist in options array).
      * @param  {String} url     The url to an svg file.
      * @return {Promise}        The Promise with the result returned by loadSvg().
@@ -969,7 +977,7 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
-     * Check if a string contains another string (looking for "needle in a haystack").
+     * Check if a string contains another string ("needle in a haystack").
      * @param  {String} haystack    The string where to search.
      * @param  {String} needle      The string to search for.
      * @return {Boolean}            True if needle is found in haystack. False otherwise.
