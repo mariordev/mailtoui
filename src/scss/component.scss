@@ -70,7 +70,7 @@ body {
 			left: 50%;
 			max-height: calc(100% - 100px);
 			transform: translate(-50%, -50%); //-50%, -50%
-			overflow: scroll;
+			overflow: auto;
 			padding: 0;
 			position: fixed;
 			&:focus,
@@ -207,7 +207,7 @@ body {
 						top: 0;
 						white-space: nowrap;
 						width: 120px;
-						&:focus, 
+						&:focus,
 						&:hover {
 							background-color: $button-hover-color;
 							color: $button-hover-text-color;
@@ -254,7 +254,7 @@ body {
 					text-align: center;
 					a {
 						color: $powered-by-text-color;
-						&:focus, 
+						&:focus,
 						&:hover {
 							font-weight: 700;
 							outline: 0;
