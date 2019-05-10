@@ -74,7 +74,7 @@ $brand-font-size: 80%; //80%
     box-shadow: $modal-box-shadow;
     left: 50%;
     max-height: calc(100% - 100px);
-    overflow: scroll;
+    overflow: auto;
     padding: 0;
     position: fixed;
     right: -45%;
