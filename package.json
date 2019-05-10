@@ -1,7 +1,7 @@
 {
     "name": "mailtoui",
     "description": "A simple way to enhance your mailto links with a convenient user interface.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "homepage": "https://mailtoui.com",
     "author": {
         "name": "Mario Rodriguez",
@@ -39,8 +39,10 @@
         "gulp-htmlmin": "^5.0.1",
         "gulp-minify": "^3.1.0",
         "gulp-rename": "^1.4.0",
+        "gulp-sass": "^4.0.2",
         "gulp-util": "^3.0.8",
         "gulp-watch": "^5.0.1",
+        "node-sass": "^4.11.0",
         "prettier": "1.15.3",
         "shell-quote": "^1.6.1",
         "vinyl-buffer": "^1.0.1",
