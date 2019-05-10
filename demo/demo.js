@@ -16,8 +16,8 @@ function domReady(fn) {
  */
 domReady(function() {
     const Vue = require('../node_modules/vue/dist/vue.min.js');
-    // const MailtoUI = require('../src/js/mailtoui.js');
-    const MailtoUI = require('../dist/mailtoui-min.js');
+    const MailtoUI = require('../src/js/mailtoui.js');
+    // const MailtoUI = require('../dist/mailtoui-min.js');
 
     var app = new Vue({
         el: '#app',

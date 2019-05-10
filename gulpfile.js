@@ -11,6 +11,7 @@ const htmlMin = require('gulp-htmlmin');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
+const sass = require('gulp-sass');
 
 var packageJson = null;
 var banner = [
@@ -35,10 +36,11 @@ function html() {
 }
 
 /**
- * Process CSS files.
+ * Process CSS file.
  */
 function css() {
-    return src('./src/css/component.css')
+    return src('./src/scss/component.scss')
+        .pipe(sass())
         .pipe(csslint())
         .pipe(csslint.formatter())
         .pipe(
@@ -92,7 +94,7 @@ function processDemoJs() {
  */
 function watchFiles() {
     watch('./src/html/component.html', html);
-    watch('./src/css/component.css', css);
+    watch('./src/scss/component.scss', css);
     watch(['./src/js/mailtoui.js', './package.json'], series(js, lintDemoJs, processDemoJs));
     watch('./demo/demo.js', demoJs);
 }
