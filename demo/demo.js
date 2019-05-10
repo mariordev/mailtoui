@@ -36,7 +36,8 @@ domReady(function() {
                 buttonTextCopy: 'Copia',
                 buttonIconCopy: '/demo/bear.svg',
                 buttonTextCopyAction: 'Copiado!',
-                autoClose: false
+                autoClose: false,
+                disableOnMobile: true
             });
         }
     });
