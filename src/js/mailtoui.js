@@ -175,11 +175,12 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Build a style tag with default styling to be embedded on the page.
+     *
      * @return {String}     The style tag markup.
      */
     app.buildStyleTag = function() {
         var styleTag = document.createElement('style');
-        var css = `.mailtoui-modal{background-color:#000;background-color:rgba(0,0,0,.4);bottom:0;color:#303131;display:none;height:100%;left:0;margin:0;padding:0;position:fixed;right:0;top:0;width:100%;z-index:1000}.mailtoui-modal-content{-webkit-animation:appear .4s;animation:appear .4s;background-color:#f1f5f8;border-radius:8px;bottom:auto;-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);left:50%;max-height:calc(100% - 100px);overflow:auto;padding:0;position:fixed;right:-45%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.mailtoui-modal-content:focus,.mailtoui-modal-content:hover{overflow-y:auto}@media only screen and (min-width:768px){.mailtoui-modal-content{right:auto}}.mailtoui-modal-head{-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#fff;clear:both;display:-webkit-box;display:-ms-flexbox;display:flex;min-width:0;padding:10px 20px}.mailtoui-modal-title{color:#303131;-webkit-box-flex:1;-ms-flex:1;flex:1;font-family:sans-serif;font-size:120%;font-weight:700;margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}.mailtoui-modal-close{color:#aaa;-webkit-box-flex:initial;-ms-flex:initial;flex:initial;font-size:38px;margin-left:20px;position:relative;text-align:right;text-decoration:none;top:-4px}.mailtoui-modal-close:focus,.mailtoui-modal-close:hover{color:#000;cursor:pointer;font-weight:700;outline:0}.mailtoui-modal-body{height:100%;padding:20px}.mailtoui-button{color:#333;text-decoration:none}.mailtoui-button:focus{outline:0}.mailtoui-button:focus .mailtoui-button-content{background-color:#555;color:#fff}.mailtoui-button-content{background-color:#fff;border:none;border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);margin-bottom:20px;overflow:hidden;padding:15px 20px;text-overflow:ellipsis;white-space:nowrap}.mailtoui-button-content:hover{background-color:#555;color:#fff}.mailtoui-button:last-child .mailtoui-button-content{margin-bottom:0}.mailtoui-button-icon{font-weight:700;position:relative;top:4px}.mailtoui-button-icon svg{height:24px;width:24px}.mailtoui-button-text{margin-left:5px;position:relative;top:-2px}.mailtoui-copy{border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);height:59px;margin-top:20px;position:relative}.mailtoui-button-copy{background-color:#fff;border:none;border-bottom-left-radius:8px;border-top-left-radius:8px;bottom:21px;color:#333;font-size:100%;height:100%;left:0;overflow:hidden;padding:15px 20px;position:absolute;text-overflow:ellipsis;top:0;white-space:nowrap;width:120px}.mailtoui-button-copy:focus,.mailtoui-button-copy:hover{background-color:#555;color:#fff;cursor:pointer;outline:0}.mailtoui-button-copy-clicked,.mailtoui-button-copy-clicked:focus,.mailtoui-button-copy-clicked:hover{background-color:#1f9d55;color:#fff}.mailtoui-button-copy-clicked .mailtoui-button-icon,.mailtoui-button-copy-clicked:focus .mailtoui-button-icon,.mailtoui-button-copy-clicked:hover .mailtoui-button-icon{display:none;visibility:hidden}.mailtoui-button-copy-clicked .mailtoui-button-text,.mailtoui-button-copy-clicked:focus .mailtoui-button-text,.mailtoui-button-copy-clicked:hover .mailtoui-button-text{color:#fff;top:2px}.mailtoui-email-address{background-color:#d8dcdf;border:none;border-radius:8px;-webkit-box-shadow:unset;box-shadow:unset;-webkit-box-sizing:border-box;box-sizing:border-box;color:#48494a;font-size:100%;height:100%;overflow:hidden;padding:20px 20px 20px 140px;text-overflow:ellipsis;white-space:nowrap;width:100%}.mailtoui-brand{color:#888;font-size:80%;margin-top:20px;text-align:center}.mailtoui-brand a{color:#888}.mailtoui-brand a:focus,.mailtoui-brand a:hover{font-weight:700;outline:0}.mailtoui-no-scroll{overflow:hidden;position:fixed;width:100%}.mailtoui-is-hidden{display:none;visibility:hidden}@-webkit-keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}@keyframes appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}`;
+        var css = `.mailtoui-modal{background-color:#000;background-color:rgba(0,0,0,.4);bottom:0;color:#303131;display:none;height:100%;left:0;margin:0;padding:0;position:fixed;right:0;top:0;width:100%;z-index:1000}.mailtoui-modal-content{-webkit-animation:mailtoui-appear .4s;animation:mailtoui-appear .4s;background-color:#f1f5f8;border-radius:8px;bottom:auto;-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);left:50%;max-height:calc(100% - 100px);overflow:auto;padding:0;position:fixed;right:-45%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.mailtoui-modal-content:focus,.mailtoui-modal-content:hover{overflow-y:auto}@media only screen and (min-width:768px){.mailtoui-modal-content{right:auto}}.mailtoui-modal-head{-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#fff;clear:both;display:-webkit-box;display:-ms-flexbox;display:flex;min-width:0;padding:10px 20px}.mailtoui-modal-title{color:#303131;-webkit-box-flex:1;-ms-flex:1;flex:1;font-family:sans-serif;font-size:120%;font-weight:700;margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}.mailtoui-modal-close{color:#aaa;-webkit-box-flex:initial;-ms-flex:initial;flex:initial;font-size:38px;margin-left:20px;position:relative;text-align:right;text-decoration:none;top:-4px}.mailtoui-modal-close:focus,.mailtoui-modal-close:hover{color:#000;cursor:pointer;font-weight:700;outline:0}.mailtoui-modal-body{height:100%;padding:20px}.mailtoui-button{color:#333;text-decoration:none}.mailtoui-button:focus{outline:0}.mailtoui-button:focus .mailtoui-button-content{background-color:#555;color:#fff}.mailtoui-button-content{background-color:#fff;border:none;border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);margin-bottom:20px;overflow:hidden;padding:15px 20px;text-overflow:ellipsis;white-space:nowrap}.mailtoui-button-content:hover{background-color:#555;color:#fff}.mailtoui-button:last-child .mailtoui-button-content{margin-bottom:0}.mailtoui-button-icon{display:inline-block;font-weight:700;position:relative;top:4px}.mailtoui-button-icon svg{height:24px;width:24px}.mailtoui-button-text{display:inline-block;margin-left:5px;position:relative;top:-2px}.mailtoui-copy{border-radius:8px;-webkit-box-shadow:0 2px 4px rgba(0,0,0,.18);box-shadow:0 2px 4px rgba(0,0,0,.18);height:59px;margin-top:20px;position:relative}.mailtoui-button-copy{background-color:#fff;border:none;border-bottom-left-radius:8px;border-top-left-radius:8px;bottom:21px;color:#333;font-size:100%;height:100%;left:0;overflow:hidden;padding:15px 20px;position:absolute;text-overflow:ellipsis;top:0;white-space:nowrap;width:120px}.mailtoui-button-copy:focus,.mailtoui-button-copy:hover{background-color:#555;color:#fff;cursor:pointer;outline:0}.mailtoui-button-copy-clicked,.mailtoui-button-copy-clicked:focus,.mailtoui-button-copy-clicked:hover{background-color:#1f9d55;color:#fff}.mailtoui-button-copy-clicked .mailtoui-button-icon,.mailtoui-button-copy-clicked:focus .mailtoui-button-icon,.mailtoui-button-copy-clicked:hover .mailtoui-button-icon{display:none;visibility:hidden}.mailtoui-button-copy-clicked .mailtoui-button-text,.mailtoui-button-copy-clicked:focus .mailtoui-button-text,.mailtoui-button-copy-clicked:hover .mailtoui-button-text{color:#fff;top:2px}.mailtoui-email-address{background-color:#d8dcdf;border:none;border-radius:8px;-webkit-box-shadow:unset;box-shadow:unset;-webkit-box-sizing:border-box;box-sizing:border-box;color:#48494a;font-size:100%;height:100%;overflow:hidden;padding:20px 20px 20px 140px;text-overflow:ellipsis;white-space:nowrap;width:100%}.mailtoui-brand{color:#888;font-size:80%;margin-top:20px;text-align:center}.mailtoui-brand a{color:#888}.mailtoui-brand a:focus,.mailtoui-brand a:hover{font-weight:700;outline:0}.mailtoui-no-scroll{overflow:hidden;position:fixed;width:100%}.mailtoui-is-hidden{display:none;visibility:hidden}@-webkit-keyframes mailtoui-appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}@keyframes mailtoui-appear{0%{opacity:0;-webkit-transform:translate(-50%,-50%) scale(0,0);transform:translate(-50%,-50%) scale(0,0)}100%{opacity:1;-webkit-transform:translate(-50%,-50%) scale(1,1);transform:translate(-50%,-50%) scale(1,1)}}`;
         css = css.replace(/mailtoui/g, app.prefix());
 
         styleTag.setAttribute('id', app.prefix('-styles'));
@@ -210,6 +211,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if style tag has already been embedded on the page.
+     *
      * @return {Boolean}    True if style tag is already embedded.
      */
     app.styleTagExists = function() {
@@ -222,6 +224,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Build the modal markup.
+     *
      * @return {String}     The modal markup.
      */
     app.buildModal = function() {
@@ -264,7 +267,6 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Embed modal on the page.
-     * @param {Element} link    The link that was clicked.
      */
     app.embedModal = function() {
         if (app.modalExists()) {
@@ -279,6 +281,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if modal markup has already been embedded on page.
+     *
      * @return {Boolean}    True if modal markup ia already embedded.
      */
     app.modalExists = function() {
@@ -291,6 +294,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Get modal populated with data from the given link.
+     *
      * @param   {Element} link  The link that was clicked.
      * @return  {Element}       The modal associated with the given link.
      */
@@ -302,6 +306,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Populate current modal with data from the link that was clicked.
+     *
      * @param  {Element} link   The link that was clicked.
      */
     app.hydrateModal = function(link) {
@@ -383,7 +388,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * When the modal is closed, we need to reset the page scroll position. Needed due to
      * the position:fixed being set by the "no-scroll" class on the body element when
-     * the modal is open. Refer to savePageScrollPosition() for details.
+     * the modal is open. Refer to savePageScrollPosition() method for details.
      */
     app.restorePageScrollPosition = function() {
         window.scrollTo(0, scrollPosition);
@@ -393,7 +398,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Save the page's current scroll behavior AND set it to auto, in case the current
      * scroll behavior is set to smooth. This prevents smooth scrolling from showing
-     * when scrollPosition is restored via restorePageScrollPosition().
+     * when scrollPosition is restored via restorePageScrollPosition() method.
      */
     app.saveScrollBehavior = function() {
         scrollBehavior = html.style.scrollBehavior;
@@ -417,7 +422,8 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Open modal.
-     * @param  {Object} event   The object created by the click event.
+     *
+     * @param  {Object} event   The object created by the event.
      */
     app.openModal = function(event) {
         if (options.disableOnMobile && app.isMobileDevice()) {
@@ -440,6 +446,8 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Display modal and carry out other tasks needed when modal is open.
+     *
+     * @param  {Object} event   The object created by the event.
      */
     app.displayModal = function(event) {
         var link = app.getParentElement(event.target, 'a');
@@ -457,6 +465,8 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Close modal.
+     *
+     * @param  {Object} event   The object created by the event.
      */
     app.closeModal = function(event) {
         event.preventDefault();
@@ -476,19 +486,25 @@ var mailtouiApp = mailtouiApp || {};
     app.hideModal = function() {
         app.hideModalFromScreenReader(true);
 
-        modal.style.display = 'none';
+        if (app.isDefined(modal)) {
+            modal.style.display = 'none';
+        }
     };
 
     /**
      * Set aria attributes to hide modal from screen readers.
+     *
      * @param {Boolean}     hidden  True to hide modal from screen reader. False otherwise.
      */
     app.hideModalFromScreenReader = function(hidden) {
-        modal.setAttribute('aria-hidden', hidden);
+        if (app.isDefined(modal)) {
+            modal.setAttribute('aria-hidden', hidden);
+        }
     };
 
     /**
      * Toggle a css class to enable/disable page scrolling.
+     *
      * @param  {Boolean} enabled    True to enable page scrolling. False to disable it.
      */
     app.enablePageScrolling = function(enabled) {
@@ -510,7 +526,9 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Open the given client link element.
-     * @param  {Element} element     The client link that was clicked.
+     *
+     * @param  {Element}    element     The client link that was clicked.
+     * @param  {Object}     event       The object created by the event.
      */
     app.openClient = function(element, event) {
         var target = '_blank';
@@ -530,6 +548,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Determine if the given element is the Default Email App button.
+     *
      * @param {Element}     element     The element to be checked.
      * @return {Boolean}                True if the given element's id corresponds to button 4.
      */
@@ -541,6 +560,7 @@ var mailtouiApp = mailtouiApp || {};
      * When an anchor tag (<a>) contains other elements, the element returned can vary
      * depending on where you click. We need to search up the DOM tree until we find
      * the parent anchor tag, which is the element that was intended to be clicked.
+     *
      * @param   {Element}   element     The element that was clicked.
      * @return  {Element}               The parent anchor tag of the element that was clicked.
      */
@@ -558,6 +578,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Fire up an event for the given element.
+     *
      * @param  {Element}    element     Trigger event for this element.
      * @param  {String}     eventName   The name of the event to be triggered.
      */
@@ -702,6 +723,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Close modal when Esc key is pressed.
+     *
      * @param {KeyboardEvent}   event   The event generated by pressing a key.
      */
     app.escapeModal = function(event) {
@@ -713,6 +735,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Should not be able to tab outside the modal. Pressing the tab
      * key moves focus to the next focusable element within modal.
+     *
      * @param {KeyboardEvent}   event     The event generated by pressing a key.
      */
     app.trapTabWithinModal = function(event) {
@@ -737,6 +760,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Get all "mailtoui" links on the page.
+     *
      * @return {HTMLCollection}     All links with the class "mailtoui" (default).
      */
     app.getLinks = function() {
@@ -746,6 +770,7 @@ var mailtouiApp = mailtouiApp || {};
     /**
      * Split the URL scheme of given link in two strings: the email address, and the
      * key-value query string. Also remove 'mailto:' to get nice clean values.
+     *
      * @param  {Element}    link    The link element clicked.
      * @return {Array}              The two parts of the link scheme separated at '?'.
      */
@@ -762,6 +787,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Extract the value of the given field from the link.
+     *
      * @param   {Element}   link    The link element clicked.
      * @param   {String}    field   The name of the field we want to get.
      * @return  {String}            The value corresponding to the given field.
@@ -802,6 +828,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Extract email address from mailto string.
+     *
      * @param  {Element}    link    The link element clicked.
      * @return {String}             The email address.
      */
@@ -818,6 +845,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Build and return the class name used to hide the Copy UI.
+     *
      * @return {String}     The CSS class name needed to hide the Copy UI.
      */
     app.getClassHideCopyUi = function() {
@@ -826,6 +854,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Show or hide the Copy UI based on email address presence.
+     *
      * @param {String} email    The email address to be checked.
      */
     app.toggleHideCopyUi = function(email) {
@@ -855,6 +884,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Copy email address to the clipboard.
+     *
      * @param {String}  event   The event generated by clicking on Copy button.
      */
     app.copy = function(event) {
@@ -878,6 +908,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if device is running iOS.
+     *
      * @return {Boolean}    True if device runs iOS.
      */
     app.isiOSDevice = function() {
@@ -888,6 +919,7 @@ var mailtouiApp = mailtouiApp || {};
      * Get user options provided as an object parameter in the run
      * method, or as a JSON string provided in a data attribute
      * of the script tag. Save all in the options object.
+     *
      * @param {Object}  optionsObj  An object containing user options.
      */
     app.setOptions = function(optionsObj) {
@@ -910,6 +942,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Clean up given user options.
+     *
      * @param  {String} name    The name of the user option to be sanitized.
      * @param  {mixed} value    The value of the user option.
      * @return {mixed}          The sanitized value when applicable, or the original value.
@@ -928,6 +961,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check svg file for possible problems or tampering.
+     *
      * @param   {String} name   The name of an 'icon' user option (must exist in options array).
      * @param   {String} url    The url to an svg file.
      */
@@ -956,6 +990,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Load an svg file from the given url.
+     *
      * @param   {String} name   The name of an 'icon' user option (must exist in options array).
      * @param   {String} url    The url to an svg file.
      * @return  {Promise}       The resolved or rejected promise after ajax call to load svg file.
@@ -980,6 +1015,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Async method to load svg file from given url.
+     *
      * @param  {String} name    The name of an 'icon' user option (must exist in options array).
      * @param  {String} url     The url to an svg file.
      * @return {Promise}        The Promise with the result returned by loadSvg().
@@ -990,6 +1026,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if given value is a string.
+     *
      * @param  {mixed}  value   The value to be checked.
      * @return {Boolean}        True if value is a string. False otherwise.
      */
@@ -999,6 +1036,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Remove html tags from given string.
+     *
      * @param  {String} text    The string to be stripped.
      * @return {String}         The given string stripped off markup tags.
      */
@@ -1008,6 +1046,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if a string contains another string ("needle in a haystack").
+     *
      * @param  {String} haystack    The string where to search.
      * @param  {String} needle      The string to search for.
      * @return {Boolean}            True if needle is found in haystack. False otherwise.
@@ -1018,6 +1057,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if given string is an svg file.
+     *
      * @param  {String} text    The string to be checked.
      * @return {Boolean}        True if string starts with '<svg'. False otherwise.
      */
@@ -1027,6 +1067,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Check if given string contains an embedded <script> tag.
+     *
      * @param  {String} text    The string to be checked.
      * @return {Boolean}        True if given string contains <script>. False otherwise.
      */
@@ -1035,7 +1076,18 @@ var mailtouiApp = mailtouiApp || {};
     };
 
     /**
+     * Check if the given item is defined.
+     *
+     * @param {mixed}      item    The item to be checked.
+     * @return {Boolean}            True if the given item is defined. False otherwise.
+     */
+    app.isDefined = function(item) {
+        return typeof item !== 'undefined';
+    };
+
+    /**
      * Read options passed in the data-options attribute of the script tag.
+     *
      * @return {String}     Options string provided in JSON format.
      */
     app.getOptionsFromScriptTag = function() {
@@ -1047,6 +1099,7 @@ var mailtouiApp = mailtouiApp || {};
 
     /**
      * Append the linkClass user option to the given string.
+     *
      * @param   {String}  text      The string to which the linkClass will be appended.
      * @return  {String}            The linkClass user option appended to the given string.
      */
