@@ -90,12 +90,32 @@ function processDemoJs() {
 }
 
 /**
+ * Process CSS file used on demo page.
+ */
+function demoCss() {
+    return src('./demo/demo.scss')
+        .pipe(sass())
+        .pipe(csslint())
+        .pipe(csslint.formatter())
+        .pipe(
+            autoprefixer({
+                browsers: ['last 2 versions'],
+                cascade: false
+            })
+        )
+        .pipe(cleanCss())
+        .pipe(rename('./demo/demo-min.css'))
+        .pipe(dest('./'));
+}
+
+/**
  * The all seeing eye...
  */
 function watchFiles() {
     watch('./src/html/component.html', html);
     watch('./src/scss/component.scss', css);
     watch(['./src/js/mailtoui.js', './package.json'], series(js, lintDemoJs, processDemoJs));
+    watch('./demo/demo.scss', demoCss);
     watch('./demo/demo.js', demoJs);
 }
 
@@ -103,7 +123,7 @@ function watchFiles() {
  * Define complex tasks.
  */
 const demoJs = series(lintDemoJs, processDemoJs);
-const build = series(parallel(html, css), js, demoJs);
+const build = series(parallel(html, css), js, demoJs, demoCss);
 const watching = series(build, watchFiles);
 
 /**
@@ -113,5 +133,6 @@ exports.html = html;
 exports.css = css;
 exports.js = js;
 exports.demoJs = demoJs;
+exports.demoCss = demoCss;
 exports.watch = watching;
 exports.default = build;

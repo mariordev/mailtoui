@@ -67,7 +67,7 @@ $brand-font-size: 80%; //80%
 }
 
 .mailtoui-modal-content {
-    animation: appear $animation-speed;
+    animation: mailtoui-appear $animation-speed;
     background-color: $modal-content-bg-color;
     border-radius: $modal-border-radius;
     bottom: auto;
@@ -175,6 +175,7 @@ $brand-font-size: 80%; //80%
 }
 
 .mailtoui-button-icon {
+    display: inline-block;
     font-weight: 700;
     position: relative;
     top: $button-icon-top;
@@ -186,6 +187,7 @@ $brand-font-size: 80%; //80%
 }
 
 .mailtoui-button-text {
+    display: inline-block;
     margin-left: 5px;
     position: relative;
     top: -2px;
@@ -291,7 +293,7 @@ $brand-font-size: 80%; //80%
     visibility: hidden;
 }
 
-@keyframes appear {
+@keyframes mailtoui-appear {
     0% {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0, 0);
