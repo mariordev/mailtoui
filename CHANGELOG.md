@@ -4,6 +4,18 @@ All notable changes to MailtoUI are documented in this file. The format is based
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3](https://github.com/mariordev/mailtoui/releases/tag/v1.0.3) - 2019-09-06
+
+### Fixed
+
+-   Closing modal via Esc key generates an error when another modal on the page is also closed via Esc key.
+-   Button icon and text don't align horizontally.
+-   Prefix animation keyframes name to minimize possibility of collision with other css.
+
+### Changed
+
+-   Cleaned up the demo page a bit.
+
 ## [1.0.2](https://github.com/mariordev/mailtoui/releases/tag/v1.0.2) - 2019-05-10
 
 ### Fixed
