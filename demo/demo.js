@@ -1,5 +1,6 @@
 /**
  * Proceed only if the DOM is loaded and ready.
+ *
  * @param  {Function}   fn  The function to be executed when DOM is ready.
  */
 function domReady(fn) {
@@ -16,21 +17,24 @@ function domReady(fn) {
  */
 domReady(function() {
     const Vue = require('../node_modules/vue/dist/vue.min.js');
-    const MailtoUI = require('../src/js/mailtoui.js');
-    // const MailtoUI = require('../dist/mailtoui-min.js');
+    // const MailtoUI = require('../src/js/mailtoui.js');
+    const MailtoUI = require('../dist/mailtoui-min.js');
 
     var app = new Vue({
         el: '#app',
+
         data: {
             emailSyntax: '{{ email }}',
             email: 'user4@example.com',
-            emailDisplay: 'With cc'
+            emailDisplay: 'Mailto link with cc'
         },
+
         computed: {
             mailtoHref: function() {
                 return 'mailto:' + this.email + '?cc=user1@example.com';
             }
         },
+
         mounted() {
             MailtoUI.run({
                 buttonTextCopy: 'Copia',
