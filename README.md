@@ -31,7 +31,7 @@ IMPORTANT: Be sure to replace `[version]` with the latest version number.
 <body>
     ...
     ...
-    <script src="https://cdn.jsdelivr.net/npm/mariordev/mailtoui@[version]/dist/mailtoui-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mailtoui@[version]/dist/mailtoui-min.js"></script>
 </body>
 ```
 
