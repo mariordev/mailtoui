@@ -42,7 +42,7 @@
         "gulp-sass": "^4.0.2",
         "gulp-util": "^3.0.8",
         "gulp-watch": "^5.0.1",
-        "node-sass": "^4.12.0",
+        "node-sass": "^7.0.0",
         "prettier": "1.15.3",
         "shell-quote": "^1.7.2",
         "tar": "^4.4.10",
